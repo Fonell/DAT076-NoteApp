@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Car implements Serializable {
-    @Id private String license;
+public class Client implements Serializable {
+    @Id private String cid;
     private String name;
 }

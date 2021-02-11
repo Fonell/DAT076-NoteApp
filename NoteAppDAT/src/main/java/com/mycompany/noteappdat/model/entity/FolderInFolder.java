@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Car implements Serializable {
-    @Id private String license;
-    private String name;
+public class FolderInFolder implements Serializable {
+	@Id private Folder parent;
+	private Folder child;
 }

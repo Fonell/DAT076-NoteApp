@@ -1,22 +1,21 @@
 package com.mycompany.noteappdat.model.dao;
 
-import com.mycompany.noteappdat.model.entity.Car;
-import java.util.List;
+import com.mycompany.noteappdat.model.entity.Client;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
 
 @Stateless
-public class CarDAO extends AbstractDAO<Car> {
+public class ClientDAO extends AbstractDAO<Client> {
     @Getter @PersistenceContext(unitName = "db")
     private EntityManager entityManager;
-    
-    public CarDAO() {
-        super(Car.class);
+
+    public ClientDAO() {
+        super(Client.class);
     }
 
-    public List<Car> findCarsMatchingName() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public Client findClientMatchingCID(String cid) {
+        return entityManager.find(Client.class, cid);
     }
 }
