@@ -16,10 +16,10 @@ import org.junit.runner.RunWith;
 public class CarDAOTest {
 	@Deployment
 	public static WebArchive createDeployment() {
-		return ShrinkWrap.create(WebArchive.class)
-			.addClasses(CarDAO.class, Car.class)
-			.addAsResource("META-INF/persistence.xml")
-			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+            return ShrinkWrap.create(WebArchive.class)
+                .addClasses(CarDAO.class, Car.class)
+                .addAsResource("META-INF/persistence.xml")
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
@@ -27,13 +27,13 @@ public class CarDAOTest {
 
 	@Before
 	public void init() {
-		carDAO.create(new Car("IFF780", "Renault Clio"));
-		carDAO.create(new Car("LTP520", "Volvo 760GT"));
-		carDAO.create(new Car("XOL345", "Isuzu Traga"));
+            carDAO.create(new Car("IFF780", "Renault Clio"));
+            carDAO.create(new Car("LTP520", "Volvo 760GT"));
+            carDAO.create(new Car("XOL345", "Isuzu Traga"));
 	}
 
 	@Test
 	public void checkThatFindCarsMatchingNameMatchesCorrectly() {
-		Assert.assertTrue(true); /* Some better condition */
+            Assert.assertTrue(true); /* Some better condition */
 	}
 }

@@ -17,10 +17,10 @@ import org.junit.runner.RunWith;
 public class ClientDAOTest {
 	@Deployment
 	public static WebArchive createDeployment() {
-		return ShrinkWrap.create(WebArchive.class)
-			.addClasses(ClientDAO.class, Client.class)
-			.addAsResource("META-INF/persistence.xml")
-			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+            return ShrinkWrap.create(WebArchive.class)
+                .addClasses(ClientDAO.class, Client.class)
+                .addAsResource("META-INF/persistence.xml")
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
