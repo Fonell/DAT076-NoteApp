@@ -1,15 +1,17 @@
 package com.mycompany.noteappdat.model.dao.key;
 
-import com.mycompany.noteappdat.model.entity.Client;
 import java.io.Serializable;
+import javax.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class NotePK implements Serializable {
-    private Client owner;
-    private String title;  
+    @Id
+    private String owner;
+    @Id
+    private String title;
 }
