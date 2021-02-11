@@ -4,40 +4,23 @@ import com.mycompany.noteappdat.model.dao.key.NotePK;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @Entity
-@IdClass(NotePK.class)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Note implements Serializable {
-    @Id private Client owner;
-    @Id private String title;
-    //private NotePK inFolder;
-    private String text;
-
-    public Note() {
-    }
+        @Id private NotePK pk;
+	//private NotePK inFolder;
+        private String title;
+	private String text;
 
     public Note(Client owner, String title, String text) {
-        this.owner = owner;
+        this.pk = new NotePK(owner, title);
         this.title = title;
         this.text = text;
     }
 }
-/*
-public class NotePK implements Serializable {
-    private Client owner;
-    private String title;
-       
-    public int hashCode() {
-        return (int) owner.hashCode() + title.hashCode();
-    }
-
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (!(obj instanceof com.mycompany.noteappdat.model.dao.key.NotePK)) return false;
-        if (obj == null) return false;
-        NotePK pk = (NotePK) obj;
-        return pk.owner == owner && pk.title.equals(title);
-    }
-}
-*/

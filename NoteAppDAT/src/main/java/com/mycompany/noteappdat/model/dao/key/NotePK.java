@@ -2,24 +2,21 @@ package com.mycompany.noteappdat.model.dao.key;
 
 import com.mycompany.noteappdat.model.entity.Client;
 import java.io.Serializable;
+import javax.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@Embeddable
+@NoArgsConstructor
+@AllArgsConstructor
 public class NotePK implements Serializable {
     private Client owner;
     private String title;
     
-    public NotePK() {}
-
-    public NotePK(Client owner, String title) {
-        this.owner = owner;
-        this.title = title;
-    }
-       
-    @Override
     public int hashCode() {
         return (int) owner.hashCode() + title.hashCode();
     }
 
-    @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (!(obj instanceof NotePK)) return false;

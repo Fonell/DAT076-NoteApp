@@ -17,6 +17,10 @@ public class NoteDAO extends AbstractDAO<Note> {
         super(Note.class);
     }
     
+    public Note findNoteMatchingPK(NotePK pk) {
+        return entityManager.find(Note.class, pk);
+    }
+
     public Note findNoteMatchingCIDAndTitle(Client owner, String title) {
         NotePK pk = new NotePK(owner, title);
         return entityManager.find(Note.class, pk);
