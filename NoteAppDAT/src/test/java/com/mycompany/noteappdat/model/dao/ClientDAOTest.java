@@ -1,6 +1,8 @@
 package com.mycompany.noteappdat.model.dao;
 
+import com.mycompany.noteappdat.model.dao.key.NotePK;
 import com.mycompany.noteappdat.model.entity.Client;
+import com.mycompany.noteappdat.model.entity.Note;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -17,10 +19,10 @@ import org.junit.runner.RunWith;
 public class ClientDAOTest {
 	@Deployment
 	public static WebArchive createDeployment() {
-		return ShrinkWrap.create(WebArchive.class)
-			.addClasses(ClientDAO.class, Client.class)
-			.addAsResource("META-INF/persistence.xml")
-			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+            return ShrinkWrap.create(WebArchive.class)
+                .addClasses(ClientDAO.class, Client.class, Note.class, NoteDAO.class)
+                .addAsResource("META-INF/persistence.xml")
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB

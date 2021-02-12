@@ -4,23 +4,30 @@ import com.mycompany.noteappdat.model.dao.key.NotePK;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+@IdClass(NotePK.class)
+@RequiredArgsConstructor
 public class Note implements Serializable {
-        @Id private NotePK pk;
-	//private NotePK inFolder;
-        private String title;
-	private String text;
-
-    public Note(Client owner, String title, String text) {
-        this.pk = new NotePK(owner, title);
-        this.title = title;
-        this.text = text;
-    }
+    @Id 
+    @ManyToOne (optional=false)
+    @NonNull
+    private Client owner;
+    @Id
+    @NonNull
+    private String title;
+    
+    //private NotePK inFolder;
+    
+    @NonNull
+    private String text;
 }
