@@ -292,3 +292,7 @@ body {
 		transform: translatey(0px);
 	}
 }
+
+.ui-widget-content {
+    background: none;
+}
