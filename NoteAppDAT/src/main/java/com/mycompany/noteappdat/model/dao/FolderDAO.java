@@ -1,21 +1,21 @@
 package com.mycompany.noteappdat.model.dao;
 
-import com.mycompany.noteappdat.model.entity.Client;
+import com.mycompany.noteappdat.model.entity.Folder;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
 
 @Stateless
-public class ClientDAO extends AbstractDAO<Client> {
+public class FolderDAO extends AbstractDAO<Folder> {
     @Getter @PersistenceContext(unitName = "db")
     private EntityManager entityManager;
 
-    public ClientDAO() {
-        super(Client.class);
+    public FolderDAO() {
+        super(Folder.class);
     }
-
-    public Client findClientMatchingCID(String cid) {
-        return entityManager.find(Client.class, cid);
+    
+    public Folder findFolderMatchingName(String name) {
+        return entityManager.find(Folder.class, name);
     }
 }

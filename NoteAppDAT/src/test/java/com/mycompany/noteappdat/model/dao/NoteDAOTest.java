@@ -1,7 +1,6 @@
 package com.mycompany.noteappdat.model.dao;
 
-import com.mycompany.noteappdat.model.dao.key.NotePK;
-import com.mycompany.noteappdat.model.entity.Client;
+import com.mycompany.noteappdat.model.entity.Folder;
 import com.mycompany.noteappdat.model.entity.Note;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -21,45 +20,36 @@ public class NoteDAOTest {
 	@Deployment
 	public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                .addClasses(NoteDAO.class, Note.class)
+                .addClasses(NoteDAO.class, Note.class, FolderDAO.class, Folder.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
 	private	NoteDAO NoteDAO;
-        //@EJB
-	//private	ClientDAO ClientDAO;
+        @EJB
+	private	FolderDAO FolderDAO;
 
-        private final String testTite = "TITLE_TEST";
-        private final String testText = "TEXT_TEST";
-
-        /*
+        private final String noteTitle = "test_note_title";
+        private final String noteText = "test_note_text";
+        
+        private final String folderName = "test_folder_name";
+        
 	@Before
 	public void init() {
-            NoteDAO.create(new Note(testTite, testText));
-            NoteDAO.remove(NoteDAO.findNoteMatchingTitle(testTite));
+            FolderDAO.create(new Folder(folderName));
+            
 	}
-        */
-
-
+        
 	@Test
 	public void findNoteMatchingTitle() {
-            NoteDAO.create(new Note(testTite, testText));
-            NoteDAO.remove(NoteDAO.findNoteMatchingTitle(testTite));
-            //Assert.assertTrue(NoteDAO.findNoteMatchingTitle(testTite) != null);
-	}
-        /*
-        @Test
-	public void findNoteMatchingCIDAndTitle() {
-            //Assert.assertTrue(true);
-            //Assert.assertTrue(NoteDAO.findNoteMatchingCIDAndTitle(ClientDAO.findClientMatchingCID(testCID), testTite) != null);
+            NoteDAO.create(new Note(noteTitle, noteText, FolderDAO.findFolderMatchingName(folderName)));
+            Assert.assertTrue(NoteDAO.findNoteMatchingTitle(noteTitle) != null);
 	}
         
         @After
         public void cleanup() {
-            //NoteDAO.remove(NoteDAO.findNoteMatchingCIDAndTitle(ClientDAO.findClientMatchingCID(testCID), testTite));
-            //ClientDAO.remove(ClientDAO.findClientMatchingCID(testCID));
+            NoteDAO.remove(NoteDAO.findNoteMatchingTitle(noteTitle));
+            FolderDAO.remove(FolderDAO.findFolderMatchingName(folderName));
 	}
-*/
 }

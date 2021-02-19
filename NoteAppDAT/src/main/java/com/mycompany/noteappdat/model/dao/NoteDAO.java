@@ -1,6 +1,5 @@
 package com.mycompany.noteappdat.model.dao;
 
-import com.mycompany.noteappdat.model.dao.key.NotePK;
 import com.mycompany.noteappdat.model.entity.Note;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
