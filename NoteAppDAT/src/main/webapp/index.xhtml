@@ -1,41 +1,59 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
  
      <h:head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+            <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
         
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"></link>
             <link rel="stylesheet" href="darkmode.css"></link>
      </h:head>
  
      <h:body>
+         <h:outputStylesheet name="darkmode.css" />
          <div class="header">
             <div class="header-container">
-                <!-- SVG FUNKAR INTE
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentcolor" class="bi bi-journal-bookmark-fill bootstrap-icon" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M6 1h6v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8V1z"/>
-                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
-                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentcolor" class="bi bi-calendar-date bootstrap-icon" viewBox="0 0 16 16">
-                    <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
-                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                </svg>
-                -->
+                <i class="pi pi-list" style="font-size: 2rem"></i>
+                <i class="pi pi-calendar" style="font-size: 2rem"></i>
             </div>
             <div class="header-container">
-                <!-- SVG FUNKAR INTE
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentcolor" class="bi bi-plus-circle bootstrap-icon" viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                </svg>
-                -->
+                <i class="pi pi-plus-circle" style="font-size: 2rem"></i>
             </div>
         </div>
+        
+        <div class="main-content">
+            <h:form>
+                <p:dataScroller value="#{noteBackingBean.notes}" var="note" chunkSize="3">
+                    
+                        <p class="large-title">Februari</p>
+                        <div class="big-card">
+                            <p class="medium-title">Vecka 4</p>
+                            <p class="small-title">Måndag</p>
+                            <div class="basic-grid">
+                                <div class="card">
+                                    <p>#{note.title}</p>
+                                    <p>#{note.text}</p>
+                                </div>
+                                <button class="invisible-card" onclick="openPopup()">
+                                    <i class="pi pi-plus-circle" style="font-size: 2rem"></i>
+                                    <p>Create new</p>
+                                </button>
+                            </div>
+                        </div>
+
+                </p:dataScroller>
+            </h:form>
+        </div>
+             
+          
+                         
+
          
         <div class="dark-overlay" id="popUp">
             <div class="card popup">
@@ -45,65 +63,6 @@
                 <div class="input-box"><p>Repeat yes/no</p></div>
                 <div class="input-box"><p>Go to note</p></div>
                 <button class="basic-button" onclick="closePopup()">close</button>
-            </div>
-        </div>
-
-        <div class="main-content">
-            <p class="large-title">Februari</p>
-            <div class="big-card">
-                <p class="medium-title">Vecka 4</p>
-                <p class="small-title">Måndag</p>
-                <div class="basic-grid">
-                    <div class="card">
-                        <p>Titel på kort</p>
-                        <p>Tid/deadline</p>
-                    </div>
-                    <button class="invisible-card" onclick="openPopup()">
-                        <!-- SVG FUNKAR INTE
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentcolor" class="bi bi-plus-circle bootstrap-icon" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                        </svg>
-                        -->
-                        <p>Create new</p>
-                    </button>
-                </div>
-                <p class="small-title">Tisdag</p>
-                <div class="basic-grid">
-                    <div class="card">
-                        <p>Titel på kort</p>
-                        <p>Tid/deadline</p>
-                    </div>
-                    <button class="invisible-card" onclick="openPopup()">
-                        <!-- SVG FUNKAR INTE
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentcolor" class="bi bi-plus-circle bootstrap-icon" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                        </svg>
-                        -->
-                        <p>Create new</p>
-                    </button>
-                </div>
-            </div>
-            <div class="big-card">
-                <p class="medium-title">Vecka 5</p>
-                
-                <p class="small-title">Måndag</p>
-                <div class="basic-grid">
-                    <div class="card">
-                        <p>Titel på kort</p>
-                        <p>Tid/deadline</p>
-                    </div>
-                    <button class="invisible-card" onclick="openPopup()">
-                        <!-- SVG FUNKAR INTE
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentcolor" class="bi bi-plus-circle bootstrap-icon" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                        </svg>
-                        -->
-                        <p>Create new</p>
-                    </button>
-                </div>
             </div>
         </div>
 
