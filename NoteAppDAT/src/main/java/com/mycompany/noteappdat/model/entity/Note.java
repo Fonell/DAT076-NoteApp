@@ -15,18 +15,12 @@ import lombok.RequiredArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-@IdClass(NotePK.class)
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Note implements Serializable {
-    @Id 
-    @ManyToOne (optional=false)
-    @NonNull
-    private Client owner;
+
     @Id
     @NonNull
     private String title;
-    
-    //private NotePK inFolder;
     
     @NonNull
     private String text;

@@ -21,36 +21,35 @@ public class NoteDAOTest {
 	@Deployment
 	public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                .addClasses(NoteDAO.class, Note.class, ClientDAO.class, Client.class)
+                .addClasses(NoteDAO.class, Note.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	//@EJB
-	//private	NoteDAO NoteDAO;
+	@EJB
+	private	NoteDAO NoteDAO;
         //@EJB
 	//private	ClientDAO ClientDAO;
-        
-        private final String testCID = "CID_TEST";
-        private final String testName = "NAME_TEST";
 
         private final String testTite = "TITLE_TEST";
         private final String testText = "TEXT_TEST";
 
+        /*
 	@Before
 	public void init() {
-            //ClientDAO.create(new Client(testCID, testName));
-            //Assert.assertTrue(ClientDAO.findClientMatchingCID(testCID) != null);
-            //NoteDAO.create(new Note(ClientDAO.findClientMatchingCID(testCID), testTite, testText));
+            NoteDAO.create(new Note(testTite, testText));
+            NoteDAO.remove(NoteDAO.findNoteMatchingTitle(testTite));
 	}
+        */
+
 
 	@Test
-	public void findNoteMatchingPK() {
-            //Assert.assertTrue(true);
-            //NotePK pk = new NotePK(ClientDAO.findClientMatchingCID(testCID), testTite);
-            //Assert.assertTrue(NoteDAO.findNoteMatchingPK(pk) != null);
+	public void findNoteMatchingTitle() {
+            NoteDAO.create(new Note(testTite, testText));
+            NoteDAO.remove(NoteDAO.findNoteMatchingTitle(testTite));
+            //Assert.assertTrue(NoteDAO.findNoteMatchingTitle(testTite) != null);
 	}
-        
+        /*
         @Test
 	public void findNoteMatchingCIDAndTitle() {
             //Assert.assertTrue(true);
@@ -62,4 +61,5 @@ public class NoteDAOTest {
             //NoteDAO.remove(NoteDAO.findNoteMatchingCIDAndTitle(ClientDAO.findClientMatchingCID(testCID), testTite));
             //ClientDAO.remove(ClientDAO.findClientMatchingCID(testCID));
 	}
+*/
 }

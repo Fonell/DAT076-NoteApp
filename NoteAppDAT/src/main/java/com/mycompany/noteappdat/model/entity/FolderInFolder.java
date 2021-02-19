@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FolderInFolder implements Serializable {
-	@Id private Folder parent;
+	@Id 
+        private Folder parent;
 	private Folder child;
 }
