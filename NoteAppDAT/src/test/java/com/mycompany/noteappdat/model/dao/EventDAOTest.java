@@ -17,32 +17,34 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(Arquillian.class)
-public class FolderDAOTest {
+public class EventDAOTest {
 	@Deployment
 	public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                .addClasses(FolderDAO.class, Folder.class, NoteDAO.class, Note.class, Event.class)
+                .addClasses(EventDAO.class, Event.class, NoteDAO.class, Note.class, Folder.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
-	private	FolderDAO FolderDAO;
+	private	EventDAO EventDAO;
 
-        private final String folderName = "test_folder_name";
+        private final String noteTitle = "test_note_title";
+
+        private final String eventTitle = "test_event_title";
         
 	@Before
 	public void init() {
-            FolderDAO.create(new Folder(folderName));
+            EventDAO.create(new Event(eventTitle));
 	}
         
 	@Test
-	public void findFolderByName() {
-            Assert.assertTrue(FolderDAO.findFolderByName(folderName) != null);
+	public void findEventByName() {
+            Assert.assertTrue(EventDAO.findEventByName(eventTitle) != null);
 	}
         
         @After
         public void cleanup() {
-            FolderDAO.remove(FolderDAO.findFolderByName(folderName));
+            EventDAO.remove(EventDAO.findEventByName(eventTitle));
 	}
 }

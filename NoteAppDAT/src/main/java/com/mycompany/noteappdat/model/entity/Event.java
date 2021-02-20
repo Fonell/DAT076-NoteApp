@@ -1,12 +1,10 @@
 package com.mycompany.noteappdat.model.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -16,17 +14,12 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Note implements Serializable {
-
+public class Event implements Serializable {
+    
     @Id
     @NonNull
     private String title;
     
-    private String text;
-    
     @ManyToOne
-    private Folder folder;
-    
-    @OneToMany(mappedBy = "note")
-    private List<Event> events = new ArrayList<>();
+    private Note note;
 }

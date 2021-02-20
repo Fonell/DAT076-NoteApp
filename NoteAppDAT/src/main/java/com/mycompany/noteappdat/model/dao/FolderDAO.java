@@ -1,6 +1,8 @@
 package com.mycompany.noteappdat.model.dao;
 
 import com.mycompany.noteappdat.model.entity.Folder;
+import com.mycompany.noteappdat.model.entity.Note;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +17,15 @@ public class FolderDAO extends AbstractDAO<Folder> {
         super(Folder.class);
     }
     
-    public Folder findFolderMatchingName(String name) {
+    public Folder findFolderByName(String name) {
         return entityManager.find(Folder.class, name);
     }
+    
+    //Find note in folder
+    
+    //Find folder in folder
+    
+    //Get parent folder
+    
+    //Get child folders
 }
