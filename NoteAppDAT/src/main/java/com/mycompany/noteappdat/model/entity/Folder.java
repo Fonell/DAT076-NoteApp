@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -24,7 +25,8 @@ public class Folder implements Serializable {
     private String name;
     
     @OneToMany(mappedBy = "folder")
-    private List<Note> notes = new ArrayList<>();
+    @EqualsAndHashCode.Exclude        
+    private List<Note> notes;
 
     public Folder(String folderName) {
         this.name = folderName;

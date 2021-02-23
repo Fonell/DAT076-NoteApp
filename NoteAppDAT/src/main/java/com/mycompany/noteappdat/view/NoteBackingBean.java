@@ -3,6 +3,8 @@ package com.mycompany.noteappdat.view;
 import com.mycompany.noteappdat.model.entity.Note;
 import com.mycompany.noteappdat.model.dao.NoteDAO;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -15,21 +17,27 @@ import lombok.Data;
 @ViewScoped
 public class NoteBackingBean implements Serializable {
 	@EJB
-	private NoteDAO NoteDAO;
+	private NoteDAO noteDAO;
+        
+        private String noteName;
 
-	private List<Note> notes;
-
-	@PostConstruct
+        //todo value stuff
+	
 	private void init() {
-		notes = NoteDAO.findAll();
 	}
         
-        public void createNote(String name) {
-                NoteDAO.createNote(name);
+        public void createNote() {
+                noteDAO.createNote(noteName);
+        }
+        
+        public List<Note> getNotes() {
+            List<Note> reversedNotes = noteDAO.findAll();
+            Collections.reverse(reversedNotes);
+            return reversedNotes;
         }
         
         public void createNoteInFolder(String noteName, String folderName) {
-                NoteDAO.createNote(noteName);
-                NoteDAO.setNoteFolder(noteName, folderName);
+                noteDAO.createNote(noteName);
+                noteDAO.setNoteFolder(noteName, folderName);
         }
 }
