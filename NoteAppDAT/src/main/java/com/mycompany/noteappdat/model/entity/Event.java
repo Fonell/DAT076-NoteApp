@@ -11,14 +11,14 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@Entity
+@Entity(name="Event")
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Event implements Serializable {
     
     @Id
     @NonNull
-    private String title;
+    private String name;
     
     @ManyToOne
     private Note note;

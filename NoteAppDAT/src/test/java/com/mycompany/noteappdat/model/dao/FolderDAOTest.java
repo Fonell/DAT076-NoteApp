@@ -31,6 +31,7 @@ public class FolderDAOTest {
 
         private final String folderName = "test_folder_name";
         
+        
 	@Before
 	public void init() {
             FolderDAO.create(new Folder(folderName));

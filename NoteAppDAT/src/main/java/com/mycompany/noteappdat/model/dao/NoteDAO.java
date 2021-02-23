@@ -4,6 +4,7 @@ import com.mycompany.noteappdat.model.entity.Note;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import lombok.Getter;
 
 @Stateless
@@ -15,7 +16,21 @@ public class NoteDAO extends AbstractDAO<Note> {
         super(Note.class);
     }
     
-    public Note findNoteByTitle(String title) {
-        return entityManager.find(Note.class, title);
+    public String createNote(String name) {
+        Note note = entityManager.find(Note.class, name);
+        if(note != null) return "A note with this name already exists.";
+        else create(new Note(name));
+        return name + " was created successfully!";
+    }
+    
+    public Note findNoteByName(String name) {
+        return entityManager.find(Note.class, name);
+    }
+    
+    public Note findNoteByNameAndFolder(String noteName, String folderName) {
+        TypedQuery<Note> query = entityManager.createNamedQuery("Note.findNoteByNameAndFolder", Note.class);
+        query.setParameter("fName", folderName);
+        query.setParameter("nName", noteName);
+        return query.getSingleResult();
     }
 }

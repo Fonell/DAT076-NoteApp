@@ -31,7 +31,7 @@ public class NoteDAOTest {
         @EJB
 	private	FolderDAO FolderDAO;
 
-        private final String noteTitle = "test_note_title";
+        private final String noteName = "test_note_name";
         private final String noteText = "test_note_text";
         
         private final String folderName = "test_folder_name";
@@ -39,24 +39,29 @@ public class NoteDAOTest {
 	@Before
 	public void init() {
             FolderDAO.create(new Folder(folderName));
-            NoteDAO.create(new Note(noteTitle));
+            NoteDAO.create(new Note(noteName));
 	}
         
+
 	@Test
-	public void findNoteMatchingTitle() {
-            Assert.assertTrue(NoteDAO.findNoteByTitle(noteTitle) != null);
+	public void findNoteByName() {
+            Assert.assertTrue(NoteDAO.findNoteByName(noteName) != null);
 	}
-        
+    
         @Test
 	public void addNoteToFolder() {
-            NoteDAO.findNoteByTitle(noteTitle).setFolder(FolderDAO.findFolderByName(folderName));
-            //FolderDAO.findFolderByName(folderName).getNotes();
-            Assert.assertTrue(NoteDAO.findNoteByTitle(noteTitle) != null);
+            Note note = NoteDAO.findNoteByName(noteName);
+            Folder folder = FolderDAO.findFolderByName(folderName);
+            
+            note.setFolder(folder);
+            NoteDAO.update(note);
+            
+            Assert.assertTrue(NoteDAO.findNoteByNameAndFolder(noteName, folderName) != null);
 	}
         
         @After
         public void cleanup() {
-            NoteDAO.remove(NoteDAO.findNoteByTitle(noteTitle));
+            NoteDAO.remove(NoteDAO.findNoteByName(noteName));
             FolderDAO.remove(FolderDAO.findFolderByName(folderName));
 	}
 }

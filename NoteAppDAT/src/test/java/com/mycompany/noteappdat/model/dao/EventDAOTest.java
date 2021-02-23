@@ -29,22 +29,22 @@ public class EventDAOTest {
 	@EJB
 	private	EventDAO EventDAO;
 
-        private final String noteTitle = "test_note_title";
+        private final String noteName = "test_note_title";
 
-        private final String eventTitle = "test_event_title";
+        private final String eventName = "test_event_title";
         
 	@Before
 	public void init() {
-            EventDAO.create(new Event(eventTitle));
+            EventDAO.create(new Event(eventName));
 	}
         
 	@Test
 	public void findEventByName() {
-            Assert.assertTrue(EventDAO.findEventByName(eventTitle) != null);
+            Assert.assertTrue(EventDAO.findEventByName(eventName) != null);
 	}
         
         @After
         public void cleanup() {
-            EventDAO.remove(EventDAO.findEventByName(eventTitle));
+            EventDAO.remove(EventDAO.findEventByName(eventName));
 	}
 }
