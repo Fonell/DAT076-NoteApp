@@ -1,5 +1,6 @@
 package com.mycompany.noteappdat.model.dao;
 
+import com.mycompany.noteappdat.model.entity.Folder;
 import com.mycompany.noteappdat.model.entity.Note;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,11 +17,15 @@ public class NoteDAO extends AbstractDAO<Note> {
         super(Note.class);
     }
     
-    public String createNote(String name) {
-        Note note = entityManager.find(Note.class, name);
-        if(note != null) return "A note with this name already exists.";
-        else create(new Note(name));
-        return name + " was created successfully!";
+    public void createNote(String noteName) {
+        create(new Note(noteName));
+    }
+    
+    public void setNoteFolder(String noteName, String folderName) {
+        Note note = entityManager.find(Note.class, noteName);
+        Folder folder = entityManager.find(Folder.class, folderName);
+        note.setFolder(folder);
+        update(note);
     }
     
     public Note findNoteByName(String name) {

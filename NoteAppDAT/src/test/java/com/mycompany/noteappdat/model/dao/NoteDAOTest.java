@@ -41,7 +41,6 @@ public class NoteDAOTest {
             FolderDAO.create(new Folder(folderName));
             NoteDAO.create(new Note(noteName));
 	}
-        
 
 	@Test
 	public void findNoteByName() {
@@ -50,12 +49,7 @@ public class NoteDAOTest {
     
         @Test
 	public void addNoteToFolder() {
-            Note note = NoteDAO.findNoteByName(noteName);
-            Folder folder = FolderDAO.findFolderByName(folderName);
-            
-            note.setFolder(folder);
-            NoteDAO.update(note);
-            
+            NoteDAO.setNoteFolder(noteName, folderName);
             Assert.assertTrue(NoteDAO.findNoteByNameAndFolder(noteName, folderName) != null);
 	}
         

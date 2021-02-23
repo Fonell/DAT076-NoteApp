@@ -15,12 +15,21 @@ import lombok.Data;
 @ViewScoped
 public class NoteBackingBean implements Serializable {
 	@EJB
-	private NoteDAO noteDAO;
+	private NoteDAO NoteDAO;
 
 	private List<Note> notes;
 
 	@PostConstruct
 	private void init() {
-		notes = (noteDAO.findAll());
+		notes = NoteDAO.findAll();
 	}
+        
+        public void createNote(String name) {
+                NoteDAO.createNote(name);
+        }
+        
+        public void createNoteInFolder(String noteName, String folderName) {
+                NoteDAO.createNote(noteName);
+                NoteDAO.setNoteFolder(noteName, folderName);
+        }
 }
