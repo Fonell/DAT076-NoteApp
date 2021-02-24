@@ -22,20 +22,20 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Folder implements Serializable {
-    
     @Id
     @NonNull
     private String name;
-    
-    @OneToMany(mappedBy = "parent")
-    @EqualsAndHashCode.Exclude
-    private List<Folder> children;
-    
-    @OneToMany(mappedBy = "folder")
-    @EqualsAndHashCode.Exclude
-    private List<Note> notes;
        
     @ManyToOne
     @JoinColumn(name = "children")
     private Folder parent;
+    
+    @OneToMany(mappedBy = "parent")
+    private List<Folder> children;
+    @EqualsAndHashCode.Exclude        
+    private List<Note> notes;
+
+    public Folder(String folderName) {
+        this.name = folderName;
+    }
 }
