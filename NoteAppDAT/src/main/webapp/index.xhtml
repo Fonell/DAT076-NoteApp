@@ -28,14 +28,8 @@
         </div>
         
         <div class="main-content">
-            
             <h:form>
-                <p:inputText value="#{noteBackingBean.noteName}"/>
-                <p:commandButton value="createName" action="#{noteBackingBean.createNote}" update="form2:scroll" process="@form"/>
-            </h:form>
-            
-            <h:form id="form2">
-                <p:dataScroller id="scroll" value="#{noteBackingBean.notes}" var="note" chunkSize="3">
+                <p:dataScroller value="#{noteBackingBean.notes}" var="note" chunkSize="3">
                     
                         <p class="large-title">Februari</p>
                         <div class="big-card">
@@ -43,12 +37,9 @@
                             <p class="small-title">Måndag</p>
                             <div class="basic-grid">
                                 <div class="card">
-                                    <p>#{note.name}</p>
+                                    <p>#{note.title}</p>
                                     <p>#{note.text}</p>
                                 </div>
-
-                                                           
-                                                           
                                 <button class="invisible-card" onclick="openPopup()">
                                     <i class="pi pi-plus-circle" style="font-size: 2rem"></i>
                                     <p>Create new</p>
