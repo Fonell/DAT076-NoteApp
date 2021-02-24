@@ -14,8 +14,11 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@NamedQuery(name = "Folder.findFolderInFolderByName",
-        query = "SELECT f FROM Folder f WHERE f.name = :folderName AND f.parent.name = :parentName")
+//@NamedQuery(name = "Folder.findFolderInFolderByName",
+//        query = "SELECT f FROM Folder f WHERE f.name = :folderName AND f.parent.name = :parentName")
+
+@NamedQuery(name = "Note.findAllFoldersWithoutFolder",
+        query = "SELECT f FROM Folder f WHERE f.parent IS NULL")
 
 @Data
 @Entity(name="Folder")

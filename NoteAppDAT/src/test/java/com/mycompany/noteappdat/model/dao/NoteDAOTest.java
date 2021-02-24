@@ -21,24 +21,24 @@ public class NoteDAOTest {
 	@Deployment
 	public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                .addClasses(NoteDAO.class, Note.class, FolderDAO.class, Folder.class, Event.class)
+                .addClasses(NoteDAO.class, Note.class, FolderDAO.class, Folder.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
 	private	NoteDAO NoteDAO;
-        @EJB
-	private	FolderDAO FolderDAO;
+        //@EJB
+	//private	FolderDAO FolderDAO;
 
         private final String noteName = "test_note_name";
         private final String noteText = "test_note_text";
         
-        private final String folderName = "test_folder_name";
+        //private final String folderName = "test_folder_name";
         
 	@Before
 	public void init() {
-            FolderDAO.create(new Folder(folderName));
+            //FolderDAO.create(new Folder(folderName));
             NoteDAO.create(new Note(noteName));
 	}
         
@@ -48,14 +48,13 @@ public class NoteDAOTest {
 	}
         
         @Test
-	public void addNoteToFolder() {
-            NoteDAO.setParentFolder(noteName, folderName);
-            Assert.assertTrue(NoteDAO.findNoteByNameAndFolder(noteName, folderName) != null);
+	public void findAllNotesWithoutFolder() {
+            Assert.assertTrue(NoteDAO.findAllNotesWithoutFolder() != null);
 	}
         
         @After
         public void cleanup() {
             NoteDAO.remove(NoteDAO.findNoteByName(noteName));
-            FolderDAO.remove(FolderDAO.findFolderByName(folderName));
+            //FolderDAO.remove(FolderDAO.findFolderByName(folderName));
 	}
 }

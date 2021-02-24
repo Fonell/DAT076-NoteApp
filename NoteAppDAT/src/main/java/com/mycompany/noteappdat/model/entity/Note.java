@@ -12,9 +12,11 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 
-@NamedQuery(name="Note.findNoteByNameAndFolder",
-    query="SELECT n FROM Note n WHERE n.name = :noteName AND n.folder.name = :folderName")
+//@NamedQuery(name="Note.findNoteByNameAndFolder",
+//    query="SELECT n FROM Note n WHERE n.name = :noteName AND n.folder.name = :folderName")
 
+@NamedQuery(name="Note.findAllNotesWithoutFolder",
+    query="SELECT n FROM Note n WHERE n.folder IS NULL")
 
 @Data
 @Entity(name ="Note")

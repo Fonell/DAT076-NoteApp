@@ -1,16 +1,15 @@
 package com.mycompany.noteappdat.model.service;
 
 import com.mycompany.noteappdat.model.dao.FolderDAO;
-import com.mycompany.noteappdat.model.dao.NoteDAO;
 import com.mycompany.noteappdat.model.entity.Folder;
 import com.mycompany.noteappdat.model.entity.Note;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
+@Stateless
 public class FolderService {
     
-    @EJB
-    private NoteDAO noteDAO;
     @EJB
     private FolderDAO folderDAO;
     
@@ -19,38 +18,42 @@ public class FolderService {
         folderDAO.create(new Folder(folderName));
     }
     
-    public List<Note> getAllNotes() {
+    public void removeFolder(String folderName) {
         //FacesMessage message = new FacesMessage();
-        return noteDAO.findAll();
+        folderDAO.remove(folderDAO.findFolderByName(folderName));
+    }
+
+    public List<Folder> getAllFoldersWithoutFolder() {
+        //FacesMessage message = new FacesMessage();
+        return folderDAO.findAllFoldersWithoutFolder();
     }
     
     public List<Note> getAllNotesInFolder(String folderName) {
         //FacesMessage message = new FacesMessage();
-        Folder folder = findFolderByName(folderName);
+        Folder folder = folderDAO.findFolderByName(folderName);
         return folder.getNotes();
     }
     
     public List<Folder> getAllFoldersInFolder(String folderName) {
         //FacesMessage message = new FacesMessage();
-        Folder folder = findFolderByName(folderName);
+        Folder folder = folderDAO.findFolderByName(folderName);
         return folder.getChildren();
     }
     
-    public Folder findFolderByName(String folderName) {
+    public Folder getFolderByName(String folderName) {
         //FacesMessage message = new FacesMessage();
         return folderDAO.findFolderByName(folderName);
     }
     
-    public void setNoteParentFolder(String noteName, String folderName) {
+    public void setFolderName(String oldFolderName, String newFolderName) {
         //FacesMessage message = new FacesMessage();
-        Note note = noteDAO.findNoteByName(noteName);
-        Folder folder = folderDAO.findFolderByName(folderName);
-        note.setFolder(folder);
-        noteDAO.update(note);
+        Folder folderToUpdate = folderDAO.findFolderByName(oldFolderName);
+        folderToUpdate.setName(newFolderName);
+        folderDAO.update(folderToUpdate);
     }
     
-    public void setFolderParentFolder(String parentName, String childName) {
-        Folder child = folderDAO.findFolderByName(childName);
+    public void setFolderParentFolder(String folderName, String parentName) {
+        Folder child = folderDAO.findFolderByName(folderName);
         Folder parent = folderDAO.findFolderByName(parentName);
         
         if(parentChildRelationIsValid(parent, child)) {
