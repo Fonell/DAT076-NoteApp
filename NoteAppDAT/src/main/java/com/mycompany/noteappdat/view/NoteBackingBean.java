@@ -14,6 +14,7 @@ import lombok.Data;
 @Named
 @ViewScoped
 public class NoteBackingBean implements Serializable {
+    
 	@EJB
 	private NoteDAO NoteDAO;
 
@@ -30,6 +31,6 @@ public class NoteBackingBean implements Serializable {
         
         public void createNoteInFolder(String noteName, String folderName) {
                 NoteDAO.createNote(noteName);
-                NoteDAO.setNoteFolder(noteName, folderName);
+                NoteDAO.setParentFolder(noteName, folderName);
         }
 }

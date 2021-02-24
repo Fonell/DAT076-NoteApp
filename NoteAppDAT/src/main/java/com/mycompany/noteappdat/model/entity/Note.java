@@ -13,10 +13,8 @@ import lombok.RequiredArgsConstructor;
 
 
 @NamedQuery(name="Note.findNoteByNameAndFolder",
-    query="SELECT n FROM Note n WHERE n.name = :nName AND n.folder.name = :fName")
+    query="SELECT n FROM Note n WHERE n.name = :noteName AND n.folder.name = :folderName")
 
-@NamedQuery(name="Note.addFolderToNote",
-    query="SELECT n FROM Note n WHERE n.name = :nName AND n.folder.name = :fName")
 
 @Data
 @Entity(name ="Note")
@@ -26,10 +24,8 @@ public class Note implements Serializable {
     
     @Id
     @NonNull
-    //@Column(name="note_name")
     private String name;
     
-    //@Column(name="note_text")
     private String text;
     
     @ManyToOne

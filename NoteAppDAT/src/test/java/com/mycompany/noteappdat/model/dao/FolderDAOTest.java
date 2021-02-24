@@ -30,11 +30,13 @@ public class FolderDAOTest {
 	private	FolderDAO FolderDAO;
 
         private final String folderName = "test_folder_name";
+        private final String parentFolderName = "test_parent_folder_name";
         
         
 	@Before
 	public void init() {
-            FolderDAO.create(new Folder(folderName));
+            FolderDAO.createFolder(folderName);
+            FolderDAO.createFolder(parentFolderName);
 	}
         
 	@Test
@@ -42,8 +44,23 @@ public class FolderDAOTest {
             Assert.assertTrue(FolderDAO.findFolderByName(folderName) != null);
 	}
         
+        @Test
+        public void setParentFolder() {
+            FolderDAO.setParentFolder(parentFolderName, folderName);
+            Assert.assertTrue(FolderDAO.findFolderInFolderByName(folderName, parentFolderName) != null);
+        }
+        
+        @Test
+        public void parentChildRelationIsValid() {
+            FolderDAO.setParentFolder(parentFolderName, folderName);
+
+            Assert.assertTrue(!FolderDAO.parentChildRelationIsValid(FolderDAO.findFolderByName(folderName), FolderDAO.findFolderByName(parentFolderName)));
+            Assert.assertTrue(FolderDAO.parentChildRelationIsValid(FolderDAO.findFolderByName(parentFolderName), FolderDAO.findFolderByName(folderName)));
+        }
+        
         @After
         public void cleanup() {
             FolderDAO.remove(FolderDAO.findFolderByName(folderName));
+            FolderDAO.remove(FolderDAO.findFolderByName(parentFolderName));
 	}
 }
