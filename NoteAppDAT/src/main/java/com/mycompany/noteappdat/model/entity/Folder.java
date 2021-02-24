@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -24,14 +25,17 @@ public class Folder implements Serializable {
     @Id
     @NonNull
     private String name;
-    
-    @OneToMany(mappedBy = "folder")
-    private List<Note> notes;
-    
+       
     @ManyToOne
     @JoinColumn(name = "children")
     private Folder parent;
     
     @OneToMany(mappedBy = "parent")
     private List<Folder> children;
+    @EqualsAndHashCode.Exclude        
+    private List<Note> notes;
+
+    public Folder(String folderName) {
+        this.name = folderName;
+    }
 }
