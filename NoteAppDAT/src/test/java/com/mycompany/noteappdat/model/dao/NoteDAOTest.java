@@ -41,15 +41,15 @@ public class NoteDAOTest {
             FolderDAO.create(new Folder(folderName));
             NoteDAO.create(new Note(noteName));
 	}
-        
+
 	@Test
 	public void findNoteByName() {
             Assert.assertTrue(NoteDAO.findNoteByName(noteName) != null);
 	}
-        
+    
         @Test
 	public void addNoteToFolder() {
-            NoteDAO.setParentFolder(noteName, folderName);
+            NoteDAO.setNoteFolder(noteName, folderName);
             Assert.assertTrue(NoteDAO.findNoteByNameAndFolder(noteName, folderName) != null);
 	}
         
