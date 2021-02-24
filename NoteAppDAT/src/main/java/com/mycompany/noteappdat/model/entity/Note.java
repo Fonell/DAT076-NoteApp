@@ -33,6 +33,6 @@ public class Note implements Serializable {
     private Folder folder;
     
     //@OneToMany(mappedBy = "note")
-    //@Column(name="NOTE_EVENT")
+    //@EqualsAndHashCode.Exclude
     //private List<Event> events = new ArrayList<>();
 }
