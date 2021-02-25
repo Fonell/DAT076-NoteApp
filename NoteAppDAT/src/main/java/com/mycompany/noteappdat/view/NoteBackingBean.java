@@ -20,6 +20,8 @@ public class NoteBackingBean implements Serializable {
 	private NoteDAO noteDAO;
         
         private String noteName;
+        private String noteText;
+        private String noteFolder;
 
         //todo value stuff
 	

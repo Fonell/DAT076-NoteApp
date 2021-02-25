@@ -19,20 +19,15 @@
          <h:outputStylesheet name="darkmode.css" />
          <div class="header">
             <div class="header-container">
-                <i class="pi pi-list" style="font-size: 2rem"></i>
-                <i class="pi pi-calendar" style="font-size: 2rem"></i>
+                <p:commandLink class="pi pi-list" style="font-size: 2rem; color: white"/>
+                <p:commandLink class="pi pi-calendar" style="font-size: 2rem; color: white"/>
             </div>
             <div class="header-container">
-                <i class="pi pi-plus-circle" style="font-size: 2rem"></i>
+                <p:commandLink class="pi pi-plus-circle" style="font-size: 2rem; color: white" update="form2:scroll" oncomplete="PF('addEventDialog').show()" title="View"/>
             </div>
         </div>
         
         <div class="main-content">
-            
-            <h:form>
-                <p:inputText value="#{noteBackingBean.noteName}"/>
-                <p:commandButton value="createName" action="#{noteBackingBean.createNote}" update="form2:scroll" process="@form"/>
-            </h:form>
             
             <h:form id="form2">
                 <p:dataScroller id="scroll" value="#{noteBackingBean.notes}" var="note" chunkSize="3">
@@ -46,23 +41,15 @@
                                     <p>#{note.name}</p>
                                     <p>#{note.text}</p>
                                     
-                                    <!-- TODO: dont resubmit on refresh when in http://localhost:8080/NoteAppDAT/index.xhtml ????? -->
-                                    <!-- why cant i style this -->
-                                    <p:commandButton action="#{noteBackingBean.deleteNote}" icon="pi pi-trash" update="form2:scroll" process="@this" title="Delete">                
+                                    <p:commandLink action="#{noteBackingBean.deleteNote}" class="pi pi-trash" style="font-size: 2rem; color: white" update="form2:scroll" process="@this" title="Delete">                
                                         <f:setPropertyActionListener target="#{noteBackingBean.noteName}" value="#{note.name}" />
-                                    </p:commandButton>
+                                    </p:commandLink>
+                                    
+                                    <p:commandLink type="button" class="pi pi-external-link" style="font-size: 2rem; color: white" onclick="PF('viewEventDialog').show()">                
+                                        <f:setPropertyActionListener target="#{noteBackingBean.noteName}" value="#{note.name}" />
+                                    </p:commandLink>
                                     
                                 </div>
-                                
-                                <p:commandButton update="form2:scroll" oncomplete="PF('productDialog').show()" icon="pi pi-search" title="View">
-                                </p:commandButton>
-                                <!-- 
-                                <button class="invisible-card" onclick="openPopup()">
-                                    <i class="pi pi-plus-circle" style="font-size: 2rem"></i>
-                                    <p>Create new</p>
-                                </button>
-                                comment -->
-                                
                             </div>
                         </div>
 
@@ -71,9 +58,22 @@
         </div>
          
          
-    <p:dialog header="Product Info" widgetVar="productDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-        <p:chips />
-        <p:chips />
+    <p:dialog header="Add event" widgetVar="addEventDialog" modal="false" draggable="false" resizable="false" responsive="true" closeOnEscape="true">
+        <h:form>
+                <p:inputText value="#{noteBackingBean.noteName}"/>
+                <p:inputText value="#{noteBackingBean.noteText}"/>
+                <p:datePicker id="buttonbar" showButtonBar="true"/>
+                <p:commandButton value="addCard" action="#{noteBackingBean.createNote}" update="form2:scroll" process="@form" oncomplete="PF('addEventDialog').hide();"/>
+        </h:form>
+    </p:dialog>
+         
+    <p:dialog header="View" widgetVar="viewEventDialog" minHeight="40" width="350" showEffect="fade" minimizable="true" maximizable="true">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
     </p:dialog>
              
           
