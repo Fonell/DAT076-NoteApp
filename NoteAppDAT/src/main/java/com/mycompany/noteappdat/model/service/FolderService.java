@@ -37,7 +37,7 @@ public class FolderService {
     public List<Folder> getAllFoldersInFolder(String folderName) {
         //FacesMessage message = new FacesMessage();
         Folder folder = folderDAO.findFolderByName(folderName);
-        return folder.getChildren();
+        return folder.getChildFolders();
     }
     
     public Folder getFolderByName(String folderName) {
@@ -70,7 +70,7 @@ public class FolderService {
         if(grandParent == null) return true;
         
         //If the child is the parents parent, the relationship is not valid.
-        if(grandParent.getName().equals(child.getName())) return false;
+        if(grandParent.getName().equals(child.getName())) return false; //Is there a better way to write this equals?
         
         //Apply this logic recursively to each ancestor of the parent.
         return parentChildRelationIsValid(grandParent, child);

@@ -2,6 +2,7 @@ package com.mycompany.noteappdat.model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -32,13 +33,13 @@ public class Folder implements Serializable {
     
     @OneToMany(mappedBy = "parent")
     @EqualsAndHashCode.Exclude
-    private List<Folder> children;
+    private List<Folder> childFolders;
     
-    @OneToMany(mappedBy = "folder")
+    @OneToMany(mappedBy = "folder", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @EqualsAndHashCode.Exclude
     private List<Note> notes;
        
     @ManyToOne
-    @JoinColumn(name = "children")
+    @JoinColumn(name = "childFolders")
     private Folder parent;
 }

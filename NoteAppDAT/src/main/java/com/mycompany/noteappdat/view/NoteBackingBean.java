@@ -28,7 +28,7 @@ public class NoteBackingBean implements Serializable {
 	}
         
         public void createNote() {
-                noteDAO.createNote(noteName);
+                //noteDAO.createNote(noteName);
         }
         
         public List<Note> getNotes() {
@@ -38,7 +38,7 @@ public class NoteBackingBean implements Serializable {
         }
         
         public void createNoteInFolder(String noteName, String folderName) {
-                noteDAO.createNote(noteName);
-                noteDAO.setNoteFolder(noteName, folderName);
+                //noteDAO.createNote(noteName);
+                //noteDAO.setNoteFolder(noteName, folderName);
         }
 }

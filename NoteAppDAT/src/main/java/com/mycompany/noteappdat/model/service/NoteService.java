@@ -6,7 +6,9 @@ import com.mycompany.noteappdat.model.entity.Folder;
 import com.mycompany.noteappdat.model.entity.Note;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
+@Stateless
 public class NoteService {
 
     @EJB

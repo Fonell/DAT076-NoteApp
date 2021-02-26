@@ -21,7 +21,7 @@ public class FolderServiceTest {
 	@Deployment
 	public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                .addClasses(FolderDAO.class, Folder.class, NoteDAO.class, Note.class, FolderService.class) //Could maybe remove notestuff here?
+                .addClasses(FolderDAO.class, Folder.class, NoteDAO.class, Note.class, FolderService.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
@@ -39,8 +39,7 @@ public class FolderServiceTest {
         private final String differentFolderName = "test_different_folder_name";
         private final String noteName = "test_note_name";
         
-        
-        
+       
 	@Test
 	public void createFolder() { 
             folderService.createFolder(folderName);
@@ -54,14 +53,14 @@ public class FolderServiceTest {
             folderService.removeFolder(folderName);
             Assert.assertTrue(folderDAO.findFolderByName(folderName) == null);
         }
-
+        
         @Test
         public void getAllFoldersWithoutFolder() {
             folderDAO.create(new Folder(folderName));
             Assert.assertTrue(folderService.getAllFoldersWithoutFolder() != null);
             folderDAO.remove(folderDAO.findFolderByName(folderName));
         }
-                
+
         @Test
         public void getAllNotesInFolder() {
             folderDAO.create(new Folder(folderName));
@@ -74,11 +73,14 @@ public class FolderServiceTest {
             
             Assert.assertTrue(folderService.getAllNotesInFolder(folderName) != null);
             
-            folderDAO.remove(folderDAO.findFolderByName(folderName));
-            noteDAO.remove(noteDAO.findNoteByName(noteName));
+            noteDAO.remove(noteDAO.findNoteByName(noteName)); //This should be able to be last
+            folderDAO.remove(folderDAO.findFolderByName(folderName)); //Can these be avoided?
+            //noteDAO.remove(noteDAO.findNoteByName(noteName));
         }
         
-        /*
+
+
+        
         @Test
         public void getAllFoldersInFolder() {
             folderDAO.create(new Folder(folderName));
@@ -94,6 +96,7 @@ public class FolderServiceTest {
             folderDAO.remove(folderDAO.findFolderByName(folderName));
             folderDAO.remove(folderDAO.findFolderByName(differentFolderName));
         }
+        
 
         @Test
         public void getFolderByName() {
@@ -101,7 +104,7 @@ public class FolderServiceTest {
             Assert.assertTrue(folderService.getFolderByName(folderName) != null);
             folderDAO.remove(folderDAO.findFolderByName(folderName));
         }
-        
+
         @Test
         public void setFolderName() {
             folderDAO.create(new Folder(folderName));
@@ -109,7 +112,7 @@ public class FolderServiceTest {
             Assert.assertTrue(folderDAO.findFolderByName(differentFolderName) != null);
             folderDAO.remove(folderDAO.findFolderByName(differentFolderName));
         }
-        
+                   
         @Test
         public void setFolderParentFolder() {
             folderDAO.create(new Folder(folderName));
@@ -119,8 +122,9 @@ public class FolderServiceTest {
             
             Assert.assertTrue(folderDAO.findFolderByName(folderName).getParent() != null);
             
-            folderDAO.remove(folderDAO.findFolderByName(folderName));
+            folderDAO.remove(folderDAO.findFolderByName(folderName)); //same as previous
             folderDAO.remove(folderDAO.findFolderByName(differentFolderName));
+            //folderDAO.remove(folderDAO.findFolderByName(folderName));
         }    
         
         @Test    
@@ -133,11 +137,10 @@ public class FolderServiceTest {
             folder.setParent(parentFolder);
             folderDAO.update(folder);
             
-            Assert.assertTrue(folderService.parentChildRelationIsValid(folder, parentFolder));
-            Assert.assertTrue(!folderService.parentChildRelationIsValid(parentFolder, folder));
+            Assert.assertTrue(folderService.parentChildRelationIsValid(parentFolder, folder));
+            Assert.assertFalse(folderService.parentChildRelationIsValid(folder, parentFolder));
             
             folderDAO.remove(folderDAO.findFolderByName(folderName));
             folderDAO.remove(folderDAO.findFolderByName(differentFolderName));
         }
-*/
 }

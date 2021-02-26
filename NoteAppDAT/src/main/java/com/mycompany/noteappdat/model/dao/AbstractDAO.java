@@ -6,6 +6,8 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Selection;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -15,10 +17,10 @@ public abstract class AbstractDAO<T> {
 
 	public long count() {
                 final CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-                final CriteriaQuery cq = builder.createQuery();
+                final CriteriaQuery<T> cq = (CriteriaQuery<T>) builder.createQuery();
                 final Root<T> rt = cq.from(entityType);
 
-                cq.select(builder.count(rt));
+                cq.select((Selection<? extends T>) builder.count(rt));
 
                 final Query q = getEntityManager().createQuery(cq);
                 return ((Long) q.getSingleResult());
@@ -33,7 +35,7 @@ public abstract class AbstractDAO<T> {
         }
 
         public List<T> findAll() {
-                final CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+                final CriteriaQuery<T> cq = (CriteriaQuery<T>) getEntityManager().getCriteriaBuilder().createQuery();
                 cq.select(cq.from(entityType));
                 return getEntityManager().createQuery(cq).getResultList();
         }

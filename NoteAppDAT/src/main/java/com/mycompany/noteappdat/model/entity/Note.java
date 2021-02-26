@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Entity(name ="Note")
 @NoArgsConstructor
 @RequiredArgsConstructor
+//@AddIndex
 public class Note implements Serializable {
     
     @Id

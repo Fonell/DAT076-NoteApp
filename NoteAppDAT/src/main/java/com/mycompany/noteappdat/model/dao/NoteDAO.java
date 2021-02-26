@@ -26,6 +26,8 @@ public class NoteDAO extends AbstractDAO<Note> {
         return query.getResultList();
     }
     
+    //remove
+    
     /* Most likely won't be needed.
     public Note findNoteByNameAndFolder(String noteName, String folderName) {
         TypedQuery<Note> query = entityManager.createNamedQuery("Note.findNoteByNameAndFolder", Note.class);

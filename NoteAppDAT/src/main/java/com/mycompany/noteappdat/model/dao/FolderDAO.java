@@ -26,6 +26,13 @@ public class FolderDAO extends AbstractDAO<Folder> {
         return query.getResultList();
     }
     
+    /*
+    @Override
+    public void remove(Folder folder) {
+        
+    }
+    */
+    
     /* Most likely won't be needed.
     public Folder findFolderInFolderByName(String folderName, String parentFolderName) {
         TypedQuery<Folder> query = entityManager.createNamedQuery("Folder.findFolderInFolderByName", Folder.class);
