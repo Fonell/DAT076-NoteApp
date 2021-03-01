@@ -1,7 +1,7 @@
 package com.mycompany.noteappdat.model.dao;
 
-import com.mycompany.noteappdat.model.dao.key.NotePK;
-import com.mycompany.noteappdat.model.entity.Client;
+import com.mycompany.noteappdat.model.entity.Event;
+import com.mycompany.noteappdat.model.entity.Folder;
 import com.mycompany.noteappdat.model.entity.Note;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -15,34 +15,35 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+
 @RunWith(Arquillian.class)
-public class ClientDAOTest {
+public class FolderDAOTest {
 	@Deployment
 	public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                .addClasses(ClientDAO.class, Client.class, Note.class, NoteDAO.class)
+                .addClasses(FolderDAO.class, Folder.class, NoteDAO.class, Note.class, Event.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
-	private	ClientDAO ClientDAO;
-        
-        private final String testCID = "CID_TEST";
-        private final String testName = "NAME_TEST";
+	private	FolderDAO FolderDAO;
 
+        private final String folderName = "test_folder_name";
+        
+        
 	@Before
 	public void init() {
-            ClientDAO.create(new Client(testCID, testName));
+            FolderDAO.create(new Folder(folderName));
 	}
-
+        
 	@Test
-	public void findClientMatchingCID() {
-            Assert.assertTrue(ClientDAO.findClientMatchingCID(testCID) != null);
+	public void findFolderByName() {
+            Assert.assertTrue(FolderDAO.findFolderByName(folderName) != null);
 	}
         
         @After
         public void cleanup() {
-            ClientDAO.remove(ClientDAO.findClientMatchingCID(testCID));
+            FolderDAO.remove(FolderDAO.findFolderByName(folderName));
 	}
 }

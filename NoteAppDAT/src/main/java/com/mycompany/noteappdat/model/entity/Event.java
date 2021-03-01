@@ -3,15 +3,23 @@ package com.mycompany.noteappdat.model.entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@Entity
+@Entity(name="Event")
 @NoArgsConstructor
-@AllArgsConstructor
-public class Car implements Serializable {
-    @Id private String license;
+@RequiredArgsConstructor
+public class Event implements Serializable {
+    
+    @Id
+    @NonNull
     private String name;
+    
+    @ManyToOne
+    private Note note;
 }

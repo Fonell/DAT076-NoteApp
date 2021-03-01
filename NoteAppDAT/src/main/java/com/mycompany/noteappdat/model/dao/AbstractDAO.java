@@ -27,6 +27,10 @@ public abstract class AbstractDAO<T> {
 	public void create(T entity) {
                 getEntityManager().persist(entity);
         }
+        
+        public T update(T entity) {
+                return getEntityManager().merge(entity);
+        }
 
         public List<T> findAll() {
                 final CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();

@@ -1,21 +1,21 @@
 package com.mycompany.noteappdat.model.dao;
 
-import com.mycompany.noteappdat.model.entity.Client;
+import com.mycompany.noteappdat.model.entity.Event;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;
 
 @Stateless
-public class ClientDAO extends AbstractDAO<Client> {
+public class EventDAO extends AbstractDAO<Event> {
     @Getter @PersistenceContext(unitName = "db")
     private EntityManager entityManager;
 
-    public ClientDAO() {
-        super(Client.class);
+    public EventDAO() {
+        super(Event.class);
     }
-
-    public Client findClientMatchingCID(String cid) {
-        return entityManager.find(Client.class, cid);
+    
+    public Event findEventByName(String title) {
+        return entityManager.find(Event.class, title);
     }
 }

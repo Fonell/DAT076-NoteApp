@@ -17,45 +17,34 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(Arquillian.class)
-public class NoteDAOTest {
+public class EventDAOTest {
 	@Deployment
 	public static WebArchive createDeployment() {
             return ShrinkWrap.create(WebArchive.class)
-                .addClasses(NoteDAO.class, Note.class, FolderDAO.class, Folder.class, Event.class)
+                .addClasses(EventDAO.class, Event.class, NoteDAO.class, Note.class, Folder.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@EJB
-	private	NoteDAO NoteDAO;
-        @EJB
-	private	FolderDAO FolderDAO;
+	private	EventDAO EventDAO;
 
-        private final String noteName = "test_note_name";
-        private final String noteText = "test_note_text";
-        
-        private final String folderName = "test_folder_name";
+        private final String noteName = "test_note_title";
+
+        private final String eventName = "test_event_title";
         
 	@Before
 	public void init() {
-            FolderDAO.create(new Folder(folderName));
-            NoteDAO.create(new Note(noteName));
+            EventDAO.create(new Event(eventName));
 	}
-
+        
 	@Test
-	public void findNoteByName() {
-            Assert.assertTrue(NoteDAO.findNoteByName(noteName) != null);
-	}
-    
-        @Test
-	public void addNoteToFolder() {
-            NoteDAO.setNoteFolder(noteName, folderName);
-            Assert.assertTrue(NoteDAO.findNoteByNameAndFolder(noteName, folderName) != null);
+	public void findEventByName() {
+            Assert.assertTrue(EventDAO.findEventByName(eventName) != null);
 	}
         
         @After
         public void cleanup() {
-            NoteDAO.remove(NoteDAO.findNoteByName(noteName));
-            FolderDAO.remove(FolderDAO.findFolderByName(folderName));
+            EventDAO.remove(EventDAO.findEventByName(eventName));
 	}
 }

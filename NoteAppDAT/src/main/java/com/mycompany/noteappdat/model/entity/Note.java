@@ -1,33 +1,42 @@
 package com.mycompany.noteappdat.model.entity;
 
-import com.mycompany.noteappdat.model.dao.key.NotePK;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
+import javax.persistence.NamedQuery;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+
+@NamedQuery(name="Note.findNoteByNameAndFolder",
+    query="SELECT n FROM Note n WHERE n.name = :nName AND n.folder.name = :fName")
+
+@NamedQuery(name="Note.addFolderToNote",
+    query="SELECT n FROM Note n WHERE n.name = :nName AND n.folder.name = :fName")
+
 @Data
-@Entity
+@Entity(name ="Note")
 @NoArgsConstructor
-@IdClass(NotePK.class)
 @RequiredArgsConstructor
 public class Note implements Serializable {
-    @Id 
-    @ManyToOne (optional=false)
-    @NonNull
-    private Client owner;
+    
     @Id
     @NonNull
-    private String title;
+    //@Column(name="note_name")
+    private String name;
     
-    //private NotePK inFolder;
-    
-    @NonNull
+    //@Column(name="note_text")
     private String text;
+    
+    @ManyToOne
+    @JoinColumn(name="notes")
+    private Folder folder;
+    
+    //@OneToMany(mappedBy = "note")
+    //@Column(name="NOTE_EVENT")
+    //private List<Event> events = new ArrayList<>();
 }
