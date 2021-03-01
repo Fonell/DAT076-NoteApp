@@ -16,7 +16,7 @@
      </h:head>
  
      <h:body>
-         <h:outputStylesheet name="darkmode.css" />
+
          <div class="header">
             <div class="header-container">
                 <p:commandLink class="pi pi-list" style="font-size: 2rem; color: white"/>
@@ -45,7 +45,7 @@
                                         <f:setPropertyActionListener target="#{noteBackingBean.noteName}" value="#{note.name}" />
                                     </p:commandLink>
                                     
-                                    <p:commandLink type="button" class="pi pi-external-link" style="font-size: 2rem; color: white" onclick="PF('viewEventDialog').show()">                
+                                    <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white" onclick="PF('viewEventDialog').show()">                
                                         <f:setPropertyActionListener target="#{noteBackingBean.noteName}" value="#{note.name}" />
                                     </p:commandLink>
                                     
