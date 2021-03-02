@@ -16,11 +16,12 @@ import lombok.Data;
 @Named
 @ViewScoped
 public class NoteBackingBean implements Serializable {
-    
 	@EJB
 	private NoteDAO noteDAO;
         
         private String noteName;
+        private String noteText;
+        private String noteFolder;
 
         //todo value stuff
 	
@@ -28,7 +29,11 @@ public class NoteBackingBean implements Serializable {
 	}
         
         public void createNote() {
-                //noteDAO.createNote(noteName);
+            noteDAO.create(new Note(noteName));
+        }
+        
+        public void deleteNote() {
+            noteDAO.remove(noteDAO.findNoteByName(noteName));
         }
         
         public List<Note> getNotes() {
@@ -38,7 +43,7 @@ public class NoteBackingBean implements Serializable {
         }
         
         public void createNoteInFolder(String noteName, String folderName) {
-                //noteDAO.createNote(noteName);
-                //noteDAO.setNoteFolder(noteName, folderName);
+                noteDAO.createNote(noteName);
+                noteDAO.setNoteFolder(noteName, folderName);
         }
 }
