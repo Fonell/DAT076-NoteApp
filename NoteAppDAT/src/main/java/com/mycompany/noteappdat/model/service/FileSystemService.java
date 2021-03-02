@@ -20,6 +20,14 @@ public class FileSystemService {
     @EJB
     private FolderDAO folderDAO;
 
+    public Note getNoteById(int id) {
+        return noteDAO.findById(id);
+    }
+
+    public Folder getFolderById(int id) {
+        return folderDAO.findById(id);
+    }
+
     public void createNote(String noteName) {
         //FacesMessage message = new FacesMessage();
         noteDAO.create(new Note(noteName));

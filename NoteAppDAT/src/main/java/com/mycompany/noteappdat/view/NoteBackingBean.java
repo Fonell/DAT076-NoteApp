@@ -1,49 +1,57 @@
 package com.mycompany.noteappdat.view;
 
-import com.mycompany.noteappdat.model.entity.Note;
 import com.mycompany.noteappdat.model.dao.NoteDAO;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import javax.annotation.PostConstruct;
+import com.mycompany.noteappdat.model.entity.Note;
+import com.mycompany.noteappdat.model.service.FileSystemService;
+import lombok.Data;
+
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-import lombok.Data;
+import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Named
 @ViewScoped
 public class NoteBackingBean implements Serializable {
-	@EJB
-	private NoteDAO noteDAO;
-        
-        private String noteName;
-        private String noteText;
-        private String noteFolder;
+    @EJB
+    private NoteDAO noteDAO;
 
-        //todo value stuff
-	
-	private void init() {
-	}
-        
-        public void createNote() {
-            noteDAO.create(new Note(noteName));
-        }
-        
-        public void deleteNote() {
-            noteDAO.remove(noteDAO.findNoteByName(noteName));
-        }
-        
-        public List<Note> getNotes() {
-            List<Note> reversedNotes = noteDAO.findAll();
-            Collections.reverse(reversedNotes);
-            return reversedNotes;
-        }
-        
-        public void createNoteInFolder(String noteName, String folderName) {
-                noteDAO.createNote(noteName);
-                noteDAO.setNoteFolder(noteName, folderName);
-        }
+    @Inject
+    private FileSystemService fss;
+
+    private String noteName;
+    private String noteText;
+    private String noteFolder;
+
+    //todo value stuff
+
+    private void init() {
+    }
+
+    public void createNote() {
+        fss.createNote(noteName);
+        //noteDAO.create(new Note(noteName));
+    }
+
+    public void deleteNote() {
+        fss.removeNote(fss.getNoteById(0));
+        //noteDAO.remove(noteDAO.findNoteByName(noteName));
+    }
+
+    public List<Note> getNotes() {
+        //List<Note> reversedNotes = noteDAO.findAll();
+        //Collections.reverse(reversedNotes);
+        return fss.getAllRootNotes();
+    }
+
+    public void createNoteInFolder(String noteName, String folderName) {
+        fss.createFolder(folderName);
+        fss.createNote(noteName);
+        fss.setNoteParentFolder(fss.getNoteById(0), fss.getFolderById(0));
+        //noteDAO.createNote(noteName);
+        //noteDAO.setNoteFolder(noteName, folderName);
+    }
 }
