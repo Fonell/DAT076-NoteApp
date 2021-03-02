@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!-- To change this license header, choose License Headers in Project Properties.
+     To change this template file, choose Tools | Templates and open the template in the editor. -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> <title>NoteApp</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"></link>
+        <link rel="stylesheet" href="darkmode.css"></link>
+        <script type="text/javascript" src="title-script.js"></script>
+    </h:head>
+    <h:body style="background-color: rgb(40, 40, 40);">
+        <h:outputStylesheet name="darkmode.css" />
+        <div class="title-header basic-grid">
+            <div class="center">
+                <h1>
+                    <a style="text-decoration: none; color: white;" class="typewrite mega-title" data-period="2000" data-type='[ "NoteApp.", "Your best productivity tool.", "Totally free.", "Get started below!" ]'>
+                      <span class="wrap"></span>
+                    </a>
+                </h1>
+            </div>  
+        </div>
+        
+        <!-- Uppermost row -->
+        <div class="row" style="background-color: rgb(255, 255, 255);">
+            <div class="item-grid center card-example cssanimation sequence fadeInBottom">
+                <div class="itemm">
+                    <i class="pi pi-check-square" style="font-size: 2rem"></i>
+                    <p> Get things done quicker. </p>
+                </div>
+                <div class="itemm">
+                    <i class="pi pi-share-alt" style="font-size: 2rem"></i>
+                    <p> Share tasks with teamates. </p>
+                </div>
+                <div class="itemm">
+                    <i class="pi pi-thumbs-up" style="font-size: 2rem"></i>
+                    <p> It's totally free! </p>
+                </div>
+            </div>
+        </div>
+        <div class="row cssanimation sequence fadeInBottom">
+            <div class="basic-grid">
+                <div class="card-example">
+                    <div class="card">
+                        <p>Coffee with Cole</p>
+                        <p>8:30</p>
+                    </div>
+                    <div class="card">
+                        <p>Delivery from Amazon</p>
+                        <p>10:00</p>
+                    </div>
+                    <div class="card">
+                        <p>Fuel the car</p>
+                        <p>Anytime</p>
+                    </div>
+                    <div class="card">
+                        <p>Fuel the car</p>
+                        <p>Anytime</p>
+                    </div>
+                    <div class="card">
+                        <p>File papers</p>
+                        <p>14:00</p>
+                    </div>
+                    <div class="card">
+                        <p>Meeting with John</p>
+                        <p>18:45</p>
+                    </div>
+                </div>
+                <div class="center">
+                    <h4 class="cssanimation fadeInBottom" style="padding-left: 30px;">
+                        With an intuitive and minimalistic design lets your workflow be much more time-efficient.
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="background-color: rgb(255, 255, 255);">
+            <div id="sign-in-div">
+                <h4 class="center" style="color:black; padding-top: 40px;">
+                    So what are you waiting for? Sign up and get productive!
+                </h4>
+                <div class="basic-grid card-example center">
+                    <p:commandButton value="Sign Up" type="button" style="log-sign-buttons" onclick="PF('SignUp').show()"/>
+                    <p:commandButton value="Login" type="button" style="log-sign-buttons" onclick="PF('Login').show" />
+                </div>
+                <p:dialog header="Header" widgetVar="Login" minHeight="40" width="350" showEffect="fade" modal="true">
+                    <p class="p-m-0"> 
+                        Username:
+                        <input type="text" value="" />
+                        <hr />
+                        Password:
+                        <input type="password" value="" />
+                    </p>
+                </p:dialog>
+                <p:dialog header="Header" widgetVar="SignUp" minHeight="40" width="350" showEffect="fade" modal="true">
+                    <p class="p-m-0">
+                        Email:
+                        <input type="text" value="" />
+                        <hr />
+                        Username:
+                        <input type="text" value="" />
+                        <hr />
+                        Password:
+                        <input type="password" value="" />
+                        Sneaky way through below:
+                        <button><a href="index.xhtml" style="text-decoration: none; color: red"> O </a></button>
+                    </p>
+                </p:dialog>              
+            </div>
+        </div>
+    </h:body>
+</html> 

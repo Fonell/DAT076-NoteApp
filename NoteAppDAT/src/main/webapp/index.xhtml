@@ -19,7 +19,7 @@
 
          <div class="header">
             <div class="header-container">
-                <p:commandLink class="pi pi-list" style="font-size: 2rem; color: white; text-decoration: none"/>
+                <p:commandLink class="pi pi-list" style="font-size: 2rem; color: white; text-decoration: none" onclick="location.href='welcome.xhtml';" />
                 <p:commandLink class="pi pi-calendar" style="font-size: 2rem; color: white; text-decoration: none"/>
             </div>
             <div class="header-container">
@@ -40,7 +40,7 @@
                                     <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
                                 </p:commandLink>
 
-                                <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none" update="noteDetail" onclick="PF('viewEventDialog').show()">                
+                                <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none; float: right" update="noteDetail" onclick="PF('viewEventDialog').show()">                
                                     <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
                                 </p:commandLink>
                                 
