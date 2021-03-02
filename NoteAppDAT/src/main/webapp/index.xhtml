@@ -19,41 +19,35 @@
 
          <div class="header">
             <div class="header-container">
-                <p:commandLink class="pi pi-list" style="font-size: 2rem; color: white"/>
-                <p:commandLink class="pi pi-calendar" style="font-size: 2rem; color: white"/>
+                <p:commandLink class="pi pi-list" style="font-size: 2rem; color: white; text-decoration: none"/>
+                <p:commandLink class="pi pi-calendar" style="font-size: 2rem; color: white; text-decoration: none"/>
             </div>
             <div class="header-container">
-                <p:commandLink class="pi pi-plus-circle" style="font-size: 2rem; color: white" update="form2:scroll" oncomplete="PF('addEventDialog').show()" title="View"/>
+                <p:commandLink class="pi pi-plus-circle" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" oncomplete="PF('addEventDialog').show()" title="View"/>
             </div>
         </div>
         
         <div class="main-content">
-            
-            <h:form id="form2">
-                <p:dataScroller id="scroll" value="#{noteBackingBean.notes}" var="note" chunkSize="3">
-                    
-                        <p class="large-title">large-title</p>
-                        <div class="big-card">
-                            <p class="medium-title">medium-title</p>
-                            <p class="small-title">small-title</p>
-                            <div class="basic-grid">
-                                <div class="card">
-                                    <p>#{note.name}</p>
-                                    <p>#{note.text}</p>
-                                    
-                                    <p:commandLink action="#{noteBackingBean.deleteNote}" class="pi pi-trash" style="font-size: 2rem; color: white" update="form2:scroll" process="@this" title="Delete">                
-                                        <f:setPropertyActionListener target="#{noteBackingBean.noteName}" value="#{note.name}" />
-                                    </p:commandLink>
-                                    
-                                    <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white" onclick="PF('viewEventDialog').show()">                
-                                        <f:setPropertyActionListener target="#{noteBackingBean.noteName}" value="#{note.name}" />
-                                    </p:commandLink>
-                                    
-                                </div>
+            <p class="large-title" align="center">March</p>
+            <h:form id="mainForm">
+                <p:repeat id="noteDT" var="note" value="#{noteBackingBean.notes}">
+                    <div class="big-card">
+                        <div class="basic-grid">
+                            <div class="card">
+                                <p>#{note.name}</p>
+
+                                <p:commandLink action="#{noteBackingBean.deleteNote}" class="pi pi-trash" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" process="@this" title="Delete">                
+                                    <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
+                                </p:commandLink>
+
+                                <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none" update="noteDetail" onclick="PF('viewEventDialog').show()">                
+                                    <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
+                                </p:commandLink>
+                                
                             </div>
                         </div>
-
-                </p:dataScroller>
+                    </div>
+                </p:repeat>
             </h:form>
         </div>
          
@@ -63,17 +57,14 @@
                 <p:inputText value="#{noteBackingBean.noteName}"/>
                 <p:inputText value="#{noteBackingBean.noteText}"/>
                 <p:datePicker id="buttonbar" showButtonBar="true"/>
-                <p:commandButton value="addCard" action="#{noteBackingBean.createNote}" update="form2:scroll" process="@form" oncomplete="PF('addEventDialog').hide();"/>
+                <p:commandButton value="addCard" action="#{noteBackingBean.createNote}" update="mainForm" process="@form" oncomplete="PF('addEventDialog').hide();"/>
         </h:form>
     </p:dialog>
          
-    <p:dialog header="View" widgetVar="viewEventDialog" minHeight="40" width="350" showEffect="fade" minimizable="true" maximizable="true">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+         <p:dialog header="TOTO: put note name here pls" widgetVar="viewEventDialog" modal="true" draggable="false" resizable="true" responsive="true" closeOnEscape="true" height="100" minHeight="100">
+        <p:outputPanel id="noteDetail" style="text-align:center;">
+            <p>#{noteBackingBean.selectedNote.text}</p>
+        </p:outputPanel>
     </p:dialog>
              
           

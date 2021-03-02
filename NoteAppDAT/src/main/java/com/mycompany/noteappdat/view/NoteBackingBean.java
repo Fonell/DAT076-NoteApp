@@ -22,6 +22,9 @@ public class NoteBackingBean implements Serializable {
     @Inject
     private FileSystemService fss;
 
+    private Note selectedNote;
+
+    
     private String noteName;
     private String noteText;
     private String noteFolder;
@@ -37,7 +40,7 @@ public class NoteBackingBean implements Serializable {
     }
 
     public void deleteNote() {
-        fss.removeNote(fss.getNoteById(0));
+        fss.removeNote(selectedNote);
         //noteDAO.remove(noteDAO.findNoteByName(noteName));
     }
 
