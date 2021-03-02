@@ -3,48 +3,71 @@ package com.mycompany.noteappdat.model.dao;
 import com.mycompany.noteappdat.model.entity.Event;
 import com.mycompany.noteappdat.model.entity.Folder;
 import com.mycompany.noteappdat.model.entity.Note;
-import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.ejb.EJB;
+import java.util.Calendar;
+import java.util.List;
+
 
 @RunWith(Arquillian.class)
 public class EventDAOTest {
-	@Deployment
-	public static WebArchive createDeployment() {
-            return ShrinkWrap.create(WebArchive.class)
-                .addClasses(EventDAO.class, Event.class, NoteDAO.class, Note.class, Folder.class)
+
+    private final String eventName = "test_event_name";
+    private final Calendar calendar = Calendar.getInstance();
+
+    @EJB
+    private EventDAO eventDAO;
+
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class)
+                .addClasses(EventDAO.class, Event.class, NoteDAO.class, Note.class, Folder.class, FolderDAO.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+    }
 
-	@EJB
-	private	EventDAO EventDAO;
+    @Before
+    public void setCalendar() {
+        calendar.set(2000, 10, 10);
+    }
 
-        private final String noteName = "test_note_title";
+    @Test
+    public void findById() {
+        //Create the event
+        Event event = new Event(eventName, calendar);
+        eventDAO.create(event);
+        int id = event.getId();
 
-        private final String eventName = "test_event_title";
-        
-	@Before
-	public void init() {
-            EventDAO.create(new Event(eventName));
-	}
-        
-	@Test
-	public void findEventByName() {
-            Assert.assertTrue(EventDAO.findEventByName(eventName) != null);
-	}
-        
-        @After
-        public void cleanup() {
-            EventDAO.remove(EventDAO.findEventByName(eventName));
-	}
+        //Check that it can be found by id
+        Assert.assertEquals(eventDAO.findById(id).getName(), event.getName());
+        Assert.assertEquals(eventDAO.findById(id).getEventDate(), event.getEventDate());
+        Assert.assertEquals(eventDAO.findById(id).getNote(), event.getNote());
+
+        eventDAO.remove(event);
+    }
+
+    @Test
+    public void findByName() {
+        //Create the event
+        Event event = new Event(eventName, calendar);
+        eventDAO.create(event);
+        int id = event.getId();
+
+        //Check that it can be found by name
+        List<Event> events = eventDAO.findByName(eventName);
+        Assert.assertEquals(eventDAO.findById(id).getName(), event.getName());
+        Assert.assertEquals(eventDAO.findById(id).getEventDate(), event.getEventDate());
+        Assert.assertEquals(eventDAO.findById(id).getNote(), event.getNote());
+
+        eventDAO.remove(event);
+    }
 }
