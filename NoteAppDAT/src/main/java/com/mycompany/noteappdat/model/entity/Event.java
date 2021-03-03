@@ -26,7 +26,7 @@ import java.util.Calendar;
 public class Event implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NonNull

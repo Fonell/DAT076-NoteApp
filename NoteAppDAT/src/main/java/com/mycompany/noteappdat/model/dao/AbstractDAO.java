@@ -16,19 +16,16 @@ public abstract class AbstractDAO<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public long count() {
-        final CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-        final CriteriaQuery<T> cq = (CriteriaQuery<T>) builder.createQuery();
-        final Root<T> rt = cq.from(entityType);
-
-        cq.select((Selection<? extends T>) builder.count(rt));
-
-        final Query q = getEntityManager().createQuery(cq);
-        return ((Long) q.getSingleResult());
-    }
-
     public void create(T entity) {
         getEntityManager().persist(entity);
+    }
+
+    public void refresh(T entity) {
+        getEntityManager().refresh(entity);
+    }
+
+    public void flush() {
+        getEntityManager().flush();
     }
 
     public T update(T entity) {
@@ -42,6 +39,6 @@ public abstract class AbstractDAO<T> {
     }
 
     public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+        getEntityManager().remove(entity);
     }
 }

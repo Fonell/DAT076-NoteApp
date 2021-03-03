@@ -35,6 +35,4 @@ public class NoteDAO extends AbstractDAO<Note> {
         TypedQuery<Note> query = entityManager.createNamedQuery("Note.findAllInRoot", Note.class);
         return query.getResultList();
     }
-
-    //remove
 }

@@ -4,15 +4,16 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @NamedQuery(
         name = "Folder.findByName",
         query = "SELECT f FROM Folder f WHERE f.name LIKE :name"
+)
+
+@NamedQuery(
+        name = "Folder.find",
+        query = "SELECT f FROM Folder f WHERE f.parent IS NULL"
 )
 
 @NamedQuery(
@@ -27,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class Folder implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NonNull
@@ -37,11 +38,14 @@ public class Folder implements Serializable {
     @EqualsAndHashCode.Exclude
     private List<Folder> childFolders;
 
-    @OneToMany(mappedBy = "folder", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @EqualsAndHashCode.Exclude
-    private List<Note> notes;
-
     @ManyToOne
     @JoinColumn(name = "childFolders")
     private Folder parent;
+
+    @OneToMany(mappedBy = "folder")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<Note> notes; //Is there a good way to change this name only in the database in the note-table? Current naming is confusing. (NOTE has a column named NOTES referencing a folder)
+
+
 }

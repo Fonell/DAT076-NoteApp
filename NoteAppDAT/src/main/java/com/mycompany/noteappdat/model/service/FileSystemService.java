@@ -51,7 +51,7 @@ public class FileSystemService {
     public void setNoteText(Note note, String newNoteText) {
         //FacesMessage message = new FacesMessage();
         note.setText(newNoteText);
-        noteDAO.update(note);
+        noteDAO.update(note); //testa om det fungerar utan
     }
 
     public void setNoteName(Note note, String newNoteName) {

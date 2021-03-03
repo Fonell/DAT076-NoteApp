@@ -1,6 +1,7 @@
 package com.mycompany.noteappdat.view;
 
 import com.mycompany.noteappdat.model.dao.NoteDAO;
+import com.mycompany.noteappdat.model.entity.Folder;
 import com.mycompany.noteappdat.model.entity.Note;
 import com.mycompany.noteappdat.model.service.FileSystemService;
 import lombok.Data;
@@ -22,6 +23,8 @@ public class NoteBackingBean implements Serializable {
     @Inject
     private FileSystemService fss;
 
+    private Folder selectedFolder;
+    private Note selectedNote;
     private String noteName;
     private String noteText;
     private String noteFolder;
@@ -37,7 +40,7 @@ public class NoteBackingBean implements Serializable {
     }
 
     public void deleteNote() {
-        fss.removeNote(fss.getNoteById(0));
+        fss.removeNote(selectedNote);
         //noteDAO.remove(noteDAO.findNoteByName(noteName));
     }
 
@@ -50,7 +53,7 @@ public class NoteBackingBean implements Serializable {
     public void createNoteInFolder(String noteName, String folderName) {
         fss.createFolder(folderName);
         fss.createNote(noteName);
-        fss.setNoteParentFolder(fss.getNoteById(0), fss.getFolderById(0));
+        fss.setNoteParentFolder(selectedNote, selectedFolder);
         //noteDAO.createNote(noteName);
         //noteDAO.setNoteFolder(noteName, folderName);
     }

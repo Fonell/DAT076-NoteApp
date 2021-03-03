@@ -1,6 +1,7 @@
 package com.mycompany.noteappdat.model.dao;
 
 import com.mycompany.noteappdat.model.entity.Folder;
+import com.mycompany.noteappdat.model.entity.Note;
 import lombok.Getter;
 
 import javax.ejb.Stateless;
@@ -30,14 +31,19 @@ public class FolderDAO extends AbstractDAO<Folder> {
     }
 
     public List<Folder> findAllInRoot() {
-        TypedQuery<Folder> query = entityManager.createNamedQuery("Note.findAllInRoot", Folder.class);
+        TypedQuery<Folder> query = entityManager.createNamedQuery("Folder.findAllInRoot", Folder.class);
         return query.getResultList();
     }
 
     @Override
     public void remove(Folder folder) {
         for (Folder f : folder.getChildFolders()) {
-            f.setParent(null);
+            f.setParent(folder.getParent());
         }
+        for (Note n : folder.getNotes()) {
+            n.setFolder(folder.getParent());
+        }
+
+        entityManager.remove(folder);
     }
 }

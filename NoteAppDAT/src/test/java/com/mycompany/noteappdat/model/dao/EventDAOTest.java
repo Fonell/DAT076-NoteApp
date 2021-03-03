@@ -8,12 +8,15 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
+import javax.transaction.*;
 import java.util.Calendar;
 import java.util.List;
 
@@ -26,11 +29,13 @@ public class EventDAOTest {
 
     @EJB
     private EventDAO eventDAO;
+    @Inject
+    private UserTransaction userTransaction;
 
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(EventDAO.class, Event.class, NoteDAO.class, Note.class, Folder.class, FolderDAO.class)
+                .addClasses(EventDAO.class, Event.class, Note.class, Folder.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -40,6 +45,16 @@ public class EventDAOTest {
         calendar.set(2000, 10, 10);
     }
 
+    @Before
+    public void startTransaction() throws SystemException, NotSupportedException {
+        userTransaction.begin();
+    }
+
+    @After
+    public void commitTransaction() throws HeuristicRollbackException, RollbackException, HeuristicMixedException, SystemException {
+        userTransaction.commit();
+    }
+
     @Test
     public void findById() {
         //Create the event
@@ -47,10 +62,8 @@ public class EventDAOTest {
         eventDAO.create(event);
         int id = event.getId();
 
-        //Check that it can be found by id
-        Assert.assertEquals(eventDAO.findById(id).getName(), event.getName());
-        Assert.assertEquals(eventDAO.findById(id).getEventDate(), event.getEventDate());
-        Assert.assertEquals(eventDAO.findById(id).getNote(), event.getNote());
+        //Assert that it can be found by id
+        Assert.assertEquals(eventDAO.findById(id), event);
 
         eventDAO.remove(event);
     }
@@ -60,13 +73,10 @@ public class EventDAOTest {
         //Create the event
         Event event = new Event(eventName, calendar);
         eventDAO.create(event);
-        int id = event.getId();
 
-        //Check that it can be found by name
+        //Assert that it can be found by name
         List<Event> events = eventDAO.findByName(eventName);
-        Assert.assertEquals(eventDAO.findById(id).getName(), event.getName());
-        Assert.assertEquals(eventDAO.findById(id).getEventDate(), event.getEventDate());
-        Assert.assertEquals(eventDAO.findById(id).getNote(), event.getNote());
+        Assert.assertTrue(events.contains(event));
 
         eventDAO.remove(event);
     }

@@ -4,8 +4,6 @@ import com.mycompany.noteappdat.model.dao.FolderDAO;
 import com.mycompany.noteappdat.model.dao.NoteDAO;
 import com.mycompany.noteappdat.model.entity.Folder;
 import com.mycompany.noteappdat.model.entity.Note;
-import javax.ejb.EJB;
-import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -13,29 +11,29 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.runner.RunWith;
 
+import javax.ejb.EJB;
+import javax.inject.Inject;
+
 
 @RunWith(Arquillian.class)
 public class FileSystemServiceTest {
-	@Deployment
-	public static WebArchive createDeployment() {
-            return ShrinkWrap.create(WebArchive.class)
+    private final String folderName = "test_folder_name";
+    private final String differentFolderName = "test_different_folder_name";
+    private final String noteName = "test_note_name";
+    @Inject
+    FileSystemService fileSystemService;
+    @EJB
+    private FolderDAO folderDAO;
+    @EJB
+    private NoteDAO noteDAO;
+
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class)
                 .addClasses(FolderDAO.class, Folder.class, NoteDAO.class, Note.class, FileSystemService.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
-        
-        @Inject
-        FileSystemService fileSystemService;
-
-	@EJB
-	private	FolderDAO folderDAO;
-        
-        @EJB
-        private NoteDAO noteDAO;
-
-        private final String folderName = "test_folder_name";
-        private final String differentFolderName = "test_different_folder_name";
-        private final String noteName = "test_note_name";
+    }
         
        /*
 	@Test

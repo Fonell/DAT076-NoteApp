@@ -17,14 +17,34 @@ import java.util.List;
         query = "SELECT n FROM Note n WHERE n.folder IS NULL"
 )
 
+@NamedQuery(
+        name = "Note.findAllInFolder",
+        query = "SELECT n FROM Note n WHERE n.folder LIKE :name"
+)
+
 @Data
 @Entity(name = "Note")
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Note implements Serializable {
 
+    /*
+    QueryDSL
+
+    List<Tuple> userTitleCounts = queryFactory.select(
+          blogPost.title, blogPost.id.count().as(count))
+          .from(blogPost)
+          .groupBy(blogPost.title)
+          .orderBy(count.desc())
+          .fetch();
+    List<Person> persons = query.from(person)
+        .where(person.firstname.eq(firstname))
+        .orderBy(person.surname.desc())
+        .list(person);
+     */
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NonNull
@@ -33,12 +53,13 @@ public class Note implements Serializable {
     private String text;
 
     @ManyToOne
+    //@Column(name = "test")
     @JoinColumn(name = "notes")
     private Folder folder;
 
     /*
-    @OneToMany(mappedBy = "note")
+    @OneToMany(mappedBy = "note", cascade = {CascadeType.ALL})
     @EqualsAndHashCode.Exclude
     private List<Event> events = new ArrayList<>();
-     */
+    */
 }
