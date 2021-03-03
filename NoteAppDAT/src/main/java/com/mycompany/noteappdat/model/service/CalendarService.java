@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.Calendar;
 
-@Stateless //@Component ??
+@Stateless //@Component instead?
 public class CalendarService {
 
     @EJB
@@ -17,37 +17,14 @@ public class CalendarService {
     @EJB
     private NoteDAO noteDAO;
 
-    public void newEvent(String name) {
+    public Event createEvent(String name) {
         Calendar date = Calendar.getInstance();
         Event event = new Event(name, date);
         eventDAO.create(event);
+        return event;
     }
 
-    public void newEvent(String title, int year, int month, int day) {
-        Calendar date = Calendar.getInstance();
-        date.set(year, month, day);
-        Event event = new Event(title, date);
-        eventDAO.create(event);
-    }
-
-    public void newEvent(String title, int year, int month, int day, int hour, int minute) {
-        Calendar date = Calendar.getInstance();
-        date.set(year, month, day, hour, minute);
-        Event event = new Event(title, date);
-        eventDAO.create(event);
-    }
-
-    public Event getEventById(int id) {
-        return eventDAO.findById(id);
-    }
-
-    public void updateDate(Event event, int year, int month, int day) {
-        Calendar date = Calendar.getInstance();
-        date.set(year, month, day);
-        event.setEventDate(date);
-    }
-
-    public void updateDate(Event event, int year, int month, int day, int hour, int minute) {
+    public void setDate(Event event, int year, int month, int day, int hour, int minute) {
         Calendar date = Calendar.getInstance();
         date.set(year, month, day, hour, minute);
         event.setEventDate(date);
@@ -55,11 +32,5 @@ public class CalendarService {
 
     public void setNote(Event event, Note note) {
         event.setNote(note);
-    }
-
-    public void setNewNote(Event event, String noteName) {
-        Note note = new Note(noteName);
-        noteDAO.create(note);
-        event.setNote(note); //Will this word properly?
     }
 }

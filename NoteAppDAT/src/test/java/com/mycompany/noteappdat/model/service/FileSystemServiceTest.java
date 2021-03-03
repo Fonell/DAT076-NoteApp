@@ -9,23 +9,32 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
-
+import javax.transaction.*;
 
 @RunWith(Arquillian.class)
 public class FileSystemServiceTest {
     private final String folderName = "test_folder_name";
     private final String differentFolderName = "test_different_folder_name";
     private final String noteName = "test_note_name";
+    private final String differentNoteName = "test_different_note_name";
+    private final String noteText = "test_note_text";
+
     @Inject
     FileSystemService fileSystemService;
     @EJB
     private FolderDAO folderDAO;
     @EJB
     private NoteDAO noteDAO;
+    @Inject
+    private UserTransaction userTransaction;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -34,111 +43,242 @@ public class FileSystemServiceTest {
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
-        
-       /*
-	@Test
-	public void createFolder() { 
-            folderService.createFolder(folderName);
-            Assert.assertTrue(folderDAO.findFolderByName(folderName) != null);
-            folderDAO.remove(folderDAO.findFolderByName(folderName));
-        }
 
-        @Test
-        public void removeFolder() {
-            folderDAO.create(new Folder(folderName));
-            folderService.removeFolder(folderName);
-            Assert.assertTrue(folderDAO.findFolderByName(folderName) == null);
-        }
-        
-        @Test
-        public void getAllFoldersWithoutFolder() {
-            folderDAO.create(new Folder(folderName));
-            Assert.assertTrue(folderService.getAllFoldersWithoutFolder() != null);
-            folderDAO.remove(folderDAO.findFolderByName(folderName));
-        }
+    @Before
+    public void startTransaction() throws SystemException, NotSupportedException {
+        userTransaction.begin();
+    }
 
-        @Test
-        public void getAllNotesInFolder() {
-            folderDAO.create(new Folder(folderName));
-            noteDAO.create(new Note(noteName));
-            
-            Note note = noteDAO.findNoteByName(noteName);
-            Folder folder = folderDAO.findFolderByName(folderName);
-            note.setFolder(folder);
-            noteDAO.update(note);
-            
-            Assert.assertTrue(folderService.getAllNotesInFolder(folderName) != null);
-            
-            noteDAO.remove(noteDAO.findNoteByName(noteName)); //This should be able to be last
-            folderDAO.remove(folderDAO.findFolderByName(folderName)); //Can these be avoided?
-            //noteDAO.remove(noteDAO.findNoteByName(noteName));
-        }
-        
+    @After
+    public void commitTransaction() throws HeuristicRollbackException, RollbackException, HeuristicMixedException, SystemException {
+        userTransaction.commit();
+    }
 
+    @Test
+    public void createNote() {
+        //Create note
+        Note note = fileSystemService.createNote(noteName);
 
-        
-        @Test
-        public void getAllFoldersInFolder() {
-            folderDAO.create(new Folder(folderName));
-            folderDAO.create(new Folder(differentFolderName));
-            
-            Folder folder = folderDAO.findFolderByName(folderName);
-            Folder parentFolder = folderDAO.findFolderByName(differentFolderName);
-            folder.setParent(parentFolder);
-            folderDAO.update(folder);
-            
-            Assert.assertTrue(folderService.getAllFoldersInFolder(folderName) != null);
-            
-            folderDAO.remove(folderDAO.findFolderByName(folderName));
-            folderDAO.remove(folderDAO.findFolderByName(differentFolderName));
-        }
-        
+        //Assert that it exists in database
+        Assert.assertTrue(noteDAO.findByName(noteName).contains(note)); //Better test than DAO equivalent?
 
-        @Test
-        public void getFolderByName() {
-            folderDAO.create(new Folder(folderName));
-            Assert.assertTrue(folderService.getFolderByName(folderName) != null);
-            folderDAO.remove(folderDAO.findFolderByName(folderName));
-        }
+        noteDAO.remove(note);
+    }
 
-        @Test
-        public void setFolderName() {
-            folderDAO.create(new Folder(folderName));
-            folderService.setFolderName(folderName, differentFolderName);
-            Assert.assertTrue(folderDAO.findFolderByName(differentFolderName) != null);
-            folderDAO.remove(folderDAO.findFolderByName(differentFolderName));
-        }
-                   
-        @Test
-        public void setFolderParentFolder() {
-            folderDAO.create(new Folder(folderName));
-            folderDAO.create(new Folder(differentFolderName));
-            
-            folderService.setFolderParentFolder(folderName, differentFolderName);
-            
-            Assert.assertTrue(folderDAO.findFolderByName(folderName).getParent() != null);
-            
-            folderDAO.remove(folderDAO.findFolderByName(folderName)); //same as previous
-            folderDAO.remove(folderDAO.findFolderByName(differentFolderName));
-            //folderDAO.remove(folderDAO.findFolderByName(folderName));
-        }    
-        
-        @Test    
-        public void parentChildRelationIsValid() {
-            folderDAO.create(new Folder(folderName));
-            folderDAO.create(new Folder(differentFolderName));
-            
-            Folder folder = folderDAO.findFolderByName(folderName);
-            Folder parentFolder = folderDAO.findFolderByName(differentFolderName);
-            folder.setParent(parentFolder);
-            folderDAO.update(folder);
-            
-            Assert.assertTrue(folderService.parentChildRelationIsValid(parentFolder, folder));
-            Assert.assertFalse(folderService.parentChildRelationIsValid(folder, parentFolder));
-            
-            folderDAO.remove(folderDAO.findFolderByName(folderName));
-            folderDAO.remove(folderDAO.findFolderByName(differentFolderName));
-        }
+    @Test
+    public void createFolder() {
+        //Create folder
+        Folder folder = fileSystemService.createFolder(folderName);
 
-        */
+        //Assert that it exists in database
+        Assert.assertTrue(folderDAO.findByName(folderName).contains(folder));
+
+        folderDAO.remove(folder);
+    }
+
+    @Test
+    public void removeNote() {
+        //Create note
+        Note note = new Note(noteName);
+        noteDAO.create(note);
+        //Assert that it exists
+        Assert.assertTrue(noteDAO.findByName(noteName).contains(note));
+
+        //Remove it
+        fileSystemService.removeNote(note);
+        //Assert that it no longer exists in database
+        Assert.assertFalse(noteDAO.findByName(noteName).contains(note));
+    }
+
+    @Test
+    public void removeFolder() {
+        //Create folder
+        Folder folder = new Folder(folderName);
+        folderDAO.create(folder);
+
+        //Create a note and set its parent to folder
+        Note note = fileSystemService.createNote(noteName);
+        note.setFolder(folder);
+        folderDAO.flush();
+        folderDAO.refresh(folder);
+        Assert.assertTrue(folder.getNotes().contains(note));
+
+        //Set the folder name
+        fileSystemService.removeFolder(folder);
+
+        //Assert that folder doesn't exists in database
+        Assert.assertFalse(folderDAO.findByName(folderName).contains(folder));
+
+        //Assert that note parent is updated
+        Assert.assertNull(note.getFolder());
+
+        noteDAO.remove(note);
+    }
+
+    @Test
+    public void setNoteText() {
+        //Create note
+        Note note = new Note(noteName);
+        noteDAO.create(note);
+
+        //Set the note text
+        fileSystemService.setNoteText(note, noteText);
+        noteDAO.update(note); //testa om det fungerar utan
+
+        //Assert that note text matches
+        Assert.assertSame(noteDAO.findById(note.getId()).getText(), noteText);
+
+        noteDAO.remove(note);
+    }
+
+    @Test
+    public void setNoteName() {
+        //Create note
+        Note note = new Note(noteName);
+        noteDAO.create(note);
+
+        //Set the note name
+        fileSystemService.setNoteName(note, differentNoteName);
+
+        //Assert that note exists in database with new name
+        Assert.assertTrue(noteDAO.findByName(differentNoteName).contains(note));
+
+        noteDAO.remove(note);
+    }
+
+    @Test
+    public void setFolderName() {
+        //Create folder
+        Folder folder = new Folder(folderName);
+        folderDAO.create(folder);
+
+        //Create a note and set its parent to folder
+        Note note = fileSystemService.createNote(noteName);
+        note.setFolder(folder);
+        folderDAO.flush();
+        folderDAO.refresh(folder);
+        Assert.assertTrue(folder.getNotes().contains(note));
+
+        //Set the folder name
+        fileSystemService.setFolderName(folder, differentFolderName);
+
+        //Assert that folder exists in database with new name
+        Assert.assertTrue(folderDAO.findByName(differentFolderName).contains(folder));
+
+        //Assert that note parent is updated
+        Assert.assertEquals(note.getFolder().getName(), differentFolderName);
+
+        folderDAO.remove(folder);
+        noteDAO.remove(note);
+    }
+
+    @Test
+    public void getAllRootNotes() {
+        //Create note
+        Note note = fileSystemService.createNote(noteName);
+
+        //Assert that it exists in database root (aka parent is null)
+        Assert.assertTrue(fileSystemService.getAllRootNotes().contains(note)); //Better test than DAO equivalent?
+
+        noteDAO.remove(note);
+    }
+
+    @Test
+    public void getAllRootFolders() {
+        //Create folder
+        Folder folder = fileSystemService.createFolder(folderName);
+
+        //Assert that it exists in database root (aka parent is null)
+        Assert.assertTrue(fileSystemService.getAllRootFolders().contains(folder));
+
+        folderDAO.remove(folder);
+    }
+
+    @Test
+    public void getAllNotesInFolder() {
+        //Create folder
+        Folder folder = new Folder(folderName);
+        folderDAO.create(folder);
+
+        //Create a note and set its parent to folder
+        Note note = fileSystemService.createNote(noteName);
+        note.setFolder(folder);
+        folderDAO.flush();
+        folderDAO.refresh(folder);
+        Assert.assertTrue(fileSystemService.getAllNotesInFolder(folder).contains(note));
+
+        folderDAO.remove(folder);
+        noteDAO.remove(note);
+    }
+
+    @Test
+    public void getAllFoldersInFolder() {
+        //Create folder
+        Folder folder = new Folder(folderName);
+        folderDAO.create(folder);
+
+        //Create a different folder and set its parent to folder
+        Folder parentFolder = fileSystemService.createFolder(differentFolderName);
+        folder.setParent(parentFolder);
+        folderDAO.flush();
+        folderDAO.refresh(parentFolder);
+        Assert.assertTrue(fileSystemService.getAllFoldersInFolder(parentFolder).contains(folder));
+
+        folderDAO.remove(folder);
+        folderDAO.remove(parentFolder);
+    }
+
+    @Test
+    public void setNoteParentFolder() {
+        //Create folder
+        Folder folder = new Folder(folderName);
+        folderDAO.create(folder);
+
+        //Create a note and set its parent to folder
+        Note note = fileSystemService.createNote(noteName);
+        fileSystemService.setNoteParentFolder(note, folder);
+        folderDAO.flush();
+        folderDAO.refresh(folder);
+        Assert.assertTrue(folder.getNotes().contains(note));
+
+        folderDAO.remove(folder);
+        noteDAO.remove(note);
+    }
+
+    @Test
+    public void setFolderParentFolder() {
+        //Create folder
+        Folder childFolder = new Folder(folderName);
+        folderDAO.create(childFolder);
+
+        //Create a different folder and set its parent to folder
+        Folder parentFolder = fileSystemService.createFolder(differentFolderName);
+        fileSystemService.setFolderParentFolder(childFolder, parentFolder);
+        folderDAO.flush();
+        folderDAO.refresh(parentFolder);
+        Assert.assertTrue(parentFolder.getChildFolders().contains(childFolder));
+
+        folderDAO.remove(childFolder);
+        folderDAO.remove(parentFolder);
+    }
+
+    @Test
+    public void parentChildRelationIsValid() {
+        //Create folder
+        Folder childFolder = new Folder(folderName);
+        folderDAO.create(childFolder);
+
+        //Create a different folder and set its parent to folder
+        Folder parentFolder = fileSystemService.createFolder(differentFolderName);
+        childFolder.setParent(parentFolder);
+        folderDAO.flush();
+        folderDAO.refresh(parentFolder);
+        Assert.assertTrue(parentFolder.getChildFolders().contains(childFolder));
+
+        Assert.assertTrue(fileSystemService.parentChildRelationIsValid(parentFolder, childFolder));
+        Assert.assertFalse(fileSystemService.parentChildRelationIsValid(childFolder, parentFolder));
+
+        folderDAO.remove(childFolder);
+        folderDAO.remove(parentFolder);
+    }
 }

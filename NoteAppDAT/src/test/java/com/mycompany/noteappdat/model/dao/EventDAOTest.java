@@ -25,7 +25,7 @@ import java.util.List;
 public class EventDAOTest {
 
     private final String eventName = "test_event_name";
-    private final Calendar calendar = Calendar.getInstance();
+    private final Calendar date = Calendar.getInstance();
 
     @EJB
     private EventDAO eventDAO;
@@ -42,7 +42,7 @@ public class EventDAOTest {
 
     @Before
     public void setCalendar() {
-        calendar.set(2000, 10, 10);
+        date.set(2000, 10, 10);
     }
 
     @Before
@@ -58,7 +58,7 @@ public class EventDAOTest {
     @Test
     public void findById() {
         //Create the event
-        Event event = new Event(eventName, calendar);
+        Event event = new Event(eventName, date);
         eventDAO.create(event);
         int id = event.getId();
 
@@ -71,7 +71,7 @@ public class EventDAOTest {
     @Test
     public void findByName() {
         //Create the event
-        Event event = new Event(eventName, calendar);
+        Event event = new Event(eventName, date);
         eventDAO.create(event);
 
         //Assert that it can be found by name

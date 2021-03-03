@@ -28,21 +28,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Note implements Serializable {
 
-    /*
-    QueryDSL
-
-    List<Tuple> userTitleCounts = queryFactory.select(
-          blogPost.title, blogPost.id.count().as(count))
-          .from(blogPost)
-          .groupBy(blogPost.title)
-          .orderBy(count.desc())
-          .fetch();
-    List<Person> persons = query.from(person)
-        .where(person.firstname.eq(firstname))
-        .orderBy(person.surname.desc())
-        .list(person);
-     */
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
