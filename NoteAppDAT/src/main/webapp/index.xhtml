@@ -54,10 +54,21 @@
          
     <p:dialog header="Add event" widgetVar="addEventDialog" modal="false" draggable="false" resizable="false" responsive="true" closeOnEscape="true">
         <h:form>
-                <p:inputText value="#{noteBackingBean.noteName}"/>
-                <p:inputText value="#{noteBackingBean.noteText}"/>
-                <p:datePicker id="buttonbar" showButtonBar="true"/>
-                <p:commandButton value="addCard" action="#{noteBackingBean.createNote}" update="mainForm" process="@form" oncomplete="PF('addEventDialog').hide();"/>
+            <p:panelGrid id="formPanel" columns="4">
+                <p:outputLabel for="noteName" value="Name"/>
+                <p:inputText id="noteName" value="#{noteBackingBean.noteName}" autocomplete="off"/>
+                <p:outputLabel for="noteText" value="Text"/>
+                <p:inputText id="noteText" value="#{noteBackingBean.noteText}" autocomplete="off"/>
+                <p:outputLabel for="buttonbar" value="Date"/>
+                <p:datePicker id="buttonbar" showButtonBar="true" autocomplete="off"/>
+                <p:outputLabel for="timeonly" value="Time"/>
+                <p:datePicker id="timeonly" timeOnly="true" pattern="HH:mm" autocomplete="off"/>
+            </p:panelGrid>
+                <p:commandButton value="addCard" action="#{noteBackingBean.createNote}" update="mainForm" process="@form" oncomplete="PF('addEventDialog').hide();">
+                </p:commandButton>
+                <p:commandButton value="resetForm">
+                    <p:ajax update="formPanel" resetValues="true"/>
+                </p:commandButton>
         </h:form>
     </p:dialog>
          
