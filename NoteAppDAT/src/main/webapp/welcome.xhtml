@@ -25,7 +25,7 @@
                 </h1>
             </div>  
         </div>
-        
+ 
         <!-- Uppermost row -->
         <div class="row" style="background-color: rgb(255, 255, 255);">
             <div class="item-grid center card-example cssanimation sequence fadeInBottom">
@@ -109,7 +109,17 @@
                         Sneaky way through below:
                         <button><a href="index.xhtml" style="text-decoration: none; color: red"> O </a></button>
                     </p>
-                </p:dialog>              
+                </p:dialog>
+                
+                <p:outputPanel id="panel">
+                    <h:form>
+                        <p:inputText value="#{userBean.email}" placeholder="Email"/>
+                        <p:inputText value="#{userBean.password}" placeholder="Password"/>
+                        <p:commandButton value="Log in" action="#{loginControllerBean.onLogin}"/>
+                    </h:form>
+                </p:outputPanel>
+ 
+                
             </div>
         </div>
     </h:body>

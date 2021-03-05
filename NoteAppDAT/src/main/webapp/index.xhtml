@@ -35,14 +35,17 @@
                         <div class="basic-grid">
                             <div class="card">
                                 <p>#{note.name}</p>
+                                <div>
 
                                 <p:commandLink action="#{noteBackingBean.deleteNote}" class="pi pi-trash" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" process="@this" title="Delete">                
                                     <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
                                 </p:commandLink>
 
-                                <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none; float: right" update="noteDetail" onclick="PF('viewEventDialog').show()">                
+                                <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none" update="noteDetail" onclick="PF('viewEventDialog').show()">                
                                     <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
                                 </p:commandLink>
+                                    
+                                </div>
                                 
                             </div>
                         </div>
@@ -72,8 +75,8 @@
         </h:form>
     </p:dialog>
          
-         <p:dialog header="TOTO: put note name here pls" widgetVar="viewEventDialog" modal="true" draggable="false" resizable="true" responsive="true" closeOnEscape="true" height="100" minHeight="100">
-        <p:outputPanel id="noteDetail" style="text-align:center;">
+    <p:dialog header="TODO: Note name" widgetVar="viewEventDialog" modal="true" draggable="false" resizable="true" responsive="true" closeOnEscape="true" height="100" minHeight="100">
+        <p:outputPanel id="noteDetail">
             <p>#{noteBackingBean.selectedNote.text}</p>
         </p:outputPanel>
     </p:dialog>
