@@ -19,7 +19,7 @@
 
          <div class="header">
             <div class="header-container">
-                <p:commandLink class="pi pi-list" style="font-size: 2rem; color: white; text-decoration: none" onclick="location.href='welcome.xhtml';" />
+                <p:commandLink class="pi pi-home" style="font-size: 2rem; color: white; text-decoration: none" rendered="#{userBean.loggedIn}" action="#{loginControllerBean.onLogout}" />
                 <p:commandLink class="pi pi-calendar" style="font-size: 2rem; color: white; text-decoration: none"/>
             </div>
             <div class="header-container">

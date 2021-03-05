@@ -11,14 +11,13 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter({"/show"})
+@WebFilter({"/index"})
 public class LoginRedirectFilter extends HttpFilter {
 	@Inject private UserBean userBean;
 	@Inject private ServletContext servletContext;
 
 	@Override
-	protected void doFilter(HttpServletRequest request, HttpServletResponse response,
-	                        FilterChain chain) throws IOException, ServletException {
+	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 		if (userBean.isLoggedIn()) {
 			chain.doFilter(request, response);
 		} else {
@@ -26,7 +25,4 @@ public class LoginRedirectFilter extends HttpFilter {
 			response.sendRedirect(servletContext.getContextPath());
 		}
 	}
-
-	
-
 }

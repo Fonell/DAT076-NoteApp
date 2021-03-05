@@ -391,8 +391,4 @@ button.ui-button {
 	}
 }
 
-.ui-widget-content {
-    background: var(--darker-grey);
-    border: none;
-    color: unset;
-}
+

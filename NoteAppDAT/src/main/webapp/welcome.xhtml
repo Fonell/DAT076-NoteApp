@@ -35,7 +35,7 @@
                 </div>
                 <div class="itemm">
                     <i class="pi pi-share-alt" style="font-size: 2rem"></i>
-                    <p> Share tasks with teamates. </p>
+                    <p> Share tasks with teammates. </p>
                 </div>
                 <div class="itemm">
                     <i class="pi pi-thumbs-up" style="font-size: 2rem"></i>
@@ -85,17 +85,22 @@
                 </h4>
                 <div class="basic-grid card-example center">
                     <p:commandButton value="Sign Up" type="button" style="log-sign-buttons" onclick="PF('SignUp').show()"/>
-                    <p:commandButton value="Login" type="button" style="log-sign-buttons" onclick="PF('Login').show" />
+                    <p:commandButton value="Login" type="button" style="log-sign-buttons" onclick="PF('Login').show()" />
                 </div>
+                
                 <p:dialog header="Header" widgetVar="Login" minHeight="40" width="350" showEffect="fade" modal="true">
                     <p class="p-m-0"> 
-                        Username:
-                        <input type="text" value="" />
-                        <hr />
-                        Password:
-                        <input type="password" value="" />
+                        <h:form>
+                            Email:
+                            <p:inputText value="#{userBean.email}" placeholder="Email"/>
+                            <hr />
+                            Password:
+                            <p:inputText value="#{userBean.password}" placeholder="Password"/>
+                            <p:commandButton value="Log in" action="#{loginControllerBean.onLogin}"/>
+                        </h:form>
                     </p>
                 </p:dialog>
+                
                 <p:dialog header="Header" widgetVar="SignUp" minHeight="40" width="350" showEffect="fade" modal="true">
                     <p class="p-m-0">
                         Email:
@@ -110,15 +115,6 @@
                         <button><a href="index.xhtml" style="text-decoration: none; color: red"> O </a></button>
                     </p>
                 </p:dialog>
-                
-                <p:outputPanel id="panel">
-                    <h:form>
-                        <p:inputText value="#{userBean.email}" placeholder="Email"/>
-                        <p:inputText value="#{userBean.password}" placeholder="Password"/>
-                        <p:commandButton value="Log in" action="#{loginControllerBean.onLogin}"/>
-                    </h:form>
-                </p:outputPanel>
- 
                 
             </div>
         </div>

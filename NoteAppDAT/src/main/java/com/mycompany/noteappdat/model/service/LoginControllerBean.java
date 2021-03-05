@@ -2,9 +2,12 @@ package com.mycompany.noteappdat.model.service;
 
 import com.mycompany.noteappdat.model.user.UserBean;
 import fish.payara.cdi.auth.roles.RolesPermitted;
+import static java.lang.Runtime.version;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.security.enterprise.AuthenticationStatus;
@@ -19,7 +22,7 @@ import org.omnifaces.util.Messages;
 @Named
 @RequestScoped
 @DeclareRoles({"admin", "user"})
-@CustomFormAuthenticationMechanismDefinition(loginToContinue = @LoginToContinue(useForwardToLogin = false, loginPage = "/welcome"))
+@CustomFormAuthenticationMechanismDefinition(loginToContinue = @LoginToContinue(useForwardToLogin = false, loginPage = "/welcome.xhtml"))
 public class LoginControllerBean {
 	@Inject private UserBean userBean;
 	@Inject private SecurityContext securityContext;
@@ -39,6 +42,10 @@ public class LoginControllerBean {
 		if (status != AuthenticationStatus.SUCCESS) {
 			Messages.addGlobalError("Authentication failed!");
 		}
+                if (status == AuthenticationStatus.SUCCESS ){
+                    Faces.redirect("index.xhtml");
+                }
+                
 	}
 
 	@RolesPermitted({"user", "admin"})
