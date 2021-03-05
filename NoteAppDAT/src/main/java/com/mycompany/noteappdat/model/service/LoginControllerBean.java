@@ -2,12 +2,8 @@ package com.mycompany.noteappdat.model.service;
 
 import com.mycompany.noteappdat.model.user.UserBean;
 import fish.payara.cdi.auth.roles.RolesPermitted;
-import static java.lang.Runtime.version;
 import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.security.enterprise.AuthenticationStatus;
