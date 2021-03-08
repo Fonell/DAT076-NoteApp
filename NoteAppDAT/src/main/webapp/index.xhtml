@@ -19,13 +19,25 @@
 
          <div class="header">
             <div class="header-container">
-                <p:commandLink class="pi pi-home" style="font-size: 2rem; color: white; text-decoration: none" rendered="#{userBean.loggedIn}" action="#{loginControllerBean.onLogout}" />
+                <p:commandLink class="pi pi-home" style="font-size: 2rem; color: white; text-decoration: none" rendered="#{userBean.loggedIn}" onclick="PF('sidebar1').show()" />
                 <p:commandLink class="pi pi-calendar" style="font-size: 2rem; color: white; text-decoration: none"/>
             </div>
             <div class="header-container">
                 <p:commandLink class="pi pi-plus-circle" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" oncomplete="PF('addEventDialog').show()" title="View"/>
             </div>
         </div>
+        
+        <p:sidebar widgetVar="sidebar1" baseZIndex="10000">
+            <h3 style="center"> NoteApp. </h3>           
+            <div>
+                <p:commandLink style="menu-button" value="Folders"/>
+                <p:commandLink style="menu-button" value="Notes"/>
+                <p:commandLink style="menu-button" value="Settings"/>
+                <p:separator />
+                <p:commandLink style="menu-button" action="#{loginControllerBean.onLogout}" value="Logout"/>
+            </div>
+        </p:sidebar>
+                           
         
         <div class="main-content">
             <p class="large-title" align="center">March</p>
@@ -75,7 +87,7 @@
         </h:form>
     </p:dialog>
          
-    <p:dialog header="TODO: Note name" widgetVar="viewEventDialog" modal="true" draggable="false" resizable="true" responsive="true" closeOnEscape="true" height="100" minHeight="100">
+         <p:dialog header="#{noteBackingBean.selectedNote.name}" widgetVar="viewEventDialog" modal="true" draggable="false" resizable="true" responsive="true" closeOnEscape="true" height="100" minHeight="100">
         <p:outputPanel id="noteDetail">
             <p>#{noteBackingBean.selectedNote.text}</p>
         </p:outputPanel>
