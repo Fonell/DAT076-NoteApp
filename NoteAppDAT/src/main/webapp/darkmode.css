@@ -365,6 +365,21 @@ button.ui-button {
     opacity: 1;
     right: 0;
   }
+  
+  /* --- HAMBURGERMENU --- */
+  
+  .ui-sidebar-left {
+    font-family: 'Comic Sans';
+    padding: 30px;     
+  }
+  
+  .menu-button {
+      padding-top: 30px;
+      font-size: 32px;
+      text-decoration: none;
+  }
+  
+  /* --- SLUT PÅ HAMBURGERMENU --- */
 
 @keyframes float-pencil {
 	0% {
@@ -391,8 +406,4 @@ button.ui-button {
 	}
 }
 
-.ui-widget-content {
-    background: var(--darker-grey);
-    border: none;
-    color: unset;
-}
+

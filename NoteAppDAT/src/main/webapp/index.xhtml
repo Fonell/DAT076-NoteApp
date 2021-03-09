@@ -19,13 +19,25 @@
 
          <div class="header">
             <div class="header-container">
-                <p:commandLink class="pi pi-list" style="font-size: 2rem; color: white; text-decoration: none" onclick="location.href='welcome.xhtml';" />
+                <p:commandLink class="pi pi-home" style="font-size: 2rem; color: white; text-decoration: none" rendered="#{userBean.loggedIn}" onclick="PF('sidebar1').show()" />
                 <p:commandLink class="pi pi-calendar" style="font-size: 2rem; color: white; text-decoration: none"/>
             </div>
             <div class="header-container">
                 <p:commandLink class="pi pi-plus-circle" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" oncomplete="PF('addEventDialog').show()" title="View"/>
             </div>
         </div>
+        
+        <p:sidebar widgetVar="sidebar1" baseZIndex="10000">
+            <h3 style="center"> NoteApp. </h3>           
+            <div>
+                <p:commandLink style="menu-button" value="Folders"/>
+                <p:commandLink style="menu-button" value="Notes"/>
+                <p:commandLink style="menu-button" value="Settings"/>
+                <p:separator />
+                <p:commandLink style="menu-button" action="#{loginControllerBean.onLogout}" value="Logout"/>
+            </div>
+        </p:sidebar>
+                           
         
         <div class="main-content">
             <p class="large-title" align="center">March</p>
@@ -35,14 +47,17 @@
                         <div class="basic-grid">
                             <div class="card">
                                 <p>#{note.name}</p>
+                                <div>
 
                                 <p:commandLink action="#{noteBackingBean.deleteNote}" class="pi pi-trash" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" process="@this" title="Delete">                
                                     <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
                                 </p:commandLink>
 
-                                <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none; float: right" update="noteDetail" onclick="PF('viewEventDialog').show()">                
+                                <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none" update="noteDetail" onclick="PF('viewEventDialog').show()">                
                                     <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
                                 </p:commandLink>
+                                    
+                                </div>
                                 
                             </div>
                         </div>
@@ -54,15 +69,26 @@
          
     <p:dialog header="Add event" widgetVar="addEventDialog" modal="false" draggable="false" resizable="false" responsive="true" closeOnEscape="true">
         <h:form>
-                <p:inputText value="#{noteBackingBean.noteName}"/>
-                <p:inputText value="#{noteBackingBean.noteText}"/>
-                <p:datePicker id="buttonbar" showButtonBar="true"/>
-                <p:commandButton value="addCard" action="#{noteBackingBean.createNote}" update="mainForm" process="@form" oncomplete="PF('addEventDialog').hide();"/>
+            <p:panelGrid id="formPanel" columns="4">
+                <p:outputLabel for="noteName" value="Name"/>
+                <p:inputText id="noteName" value="#{noteBackingBean.noteName}" autocomplete="off"/>
+                <p:outputLabel for="noteText" value="Text"/>
+                <p:inputText id="noteText" value="#{noteBackingBean.noteText}" autocomplete="off"/>
+                <p:outputLabel for="buttonbar" value="Date"/>
+                <p:datePicker id="buttonbar" showButtonBar="true" autocomplete="off"/>
+                <p:outputLabel for="timeonly" value="Time"/>
+                <p:datePicker id="timeonly" timeOnly="true" pattern="HH:mm" autocomplete="off"/>
+            </p:panelGrid>
+                <p:commandButton value="addCard" action="#{noteBackingBean.createNote}" update="mainForm" process="@form" oncomplete="PF('addEventDialog').hide();">
+                </p:commandButton>
+                <p:commandButton value="resetForm">
+                    <p:ajax update="formPanel" resetValues="true"/>
+                </p:commandButton>
         </h:form>
     </p:dialog>
          
-         <p:dialog header="TOTO: put note name here pls" widgetVar="viewEventDialog" modal="true" draggable="false" resizable="true" responsive="true" closeOnEscape="true" height="100" minHeight="100">
-        <p:outputPanel id="noteDetail" style="text-align:center;">
+         <p:dialog header="#{noteBackingBean.selectedNote.name}" widgetVar="viewEventDialog" modal="true" draggable="false" resizable="true" responsive="true" closeOnEscape="true" height="100" minHeight="100">
+        <p:outputPanel id="noteDetail">
             <p>#{noteBackingBean.selectedNote.text}</p>
         </p:outputPanel>
     </p:dialog>

@@ -16,7 +16,7 @@
         <jakartaee>8.0</jakartaee>
     </properties>
 
-    <!-- from arquillian -->
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -26,9 +26,15 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.apache.deltaspike.distribution</groupId>
+                <artifactId>distributions-bom</artifactId>
+                <version>1.9.4</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-    <!-- to arquillian -->
 
     <dependencies>
         <!-- from arquillian -->
@@ -48,6 +54,17 @@
             <artifactId>payara-embedded-all</artifactId>
             <version>5.181</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+                <groupId>fish.payara.api</groupId>
+                <artifactId>payara-api</artifactId>
+                <version>5.194</version>
+                <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>3.10.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -98,6 +115,27 @@
             <groupId>org.primefaces.extensions</groupId>
             <artifactId>all-themes</artifactId>
             <version>1.0.8</version>
+        </dependency>
+        <!-- deltaspike -->
+        <dependency>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-impl</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-jsf-module-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-jsf-module-impl</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
     
