@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.transaction.*;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -25,7 +26,7 @@ import java.util.List;
 public class EventDAOTest {
 
     private final String eventName = "test_event_name";
-    private final Calendar date = Calendar.getInstance();
+    private final GregorianCalendar date = new GregorianCalendar(2000, 10, 10);
 
     @EJB
     private EventDAO eventDAO;
@@ -38,11 +39,6 @@ public class EventDAOTest {
                 .addClasses(EventDAO.class, Event.class, Note.class, Folder.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-    }
-
-    @Before
-    public void setCalendar() {
-        date.set(2000, 10, 10);
     }
 
     @Before
@@ -79,5 +75,32 @@ public class EventDAOTest {
         Assert.assertTrue(events.contains(event));
 
         eventDAO.remove(event);
+    }
+
+    @Test
+    public void getEventsInPeriod() {
+        //Create three events with different dates
+        Event first = new Event(eventName, new GregorianCalendar(2000, 0, 0));
+        eventDAO.create(first);
+        Event second = new Event(eventName, new GregorianCalendar(2003, 0, 0));
+        eventDAO.create(second);
+        Event third = new Event(eventName, new GregorianCalendar(2005, 0, 0));
+        eventDAO.create(third);
+
+        //Create two dates representing a time period
+        GregorianCalendar from = new GregorianCalendar(2001, 0, 0);
+        GregorianCalendar to = new GregorianCalendar(2004, 0, 0);
+
+        eventDAO.flush();
+
+        //Get all events in the period between from and to
+        List<Event> events = eventDAO.getEventsInPeriod(from, to);
+
+        //Assert that the second event is in the list
+        Assert.assertTrue(events.contains(second));
+
+        //Assert that the first and third events are not in the list
+        Assert.assertFalse(events.contains(first));
+        Assert.assertFalse(events.contains(third));
     }
 }

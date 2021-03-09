@@ -6,6 +6,7 @@ import com.mycompany.noteappdat.model.dao.NoteDAO;
 import com.mycompany.noteappdat.model.entity.Event;
 import com.mycompany.noteappdat.model.entity.Folder;
 import com.mycompany.noteappdat.model.entity.Note;
+import com.mycompany.noteappdat.model.service.Almanac.Almanac;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -20,11 +21,11 @@ import org.junit.runner.RunWith;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.transaction.*;
-import java.util.Calendar;
+import java.util.*;
 
 @RunWith(Arquillian.class)
 public class CalendarServiceTest {
-    private final Calendar date = Calendar.getInstance();
+    private final GregorianCalendar date = (GregorianCalendar) Calendar.getInstance();
     private final String eventName = "test_event_name";
     private final String noteName = "test_note_name";
     @Inject
@@ -77,13 +78,49 @@ public class CalendarServiceTest {
         eventDAO.create(event);
 
         //Assert that the event date matches original date
-        Assert.assertEquals(eventDAO.findById(event.getId()).getEventDate(), date);
+        Assert.assertEquals(eventDAO.findById(event.getId()).getDate(), date);
 
         //Set the date
-        calendarService.setDate(event, 0, 0, 0, 0, 0);
+        calendarService.setDate(event, new Date(0, 0, 0, 0, 0));
 
         //Assert that the event date doesn't match original date
-        Assert.assertNotEquals(eventDAO.findById(event.getId()).getEventDate(), date);
+        Assert.assertNotEquals(eventDAO.findById(event.getId()).getDate(), date);
+    }
+
+    @Test
+    public void getPeriod() {
+        //Create three events with different dates
+        Event first = new Event(eventName, new GregorianCalendar(2000, 0, 0));
+        eventDAO.create(first);
+        Event second = new Event(eventName, new GregorianCalendar(2003, 0, 0));
+        eventDAO.create(second);
+        Event third = new Event(eventName, new GregorianCalendar(2005, 0, 0));
+        eventDAO.create(third);
+
+        //Create two dates representing a time period
+        GregorianCalendar from = new GregorianCalendar(2001, 0, 0);
+        GregorianCalendar to = new GregorianCalendar(2004, 0, 0);
+
+        //Get all events in the period between from and to
+        Almanac<Event> almanac = calendarService.getPeriod(from, to);
+
+        List<Event> events = new ArrayList<>();
+        for (Almanac<Event>.Year y : almanac.getYears()) {
+            for (Almanac<Event>.Month m : y.getMonths()) {
+                for (Almanac<Event>.Week w : m.getWeeks()) {
+                    for (Almanac<Event>.Day d : m.getDays()) {
+                        events.addAll(d.getEvents());
+                    }
+                }
+            }
+        }
+
+        //Assert that the second event is in the list
+        Assert.assertTrue(events.contains(second));
+
+        //Assert that the first and third events are not in the list
+        Assert.assertFalse(events.contains(first));
+        Assert.assertFalse(events.contains(third));
     }
 
     @Test

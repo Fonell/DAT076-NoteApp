@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import lombok.Getter;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Stateless
@@ -29,5 +30,13 @@ public class EventDAO extends AbstractDAO<Event> {
         TypedQuery<Event> query = entityManager.createNamedQuery("Event.findByName", Event.class);
         query.setParameter("name", name);
         return query.getResultList();
+    }
+
+    public List<Event> getEventsInPeriod(GregorianCalendar from, GregorianCalendar to) {
+        TypedQuery<Event> query = entityManager.createNamedQuery("Event.getEvents", Event.class);
+        query.setParameter("from", from);
+        query.setParameter("to", to);
+        List<Event> events = query.getResultList();
+        return events;
     }
 }
