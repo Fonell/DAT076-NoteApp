@@ -21,24 +21,16 @@ public class Almanac<E extends DateInterface> {
         }
     }
 
+    public Almanac() {
+
+    }
+
     public void insert(E event) {
         years.insert(event);
     }
 
     public Day getDay(int year, int month, int day) {
         return years.getYear(year).getMonth(month).getDay(day);
-    }
-
-    public Week getWeek(int year, int month, int week) {
-        return years.getYear(year).getMonth(month).getWeek(week);
-    }
-
-    public Month getMonth(int year, int month) {
-        return years.getYear(year).getMonth(month);
-    }
-
-    public Year getYear(int year) {
-        return years.getYear(year);
     }
 
     public List<Year> getYears() {
