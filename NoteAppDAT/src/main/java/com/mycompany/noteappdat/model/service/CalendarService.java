@@ -43,11 +43,8 @@ public class CalendarService {
     }
 
     public Almanac<Event> getPeriod(GregorianCalendar date1, GregorianCalendar date2) {
-        almanac = new Almanac<>();
         List<Event> events = eventDAO.getEventsInPeriod(date1, date2);
-        for (Event e : events) {
-            almanac.insert(e);
-        }
+        almanac = new Almanac<>(events);
         return almanac;
     }
 
@@ -57,5 +54,15 @@ public class CalendarService {
 
     private GregorianCalendar convertDateToCal(Date date) {
         return new GregorianCalendar(date.getYear(), date.getMonth(), date.getDay(), date.getHours(), date.getMinutes());
+    }
+
+    public void removeEvent(Event selectedEvent) { //TODO: UNTESTED
+        eventDAO.remove(selectedEvent);
+    }
+
+    public Almanac<Event> getAllEvents() {
+        List<Event> events = eventDAO.getEvents();
+        almanac = new Almanac<>(events);
+        return almanac;
     }
 }

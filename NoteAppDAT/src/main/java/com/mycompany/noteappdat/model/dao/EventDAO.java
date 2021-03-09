@@ -33,10 +33,14 @@ public class EventDAO extends AbstractDAO<Event> {
     }
 
     public List<Event> getEventsInPeriod(GregorianCalendar from, GregorianCalendar to) {
-        TypedQuery<Event> query = entityManager.createNamedQuery("Event.getEvents", Event.class);
+        TypedQuery<Event> query = entityManager.createNamedQuery("Event.getEventsInPeriod", Event.class);
         query.setParameter("from", from);
         query.setParameter("to", to);
-        List<Event> events = query.getResultList();
-        return events;
+        return query.getResultList();
+    }
+
+    public List<Event> getEvents() { //TODO: NOT TESTED
+        TypedQuery<Event> query = entityManager.createNamedQuery("Event.getEvents", Event.class);
+        return query.getResultList();
     }
 }

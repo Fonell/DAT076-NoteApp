@@ -17,8 +17,13 @@ import java.util.GregorianCalendar;
 )
 
 @NamedQuery(
-        name = "Event.getEvents",
+        name = "Event.getEventsInPeriod",
         query = "SELECT e FROM Event e WHERE e.date BETWEEN :from AND :to"
+)
+
+@NamedQuery(
+        name = "Event.getEvents",
+        query = "SELECT e FROM Event"
 )
 
 @Data

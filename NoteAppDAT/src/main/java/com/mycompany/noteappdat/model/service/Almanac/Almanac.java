@@ -1,5 +1,7 @@
 package com.mycompany.noteappdat.model.service.Almanac;
 
+import com.mycompany.noteappdat.model.entity.Event;
+
 import java.util.*;
 
 /**
@@ -12,6 +14,12 @@ import java.util.*;
 public class Almanac<E extends DateInterface> {
 
     private final YearCollection years = new YearCollection();
+
+    public Almanac(List<E> events) {
+        for (E e : events) {
+            insert(e);
+        }
+    }
 
     public void insert(E event) {
         years.insert(event);

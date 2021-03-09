@@ -16,9 +16,7 @@ import java.util.List;
 @Data
 @Named
 @ViewScoped
-public class NoteBackingBean implements Serializable {
-    @EJB
-    private NoteDAO noteDAO;
+public class FolderBean implements Serializable {
 
     @Inject
     private FileSystemService fss;
@@ -29,11 +27,6 @@ public class NoteBackingBean implements Serializable {
     private String noteName;
     private String noteText;
     private String noteFolder;
-
-    //todo value stuff
-
-    private void init() {
-    }
 
     public void createNote() {
         fss.createNote(noteName);
