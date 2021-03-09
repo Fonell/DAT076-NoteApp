@@ -89,8 +89,8 @@ body {
     background-color: var(--dark-grey);
     border-radius: 10px;
     box-shadow: 0px 5px 10px var(--dark-shadow);
-    padding: 30px;
-    margin-bottom: 15px;
+    padding: 15px;
+    margin-bottom: 10px;
     grid-auto-flow: row;
 }
 
@@ -132,8 +132,6 @@ body {
 .basic-grid {
     display: flex;
     flex-wrap: wrap;
-    
-    padding-bottom: 40px;
 }
 
 .card {   
@@ -178,7 +176,107 @@ body {
     border-color: var(--lighter-grey);
     color: var(--lighter-grey);
 }
+/* ------ WELCOME PAGE CODE ------- */
+.title-header {
+    margin: 80px;
+    font-family: 'Roboto', sans-serif;
+    text-size: 70px;
+}
 
+button.ui-button {
+    margin-right: .5rem;
+}
+
+.center {
+     margin: auto;
+     width: 50%;
+     padding: 10px;
+     text-align: center;
+}
+
+.mega-title { 
+    font-size: 48px; 
+}
+
+.item-grid {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.sign-in-div {
+    text-color: black;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+/* LOG SIGN IN BUTTONS */
+.log-sign-button {
+	box-shadow: 3px 5px 14px 10px #1c1b18;
+	background:linear-gradient(to bottom, #e0e0e0 5%, #a3a3a3 100%);
+	background-color:#e0e0e0;
+	border-radius:18px;
+	border:4px solid #333029;
+	display:inline-block;
+	cursor:pointer;
+	color:#2c2e27;
+	font-family:Trebuchet MS;
+	font-size:23px;
+	font-weight:bold;
+	text-decoration:none;
+	text-shadow:-2px 2px 4px #ffffff;
+}
+.log-sign-button:hover {
+	background:linear-gradient(to bottom, #a3a3a3 5%, #e0e0e0 100%);
+	background-color:#a3a3a3;
+}
+.log-sign-button:active {
+	position:relative;
+	top:1px;
+}
+
+
+/* END OF LOG SIGN IN BUTTONS */
+
+.itemm {
+    color: #242424;
+    grid-auto-flow: row;
+}
+.basic-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-example {
+    margin-top: 10px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    margin: auto;
+    text-align: center;
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 80px;
+}
+
+/* CSS ANIMATION GREJER */
+.cssanimation, .cssanimation span {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.cssanimation span { display: inline-block }
+
+.fadeInBottom { animation-name: fadeInBottom }
+@keyframes fadeInBottom {
+    from {
+        opacity: 0;
+        transform: translateY(20%);
+    }
+    to { opacity: 1 }
+}
+
+/* --- SLUT PÅ CSS ANIMATION GREJER --- */
 /* -----------------------------------------------  STARTPAGE.HTML  ----------------------------------------------- */
 .note-app-title {
     position: relative;
@@ -294,7 +392,7 @@ body {
 }
 
 .ui-widget-content {
-    background: none;
+    background: var(--darker-grey);
     border: none;
     color: unset;
 }
