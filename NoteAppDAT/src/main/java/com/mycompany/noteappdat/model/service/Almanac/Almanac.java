@@ -1,7 +1,5 @@
 package com.mycompany.noteappdat.model.service.Almanac;
 
-import com.mycompany.noteappdat.model.entity.Event;
-
 import java.util.*;
 
 /**
@@ -13,7 +11,7 @@ import java.util.*;
  */
 public class Almanac<E extends DateInterface> {
 
-    private final YearCollection years = new YearCollection();
+    private final YearCollection years = new YearCollection(42);
 
     public Almanac(List<E> events) {
         for (E e : events) {
@@ -37,15 +35,22 @@ public class Almanac<E extends DateInterface> {
         return years.getYears();
     }
 
+
+
     private abstract class TimePeriod<T> {
+        private int date;
         Map<Integer, T> periodMap = new TreeMap<>();
+
+        public TimePeriod(int eventDate) {
+            this.date = eventDate;
+        }
 
         public void insert(E event) {
             int eventDate = getDate(event);
 
             T period = periodMap.get(eventDate);
             if (period == null) {
-                period = newPeriod();
+                period = newSubPeriod(eventDate);
                 insertIntoPeriod(period, event);
                 periodMap.put(eventDate, period);
                 return;
@@ -55,12 +60,22 @@ public class Almanac<E extends DateInterface> {
 
         protected abstract void insertIntoPeriod(T period, E event);
 
-        protected abstract T newPeriod();
+        protected abstract T newSubPeriod(int eventDate);
 
-        protected abstract Integer getDate(DateInterface event);
+        protected abstract int getDate(DateInterface event);
+
+        public int getTime() {
+            return this.date;
+        }
     }
 
+
+
     public class YearCollection extends TimePeriod<Year> {
+
+        public YearCollection(int eventDate) {
+            super(eventDate);
+        }
 
         @Override
         protected void insertIntoPeriod(Year period, E event) {
@@ -68,12 +83,12 @@ public class Almanac<E extends DateInterface> {
         }
 
         @Override
-        protected Year newPeriod() {
-            return new Year();
+        protected Year newSubPeriod(int eventDate) {
+            return new Year(eventDate);
         }
 
         @Override
-        protected Integer getDate(DateInterface event) {
+        protected int getDate(DateInterface event) {
             return event.getYear();
         }
 
@@ -86,19 +101,26 @@ public class Almanac<E extends DateInterface> {
         }
     }
 
+
+
     public class Year extends TimePeriod<Month> {
+
+        public Year(int eventDate) {
+            super(eventDate);
+        }
+
         @Override
         protected void insertIntoPeriod(Month period, E event) {
             period.insert(event);
         }
 
         @Override
-        protected Month newPeriod() {
-            return new Month();
+        protected Month newSubPeriod(int eventDate) {
+            return new Month(eventDate);
         }
 
         @Override
-        protected Integer getDate(DateInterface event) {
+        protected int getDate(DateInterface event) {
             return event.getMonth();
         }
 
@@ -111,7 +133,13 @@ public class Almanac<E extends DateInterface> {
         }
     }
 
+
+
     public class Month extends TimePeriod<Week> {
+
+        public Month(int eventDate) {
+            super(eventDate);
+        }
 
         @Override
         protected void insertIntoPeriod(Week period, E event) {
@@ -119,16 +147,16 @@ public class Almanac<E extends DateInterface> {
         }
 
         @Override
-        protected Week newPeriod() {
-            return new Week();
+        protected Week newSubPeriod(int eventDate) {
+            return new Week(eventDate);
         }
 
         @Override
-        protected Integer getDate(DateInterface event) {
+        protected int getDate(DateInterface event) {
             return event.getWeek();
         }
 
-        public Week getWeek(int week) {
+        public Week getWeek(String week) {
             return periodMap.get(week);
         }
 
@@ -147,9 +175,20 @@ public class Almanac<E extends DateInterface> {
             }
             return days;
         }
+
+        public String getStringRepresentation() {
+            //TODO: Make this not awful. Probably will never happen.
+            return this.getDays().get(0).getEvents().get(0).getDate().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+        }
     }
 
+
+
     public class Week extends TimePeriod<Day> {
+
+        public Week(int eventDate) {
+            super(eventDate);
+        }
 
         @Override
         protected void insertIntoPeriod(Day period, E event) {
@@ -157,12 +196,12 @@ public class Almanac<E extends DateInterface> {
         }
 
         @Override
-        protected Day newPeriod() {
+        protected Day newSubPeriod(int eventDate) {
             return new Day();
         }
 
         @Override
-        protected Integer getDate(DateInterface event) {
+        protected int getDate(DateInterface event) {
             return event.getDay();
         }
 
@@ -175,7 +214,10 @@ public class Almanac<E extends DateInterface> {
         }
     }
 
+
+
     public class Day {
+        private int date;
         TreeSet<E> events = new TreeSet<>();
 
         public void insert(E event) {
@@ -184,6 +226,15 @@ public class Almanac<E extends DateInterface> {
 
         public List<E> getEvents() {
             return new ArrayList<>(events);
+        }
+
+        public int getTime() {
+            return date;
+        }
+
+        public String getStringRepresentation() {
+            //TODO: Make this not awful. Probably will never happen.
+            return getEvents().get(0).getDate().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
         }
     }
 }

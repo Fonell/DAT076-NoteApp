@@ -21,6 +21,11 @@ import java.util.GregorianCalendar;
         query = "SELECT e FROM Event e WHERE e.eventDate BETWEEN :from AND :to"
 )
 
+@NamedQuery(
+        name = "Event.getEvents",
+        query = "SELECT e FROM Event e"
+)
+
 
 @Data
 @Entity(name = "Event")
@@ -54,12 +59,22 @@ public class Event implements Serializable, DateInterface {
 
     @Override
     public int getWeek() {
-        return eventDate.get(Calendar.WEEK_OF_MONTH);
+        return eventDate.get(Calendar.WEEK_OF_YEAR);
     }
 
     @Override
     public int getDay() {
         return eventDate.get(Calendar.DAY_OF_MONTH);
+    }
+
+    @Override
+    public int getHour() {
+        return eventDate.get(Calendar.HOUR_OF_DAY);
+    }
+
+    @Override
+    public int getMin() {
+        return eventDate.get(Calendar.MINUTE);
     }
     
     @Override

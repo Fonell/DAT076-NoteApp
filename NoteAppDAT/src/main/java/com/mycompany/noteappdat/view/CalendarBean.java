@@ -1,23 +1,16 @@
 package com.mycompany.noteappdat.view;
 
-import com.mycompany.noteappdat.model.dao.NoteDAO;
 import com.mycompany.noteappdat.model.entity.Event;
-import com.mycompany.noteappdat.model.entity.Folder;
-import com.mycompany.noteappdat.model.entity.Note;
 import com.mycompany.noteappdat.model.service.Almanac.Almanac;
-import com.mycompany.noteappdat.model.service.Almanac.Almanac.Day;
-import com.mycompany.noteappdat.model.service.Almanac.Almanac.Month;
-import com.mycompany.noteappdat.model.service.Almanac.Almanac.Week;
 import com.mycompany.noteappdat.model.service.Almanac.Almanac.Year;
 import com.mycompany.noteappdat.model.service.CalendarService;
-import com.mycompany.noteappdat.model.service.FileSystemService;
 import lombok.Data;
 
-import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,11 +31,6 @@ public class CalendarBean implements Serializable {
     private Date to;
 
     
-    private Year loopYear;
-    private Month loopMonth;
-    private Week loopWeek;
-    private Day loopDay;
-    
     public void createEvent() {
         selectedEvent = cs.createEvent(eventName);
     }
@@ -59,7 +47,9 @@ public class CalendarBean implements Serializable {
         return cs.getPeriod(from, to);
     }
 
-    public Almanac<Event> getEvents() {
-        return cs.getAllEvents();
+    public List<Almanac<Event>.Year> getEvents() {
+        Almanac<Event> almanac = cs.getAllEvents();
+
+        return almanac.getYears();
     }
 }
