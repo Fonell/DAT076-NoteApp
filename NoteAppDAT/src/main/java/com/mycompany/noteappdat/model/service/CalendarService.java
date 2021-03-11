@@ -35,7 +35,7 @@ public class CalendarService {
     }
 
     public void setDate(Event event, GregorianCalendar date) {
-        event.setDate(date);
+        event.setEventDate(date);
     }
 
     public Almanac<Event> getPeriod(Date date1, Date date2) {

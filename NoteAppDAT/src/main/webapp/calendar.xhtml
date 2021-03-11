@@ -18,10 +18,20 @@
      <h:body>
 
             <h:form id="mainForm">
-                <p:repeat id="1" var="year" value="#{calendarBean.events.years}">
-                    <p:repeat id="1" var="month" value="#{year.months}">
-                        <p:repeat id="1" var="day" value="#{month.days}">
-                            <p>#{day}
+                <p:repeat id="1" var="year" value="#{calendarBean.events.getYears()}">
+                    <f:setPropertyActionListener target="#{noteBackingBean.loopYear}" value="#{year}" />
+                    
+                    <p:repeat id="1" var="month" value="#{loopYear.getMonths()}">
+                        <f:setPropertyActionListener target="#{noteBackingBean.loopMonth}" value="#{month}" />
+                        
+                        <p:repeat id="1" var="week" value="#{loopMonth.getWeeks()}">
+                            <f:setPropertyActionListener target="#{noteBackingBean.loopWeek}" value="#{week}" />
+                            
+                            <p:repeat id="1" var="day" value="#{loopWeek.getDays()}">
+                                <f:setPropertyActionListener target="#{noteBackingBean.loopDay}" value="#{day}" />
+                                
+                                    <p>#{day}
+                            </p:repeat>
                         </p:repeat>
                     </p:repeat>
                 </p:repeat>

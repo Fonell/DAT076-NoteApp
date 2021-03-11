@@ -18,13 +18,9 @@ import java.util.GregorianCalendar;
 
 @NamedQuery(
         name = "Event.getEventsInPeriod",
-        query = "SELECT e FROM Event e WHERE e.date BETWEEN :from AND :to"
+        query = "SELECT e FROM Event e WHERE e.eventDate BETWEEN :from AND :to"
 )
 
-@NamedQuery(
-        name = "Event.getEvents",
-        query = "SELECT e FROM Event"
-)
 
 @Data
 @Entity(name = "Event")
@@ -41,31 +37,36 @@ public class Event implements Serializable, DateInterface {
 
     @NonNull
     @Temporal(TemporalType.TIMESTAMP)
-    private GregorianCalendar date;
+    private GregorianCalendar eventDate;
 
     @ManyToOne
     private Note note;
 
     @Override
     public int getYear() {
-        return date.get(Calendar.YEAR);
+        return eventDate.get(Calendar.YEAR);
     }
 
     @Override
     public int getMonth() {
-        return date.get(Calendar.MONTH);
+        return eventDate.get(Calendar.MONTH);
     }
 
     @Override
     public int getWeek() {
-        return date.get(Calendar.WEEK_OF_MONTH);
+        return eventDate.get(Calendar.WEEK_OF_MONTH);
     }
 
     @Override
     public int getDay() {
-        return date.get(Calendar.DAY_OF_MONTH);
+        return eventDate.get(Calendar.DAY_OF_MONTH);
     }
-
+    
+    @Override
+    public Calendar getDate() {
+        return getEventDate();
+    }
+   
     @Override
     public int compareTo(DateInterface o) {
         return this.getDate().compareTo(o.getDate());
