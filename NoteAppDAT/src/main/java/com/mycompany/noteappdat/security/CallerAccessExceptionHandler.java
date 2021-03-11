@@ -1,3 +1,4 @@
+/* DELTASPIKE DEPENDENCIES CAUSE WEIRD ERROR
 package com.mycompany.noteappdat.security;
 
 import fish.payara.cdi.auth.roles.CallerAccessException;
@@ -13,3 +14,4 @@ public class CallerAccessExceptionHandler {
 		event.handled();
 	}
 }
+*/
