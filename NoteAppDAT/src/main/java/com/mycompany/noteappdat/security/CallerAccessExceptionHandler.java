@@ -1,5 +1,5 @@
 package com.mycompany.noteappdat.security;
-
+/*
 import fish.payara.cdi.auth.roles.CallerAccessException;
 import org.apache.deltaspike.core.api.exception.control.ExceptionHandler;
 import org.apache.deltaspike.core.api.exception.control.Handles;
@@ -13,3 +13,4 @@ public class CallerAccessExceptionHandler {
 		event.handled();
 	}
 }
+*/
