@@ -35,8 +35,14 @@ public class NoteBackingBean implements Serializable {
     }
 
     public void createNote() {
-        fss.createNote(noteName);
+        fss.createNote(noteName, noteText);
         //noteDAO.create(new Note(noteName));
+    }
+    
+    public void setNoteText(Note note, String newNoteText) {
+        //FacesMessage message = new FacesMessage();
+        note.setText(newNoteText);
+        noteDAO.update(note);
     }
 
     public void deleteNote() {
@@ -52,7 +58,7 @@ public class NoteBackingBean implements Serializable {
 
     public void createNoteInFolder(String noteName, String folderName) {
         fss.createFolder(folderName);
-        fss.createNote(noteName);
+        //fss.createNote(noteName);
         fss.setNoteParentFolder(fss.getNoteById(0), fss.getFolderById(0));
         //noteDAO.createNote(noteName);
         //noteDAO.setNoteFolder(noteName, folderName);

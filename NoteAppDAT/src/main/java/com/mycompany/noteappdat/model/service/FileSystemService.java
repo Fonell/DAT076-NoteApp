@@ -28,9 +28,11 @@ public class FileSystemService {
         return folderDAO.findById(id);
     }
 
-    public void createNote(String noteName) {
+    public void createNote(String noteName, String noteText) {
         //FacesMessage message = new FacesMessage();
-        noteDAO.create(new Note(noteName));
+        Note newNote = new Note(noteName);
+        noteDAO.create(newNote);
+        setNoteText(newNote, noteText);
     }
 
     public void createFolder(String folderName) {
