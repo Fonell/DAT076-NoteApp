@@ -6,8 +6,7 @@ Report link below:
 
 # Where do I find your main html and landing page??
 
-📃README.md (this file!)
-📃.gitignore
+
 📁 NoteAppDAT
  ➡️📁 src
  		➡️📁 main
