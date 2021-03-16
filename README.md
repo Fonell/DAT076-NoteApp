@@ -1,6 +1,6 @@
 # DAT076-NoteApp
 
-# [NoteApp - Report.pdf](https://github.com/Fonell/DAT076-NoteApp/files/6152389/NoteApp.-.Report.pdf)
+[NoteApp - Report.pdf](https://github.com/Fonell/DAT076-NoteApp/files/6152389/NoteApp.-.Report.pdf)
 
 ### Where do I find your main html and landing page??
 
@@ -9,8 +9,8 @@
 &nbsp;&nbsp;📁 src \
 &nbsp;&nbsp;&nbsp;&nbsp;📁 main \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 webapp \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📃 index.xhtml
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📃 welcome.xhtml
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📃 index.xhtml \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📃 welcome.xhtml \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🍭 darkmode.css
 
 <hr/>
