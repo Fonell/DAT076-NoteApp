@@ -10,6 +10,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -28,6 +29,7 @@ public class NoteBackingBean implements Serializable {
     private String noteName;
     private String noteText;
     private String noteFolder;
+    private Date noteDate;
 
     //todo value stuff
 

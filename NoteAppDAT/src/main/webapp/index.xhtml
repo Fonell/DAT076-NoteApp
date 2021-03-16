@@ -19,8 +19,7 @@
 
          <div class="header">
             <div class="header-container">
-                <p:commandLink class="pi pi-home" style="font-size: 2rem; color: white; text-decoration: none" rendered="#{userBean.loggedIn}" onclick="PF('sidebar1').show()" />
-                <p:commandLink class="pi pi-calendar" style="font-size: 2rem; color: white; text-decoration: none"/>
+                <p:commandLink class="pi pi-bars" style="font-size: 2rem; color: white; text-decoration: none" rendered="#{userBean.loggedIn}" onclick="PF('sidebar1').show()" />
             </div>
             <div class="header-container">
                 <p:commandLink class="pi pi-plus-circle" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" oncomplete="PF('addEventDialog').show()" title="View"/>
@@ -46,19 +45,29 @@
                     <div class="big-card">
                         <div class="basic-grid">
                             <div class="card">
+<<<<<<< Updated upstream
                                 <p>#{note.name}</p>
+=======
+                                <p>#{note.name}</p>         
+>>>>>>> Stashed changes
                                 <div>
 
-                                <p:commandLink action="#{noteBackingBean.deleteNote}" class="pi pi-trash" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" process="@this" title="Delete">                
-                                    <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
-                                </p:commandLink>
+                                    <p:commandLink action="#{noteBackingBean.deleteNote}" class="pi pi-trash" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" process="@this" title="Delete">                
+                                        <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
+                                    </p:commandLink>
 
+<<<<<<< Updated upstream
                                 <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none" update="noteDetail" onclick="PF('viewEventDialog').show()">                
                                     <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
                                 </p:commandLink>
+=======
+                                    <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none" update="noteDetail" onclick="PF('viewEventDialog').show()">                
+                                        <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
+                                        <f:setPropertyActionListener target="#{noteBackingBean.noteText}" value="#{noteBackingBean.selectedNote.text}" />
+                                    </p:commandLink>
+>>>>>>> Stashed changes
                                     
-                                </div>
-                                
+                                </div> 
                             </div>
                         </div>
                     </div>
@@ -77,7 +86,7 @@
                 <p:outputLabel for="buttonbar" value="Date"/>
                 <p:datePicker id="buttonbar" showButtonBar="true" autocomplete="off"/>
                 <p:outputLabel for="timeonly" value="Time"/>
-                <p:datePicker id="timeonly" timeOnly="true" pattern="HH:mm" autocomplete="off"/>
+                <p:datePicker id="timeonly" value="#{noteBackingBean.noteDate}" timeOnly="true" pattern="HH:mm" autocomplete="off"/>
             </p:panelGrid>
             <div class="button-footer">
                 <p:commandButton styleClass="customButton" value="Add" action="#{noteBackingBean.createNote}" update="mainForm" process="@form" oncomplete="PF('addEventDialog').hide();"/>
@@ -90,7 +99,16 @@
          
          <p:dialog header="#{noteBackingBean.selectedNote.name}" widgetVar="viewEventDialog" modal="true" draggable="false" resizable="true" responsive="true" closeOnEscape="true" height="100" minHeight="100">
         <p:outputPanel id="noteDetail">
+<<<<<<< Updated upstream
             <p>#{noteBackingBean.selectedNote.text}</p>
+=======
+            <!-- TODO: Make this editable -->
+            <h:form>
+                <p:inplace editor="true">
+                    <p:inputText value="#{noteBackingBean.selectedNote.text}" required="true" label="text" />
+                </p:inplace>             
+            </h:form>
+>>>>>>> Stashed changes
         </p:outputPanel>
     </p:dialog>
              
