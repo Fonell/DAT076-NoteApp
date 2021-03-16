@@ -55,7 +55,7 @@
 
                                     <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none" update="noteDetail" onclick="PF('viewEventDialog').show()">                
                                         <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
-                                        <f:setPropertyActionListener target="#{noteBackingBean.noteText}" value="#{noteBackingBean.selectedNote.text}" />
+                                        <f:setPropertyActionListener target="#{noteBackingBean.noteText}" value="#{note.text}" />
                                     </p:commandLink>
                                     
                                 </div> 
@@ -88,9 +88,8 @@
         </h:form>
     </p:dialog>
          
-    <p:dialog header="#{noteBackingBean.selectedNote.name}" widgetVar="viewEventDialog" modal="true" draggable="false" resizable="true" responsive="true" closeOnEscape="true" height="100" minHeight="100">
+    <p:dialog header="Note" widgetVar="viewEventDialog" modal="true" draggable="false" resizable="true" responsive="true" closeOnEscape="true" height="100" minHeight="100">
         <p:outputPanel id="noteDetail">
-            <!-- TODO: Make this editable -->
             <h:form>
                 <p:inplace editor="true">
                     <p:inputText value="#{noteBackingBean.selectedNote.text}" required="true" label="text" />
@@ -98,32 +97,6 @@
             </h:form>
         </p:outputPanel>
     </p:dialog>
-             
-          
-                         
-
-        <!--
-        <div class="dark-overlay" id="popUp">
-            <div class="card popup">
-                <input type="text" class="input-box" placeholder="Title"></input>
-                <input type="text" class="input-box" placeholder="Date: "></input>
-                <input type="text" class="input-box" placeholder="Time: "></input>
-                <div class="input-box"><p>Repeat yes/no</p></div>
-                <div class="input-box"><p>Go to note</p></div>
-                <button class="basic-button" onclick="closePopup()">close</button>
-            </div>
-        </div>
-        
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script>
-            function openPopup() {
-                document.getElementById("popUp").style.display = "flex";
-            }
-            function closePopup() {
-                document.getElementById("popUp").style.display = "none";
-            }
-        </script>
-        -->
-     </h:body>
+                    
+    </h:body>
 </html>
