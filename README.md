@@ -7,9 +7,9 @@ Report link below:
 # Where do I find your main html and landing page??
 
 
-📁 NoteAppDAT
- ➡️📁 src
- 		➡️📁 main
-				➡️📁 webapp
+📁 NoteAppDAT \
+ ➡️📁 src \
+ 		➡️📁 main \
+				➡️📁 webapp \
 						➡️📃 index.xhtml
     
