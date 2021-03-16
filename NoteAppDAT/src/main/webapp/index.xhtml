@@ -45,27 +45,18 @@
                     <div class="big-card">
                         <div class="basic-grid">
                             <div class="card">
-<<<<<<< Updated upstream
                                 <p>#{note.name}</p>
-=======
-                                <p>#{note.name}</p>         
->>>>>>> Stashed changes
+
                                 <div>
 
                                     <p:commandLink action="#{noteBackingBean.deleteNote}" class="pi pi-trash" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" process="@this" title="Delete">                
                                         <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
                                     </p:commandLink>
 
-<<<<<<< Updated upstream
-                                <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none" update="noteDetail" onclick="PF('viewEventDialog').show()">                
-                                    <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
-                                </p:commandLink>
-=======
                                     <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none" update="noteDetail" onclick="PF('viewEventDialog').show()">                
                                         <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
                                         <f:setPropertyActionListener target="#{noteBackingBean.noteText}" value="#{noteBackingBean.selectedNote.text}" />
                                     </p:commandLink>
->>>>>>> Stashed changes
                                     
                                 </div> 
                             </div>
@@ -97,18 +88,14 @@
         </h:form>
     </p:dialog>
          
-         <p:dialog header="#{noteBackingBean.selectedNote.name}" widgetVar="viewEventDialog" modal="true" draggable="false" resizable="true" responsive="true" closeOnEscape="true" height="100" minHeight="100">
+    <p:dialog header="#{noteBackingBean.selectedNote.name}" widgetVar="viewEventDialog" modal="true" draggable="false" resizable="true" responsive="true" closeOnEscape="true" height="100" minHeight="100">
         <p:outputPanel id="noteDetail">
-<<<<<<< Updated upstream
-            <p>#{noteBackingBean.selectedNote.text}</p>
-=======
             <!-- TODO: Make this editable -->
             <h:form>
                 <p:inplace editor="true">
                     <p:inputText value="#{noteBackingBean.selectedNote.text}" required="true" label="text" />
                 </p:inplace>             
             </h:form>
->>>>>>> Stashed changes
         </p:outputPanel>
     </p:dialog>
              
