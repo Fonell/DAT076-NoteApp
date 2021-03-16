@@ -1,15 +1,38 @@
 # DAT076-NoteApp
 
-
-Report link below:
 # [NoteApp - Report.pdf](https://github.com/Fonell/DAT076-NoteApp/files/6152389/NoteApp.-.Report.pdf)
 
-# Where do I find your main html and landing page??
+### Where do I find your main html and landing page??
 
 
 📁 NoteAppDAT \
- ➡️📁 src \
- 		➡️📁 main \
-				➡️📁 webapp \
-						➡️📃 index.xhtml
+&nbsp;&nbsp;📁 src \
+&nbsp;&nbsp;&nbsp;&nbsp;📁 main \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 webapp \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📃 index.xhtml
     
+### Okay, but the **dao** files?
+
+📁 NoteAppDAT \
+&nbsp;&nbsp;&nbsp;📁 src \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 main \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 java/com/mycompany/noteappdat \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 model \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**📁 dao** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 entity \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 service \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 user
+
+### Nice. And there's the entity and the others too. What about the **test files**?
+
+📁 NoteAppDAT \
+&nbsp;&nbsp;&nbsp;📁 src \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 test \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 java/com/mycompany/noteappdat/model \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**📁 dao** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**📁 service**
+
+### ... and the **pom.xml**?
+
+📁 NoteAppDAT \
+&nbsp;&nbsp;&nbsp;📃 pom.xml
