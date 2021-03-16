@@ -11,7 +11,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 webapp \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📃 index.xhtml
 
-<hr/>  
+<hr/>
+
 ### Okay, but the **dao** files?
 
 📁 NoteAppDAT \
@@ -24,7 +25,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 service \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 user
 
-<hr/>  
+<hr/>
+
 ### Nice. And there's the entity and the others too. What about the **test files**?
 
 📁 NoteAppDAT \
@@ -34,7 +36,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**📁 dao** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**📁 service**
 
-<hr/>  
+<hr/> 
+
 ### ... and the **pom.xml**?
 
 📁 NoteAppDAT \
