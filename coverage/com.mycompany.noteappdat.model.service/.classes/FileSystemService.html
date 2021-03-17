@@ -1,0 +1,201 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FileSystemService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mycompany.noteappdat.model.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FileSystemService (com.mycompany.noteappdat.model.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FileSystemService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (15/ 15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94.4%
+  </span>
+  <span class="absValue">
+    (34/ 36)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">FileSystemService$Proxy$_$$_Weld$EnterpriseProxy$</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (15/ 15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94.4%
+  </span>
+  <span class="absValue">
+    (34/ 36)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mycompany.noteappdat.model.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.mycompany.noteappdat.model.dao.FolderDAO;
+<i>4</i>&nbsp;import com.mycompany.noteappdat.model.dao.NoteDAO;
+<i>5</i>&nbsp;import com.mycompany.noteappdat.model.entity.Folder;
+<i>6</i>&nbsp;import com.mycompany.noteappdat.model.entity.Note;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.List;
+<i>9</i>&nbsp;import javax.ejb.EJB;
+<i>10</i>&nbsp;import javax.ejb.Stateless;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/** Service for browsing and editing in the file system.
+<i>13</i>&nbsp; * @author Emil Holmsten
+<i>14</i>&nbsp; */
+<i>15</i>&nbsp;@Stateless
+<b class="fc"><i>16</i>&nbsp;public class FileSystemService {</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    @EJB
+<i>19</i>&nbsp;    private NoteDAO noteDAO;
+<i>20</i>&nbsp;    @EJB
+<i>21</i>&nbsp;    private FolderDAO folderDAO;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /* Probably not necessary
+<i>24</i>&nbsp;    public Note getNoteById(int id) {
+<i>25</i>&nbsp;        return noteDAO.findById(id);
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    public Folder getFolderById(int id) {
+<i>29</i>&nbsp;        return folderDAO.findById(id);
+<i>30</i>&nbsp;    }
+<i>31</i>&nbsp;     */
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    public Note createNote(String noteName) {
+<b class="fc"><i>34</i>&nbsp;        Note note = new Note(noteName);</b>
+<b class="fc"><i>35</i>&nbsp;        noteDAO.create(note);</b>
+<b class="fc"><i>36</i>&nbsp;        return note;</b>
+<i>37</i>&nbsp;    }
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    public Folder createFolder(String folderName) {
+<b class="fc"><i>40</i>&nbsp;        Folder folder = new Folder(folderName);</b>
+<b class="fc"><i>41</i>&nbsp;        folderDAO.create(folder);</b>
+<b class="fc"><i>42</i>&nbsp;        return folder;</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    public void removeNote(Note note) {
+<b class="fc"><i>46</i>&nbsp;        noteDAO.remove(note);</b>
+<b class="fc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    public void removeFolder(Folder folder) {
+<b class="fc"><i>50</i>&nbsp;        folderDAO.remove(folder);</b>
+<b class="fc"><i>51</i>&nbsp;    }</b>
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    public void setNoteText(Note note, String newNoteText) {
+<b class="fc"><i>54</i>&nbsp;        note.setText(newNoteText);</b>
+<b class="fc"><i>55</i>&nbsp;        noteDAO.update(note); //testa om det fungerar utan</b>
+<b class="fc"><i>56</i>&nbsp;    }</b>
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    public void setNoteName(Note note, String newNoteName) {
+<b class="fc"><i>59</i>&nbsp;        note.setName(newNoteName);</b>
+<b class="fc"><i>60</i>&nbsp;        noteDAO.update(note);</b>
+<b class="fc"><i>61</i>&nbsp;    }</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    public void setFolderName(Folder folder, String newFolderName) {
+<b class="fc"><i>64</i>&nbsp;        folder.setName(newFolderName);</b>
+<b class="fc"><i>65</i>&nbsp;        folderDAO.update(folder);</b>
+<b class="fc"><i>66</i>&nbsp;    }</b>
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;    public List&lt;Note&gt; getAllRootNotes() {
+<b class="fc"><i>69</i>&nbsp;        return noteDAO.findAllInRoot();</b>
+<i>70</i>&nbsp;    }
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    public List&lt;Folder&gt; getAllRootFolders() {
+<b class="fc"><i>73</i>&nbsp;        return folderDAO.findAllInRoot();</b>
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;    public List&lt;Note&gt; getAllNotesInFolder(Folder folder) {
+<b class="fc"><i>77</i>&nbsp;        return folder.getNotes();</b>
+<i>78</i>&nbsp;    }
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;    public List&lt;Folder&gt; getAllFoldersInFolder(Folder folder) {
+<b class="fc"><i>81</i>&nbsp;        return folder.getChildFolders();</b>
+<i>82</i>&nbsp;    }
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    public void setNoteParentFolder(Note note, Folder folder) {
+<b class="fc"><i>85</i>&nbsp;        note.setFolder(folder);</b>
+<b class="fc"><i>86</i>&nbsp;        noteDAO.update(note);</b>
+<b class="fc"><i>87</i>&nbsp;    }</b>
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;    public void setFolderParentFolder(Folder child, Folder parent) {
+<b class="fc"><i>90</i>&nbsp;        if (parentChildRelationIsValid(parent, child)) {</b>
+<b class="fc"><i>91</i>&nbsp;            child.setParent(parent);</b>
+<b class="fc"><i>92</i>&nbsp;            folderDAO.update(child);</b>
+<b class="nc"><i>93</i>&nbsp;        } else System.out.print(&quot;A folder can not contain itself.&quot;); //FacesMessage message = new FacesMessage();</b>
+<b class="fc"><i>94</i>&nbsp;    }</b>
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    boolean parentChildRelationIsValid(Folder parent, Folder child) {
+<b class="fc"><i>97</i>&nbsp;        Folder grandParent = parent.getParent();</b>
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;        //If the parents parent is null there is no way the child is an ancestor of the parent.
+<b class="fc"><i>100</i>&nbsp;        if (grandParent == null) return true;</b>
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;        //If the child is the parents parent, the relationship is not valid.
+<b class="fc"><i>103</i>&nbsp;        if (grandParent.equals(child)) return false;</b>
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;        //Apply this logic recursively to each ancestor of the parent.
+<b class="nc"><i>106</i>&nbsp;        return parentChildRelationIsValid(grandParent, child);</b>
+<i>107</i>&nbsp;    }
+<i>108</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-17 13:42</div>
+</div>
+</body>
+</html>

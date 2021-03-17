@@ -1,15 +1,13 @@
 package com.mycompany.noteappdat.model.dao;
 
-import com.mycompany.noteappdat.model.entity.Folder;
 import com.mycompany.noteappdat.model.entity.Note;
+import lombok.Getter;
 
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
-import lombok.Getter;
+import java.util.List;
 
 @Stateless
 public class NoteDAO extends AbstractDAO<Note> {
@@ -27,7 +25,13 @@ public class NoteDAO extends AbstractDAO<Note> {
 
     public List<Note> findByName(String name) {
         TypedQuery<Note> query = entityManager.createNamedQuery("Note.findByName", Note.class);
-        query.setParameter("name", name);
+        query.setParameter("name", "%" + name + "%");
+        return query.getResultList();
+    }
+
+    public List<Note> findByContent(String content) {
+        TypedQuery<Note> query = entityManager.createNamedQuery("Note.findByContent", Note.class);
+        query.setParameter("content", "%" + content + "%");
         return query.getResultList();
     }
 

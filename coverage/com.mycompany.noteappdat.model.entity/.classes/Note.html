@@ -1,0 +1,138 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Note</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mycompany.noteappdat.model.entity</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Note (com.mycompany.noteappdat.model.entity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Note</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/ 7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mycompany.noteappdat.model.entity;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lombok.*;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import javax.persistence.*;
+<i>6</i>&nbsp;import java.io.Serializable;
+<i>7</i>&nbsp;import java.util.ArrayList;
+<i>8</i>&nbsp;import java.util.List;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;@NamedQuery(
+<i>11</i>&nbsp;        name = &quot;Note.findByName&quot;,
+<i>12</i>&nbsp;        query = &quot;SELECT n FROM Note n WHERE n.name LIKE :name&quot;
+<i>13</i>&nbsp;)
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;@NamedQuery(
+<i>16</i>&nbsp;        name = &quot;Note.findByContent&quot;,
+<i>17</i>&nbsp;        query = &quot;SELECT n FROM Note n WHERE n.text LIKE :content&quot;
+<i>18</i>&nbsp;)
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;@NamedQuery(
+<i>21</i>&nbsp;        name = &quot;Note.findAllInRoot&quot;,
+<i>22</i>&nbsp;        query = &quot;SELECT n FROM Note n WHERE n.folder IS NULL&quot;
+<i>23</i>&nbsp;)
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;@NamedQuery(
+<i>26</i>&nbsp;        name = &quot;Note.findAllInFolder&quot;,
+<i>27</i>&nbsp;        query = &quot;SELECT n FROM Note n WHERE n.folder LIKE :name&quot;
+<i>28</i>&nbsp;)
+<i>29</i>&nbsp;
+<b class="fc"><i>30</i>&nbsp;@Data</b>
+<i>31</i>&nbsp;@Entity(name = &quot;Note&quot;)
+<b class="fc"><i>32</i>&nbsp;@NoArgsConstructor</b>
+<b class="fc"><i>33</i>&nbsp;@RequiredArgsConstructor</b>
+<i>34</i>&nbsp;public class Note implements Serializable {
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    @Id
+<i>37</i>&nbsp;    @GeneratedValue(strategy = GenerationType.AUTO)
+<b class="fc"><i>38</i>&nbsp;    private int id;</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    @NonNull
+<b class="nc"><i>41</i>&nbsp;    private String name;</b>
+<i>42</i>&nbsp;
+<b class="fc"><i>43</i>&nbsp;    private String text;</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    @ManyToOne
+<i>46</i>&nbsp;    //@Column(name = &quot;test&quot;)
+<i>47</i>&nbsp;    @JoinColumn(name = &quot;notes&quot;)
+<b class="fc"><i>48</i>&nbsp;    private Folder folder;</b>
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /*
+<i>51</i>&nbsp;    @OneToMany(mappedBy = &quot;note&quot;, cascade = {CascadeType.ALL})
+<i>52</i>&nbsp;    @EqualsAndHashCode.Exclude
+<i>53</i>&nbsp;    private List&lt;Event&gt; events = new ArrayList&lt;&gt;();
+<i>54</i>&nbsp;    */
+<i>55</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-17 13:42</div>
+</div>
+</body>
+</html>

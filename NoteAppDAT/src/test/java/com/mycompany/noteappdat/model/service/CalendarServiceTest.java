@@ -25,7 +25,7 @@ import java.util.*;
 
 @RunWith(Arquillian.class)
 public class CalendarServiceTest {
-    private final GregorianCalendar date = (GregorianCalendar) Calendar.getInstance();
+    private final GregorianCalendar date = new GregorianCalendar(2000, 10, 10);
     private final String eventName = "test_event_name";
     private final String noteName = "test_note_name";
     @Inject
@@ -46,11 +46,6 @@ public class CalendarServiceTest {
     }
 
     @Before
-    public void setCalendar() {
-        date.set(2000, 10, 10);
-    }
-
-    @Before
     public void startTransaction() throws SystemException, NotSupportedException {
         userTransaction.begin();
     }
@@ -63,7 +58,7 @@ public class CalendarServiceTest {
     @Test
     public void createEvent() {
         //Create an event
-        Event event = calendarService.createEvent(eventName);
+        Event event = calendarService.createEvent(eventName, date.getTime());
 
         //Assert that the event exists in the database
         Assert.assertTrue(eventDAO.findByName(eventName).contains(event));

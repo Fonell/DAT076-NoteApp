@@ -10,9 +10,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 
 @Data
 @Named
@@ -22,28 +21,47 @@ public class CalendarBean implements Serializable {
     @Inject
     private CalendarService cs;
 
+    private LocalDate test;
+
     private Event selectedEvent;
 
     private String eventName;
     private Date selectedDate;
 
-    private Date from;
-    private Date to;
+    private GregorianCalendar realSelectedDate = new GregorianCalendar();
 
-    
-    public void createEvent() {
-        selectedEvent = cs.createEvent(eventName);
+    private GregorianCalendar from;
+    private GregorianCalendar to;
+
+    private Date date = new Date();
+
+    public Date getDate() {
+        return date;
     }
 
-    public void setEventDate() {
-        cs.setDate(selectedEvent, selectedDate);
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void createEvent() {
+        selectedEvent = cs.createEvent(eventName, date);
     }
 
     public void deleteEvent() {
         cs.removeEvent(selectedEvent);
     }
 
+    public void deleteEvent(Event event) {
+        cs.removeEvent(event);
+    }
+
     public Almanac<Event> getEventsInPeriod() {
+        from = (GregorianCalendar) realSelectedDate.clone();
+        to = (GregorianCalendar) realSelectedDate.clone();
+
+        from.roll(1, false);
+        to.roll(1, true);
+
         return cs.getPeriod(from, to);
     }
 

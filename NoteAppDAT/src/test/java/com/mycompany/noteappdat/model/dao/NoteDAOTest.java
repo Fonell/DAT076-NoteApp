@@ -75,6 +75,25 @@ public class NoteDAOTest {
     }
 
     @Test
+    public void findByContent() {
+        //Create the note
+        Note note = new Note(noteName);
+        noteDAO.create(note);
+
+        noteDAO.flush();
+        noteDAO.refresh(note);
+
+        note.setText("test_note_text");
+
+        noteDAO.flush();
+        noteDAO.refresh(note);
+
+        Assert.assertTrue(noteDAO.findByContent("_note_").contains(note));
+
+        noteDAO.remove(note);
+    }
+
+    @Test
     public void findAllInRoot() {
         //Create the note and check that it is in root (aka has no folder)
         Note note = new Note(noteName);

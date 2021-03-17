@@ -13,6 +13,11 @@ import java.util.List;
 )
 
 @NamedQuery(
+        name = "Note.findByContent",
+        query = "SELECT n FROM Note n WHERE n.text LIKE :content"
+)
+
+@NamedQuery(
         name = "Note.findAllInRoot",
         query = "SELECT n FROM Note n WHERE n.folder IS NULL"
 )

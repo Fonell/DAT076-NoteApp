@@ -26,7 +26,7 @@ public class FolderDAO extends AbstractDAO<Folder> {
 
     public List<Folder> findByName(String name) {
         TypedQuery<Folder> query = entityManager.createNamedQuery("Folder.findByName", Folder.class);
-        query.setParameter("name", name);
+        query.setParameter("name", "%" + name + "%");
         return query.getResultList();
     }
 

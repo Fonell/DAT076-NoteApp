@@ -20,11 +20,9 @@ public class CalendarService {
 
     Almanac<Event> almanac;
 
-    public Event createEvent(String name) {
-        GregorianCalendar date = new GregorianCalendar();
-        Event event = new Event(name, date);
+    public Event createEvent(String name, Date date) {
+        Event event = new Event(name, convertDateToCal(date));
         eventDAO.create(event);
-        //almanac.insert(event); //TODO: Not sure if needed.
         return event;
     }
 

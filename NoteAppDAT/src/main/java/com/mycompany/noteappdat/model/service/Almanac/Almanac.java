@@ -7,6 +7,8 @@ import java.util.*;
  * Events can be inserted and removed without breaking the structure.
  * Events are grouped into years, months, weeks and days.
  *
+ *
+ *
  * @author Emil Holmsten
  */
 public class Almanac<E extends DateInterface> {
@@ -197,7 +199,7 @@ public class Almanac<E extends DateInterface> {
 
         @Override
         protected Day newSubPeriod(int eventDate) {
-            return new Day();
+            return new Day(eventDate);
         }
 
         @Override
@@ -219,6 +221,10 @@ public class Almanac<E extends DateInterface> {
     public class Day {
         private int date;
         TreeSet<E> events = new TreeSet<>();
+
+        public Day(int eventDate) {
+            this.date = eventDate;
+        }
 
         public void insert(E event) {
             events.add(event);

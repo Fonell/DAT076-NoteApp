@@ -9,6 +9,7 @@ import com.mycompany.noteappdat.model.entity.Note;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,22 +28,18 @@ public class SearchService {
     private EventDAO eventDAO;
 
     public List<Note> findNoteByName(String noteName) {
-        //FacesMessage message = new FacesMessage();
         return noteDAO.findByName(noteName);
     }
 
-    public List<Note> findNoteByContent(String noteName) {
-        //FacesMessage message = new FacesMessage();
-        return noteDAO.findByName(noteName);
+    public List<Note> findNoteByContent(String noteContent) {
+        return noteDAO.findByContent(noteContent);
     }
 
     public List<Folder> findFolderByName(String folderName) {
-        //FacesMessage message = new FacesMessage();
         return folderDAO.findByName(folderName);
     }
 
     public List<Event> findEventByName(String eventName) {
-        //FacesMessage message = new FacesMessage();
         return eventDAO.findByName(eventName);
     }
 }

@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CalendarService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mycompany.noteappdat.model.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CalendarService (com.mycompany.noteappdat.model.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CalendarService</td>
+<td class="coverageStat">
+  <span class="percent">
+    70%
+  </span>
+  <span class="absValue">
+    (7/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    70%
+  </span>
+  <span class="absValue">
+    (14/ 20)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CalendarService$Proxy$_$$_Weld$EnterpriseProxy$</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    70%
+  </span>
+  <span class="absValue">
+    (7/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    70%
+  </span>
+  <span class="absValue">
+    (14/ 20)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mycompany.noteappdat.model.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.mycompany.noteappdat.model.dao.EventDAO;
+<i>4</i>&nbsp;import com.mycompany.noteappdat.model.dao.NoteDAO;
+<i>5</i>&nbsp;import com.mycompany.noteappdat.model.entity.Event;
+<i>6</i>&nbsp;import com.mycompany.noteappdat.model.entity.Note;
+<i>7</i>&nbsp;import com.mycompany.noteappdat.model.service.Almanac.Almanac;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import javax.ejb.EJB;
+<i>10</i>&nbsp;import javax.ejb.Stateless;
+<i>11</i>&nbsp;import java.util.*;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;@Stateless //TODO: @Component instead?
+<b class="fc"><i>14</i>&nbsp;public class CalendarService {</b>
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    @EJB
+<i>17</i>&nbsp;    private EventDAO eventDAO;
+<i>18</i>&nbsp;    @EJB
+<i>19</i>&nbsp;    private NoteDAO noteDAO;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    Almanac&lt;Event&gt; almanac;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    public Event createEvent(String name, Date date) {
+<b class="fc"><i>24</i>&nbsp;        Event event = new Event(name, convertDateToCal(date));</b>
+<b class="fc"><i>25</i>&nbsp;        eventDAO.create(event);</b>
+<b class="fc"><i>26</i>&nbsp;        return event;</b>
+<i>27</i>&nbsp;    }
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    // Uses deprecated class Date, but primefaces calendar component is our best option right now.
+<i>30</i>&nbsp;    // We will implement a different solution if we have time.
+<i>31</i>&nbsp;    public void setDate(Event event, Date date) {
+<b class="fc"><i>32</i>&nbsp;        setDate(event, convertDateToCal(date));</b>
+<b class="fc"><i>33</i>&nbsp;    }</b>
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    public void setDate(Event event, GregorianCalendar date) {
+<b class="fc"><i>36</i>&nbsp;        event.setEventDate(date);</b>
+<b class="fc"><i>37</i>&nbsp;    }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    public Almanac&lt;Event&gt; getPeriod(Date date1, Date date2) {
+<b class="nc"><i>40</i>&nbsp;        return getPeriod(convertDateToCal(date1), convertDateToCal(date2));</b>
+<i>41</i>&nbsp;    }
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    public Almanac&lt;Event&gt; getPeriod(GregorianCalendar date1, GregorianCalendar date2) {
+<b class="fc"><i>44</i>&nbsp;        List&lt;Event&gt; events = eventDAO.getEventsInPeriod(date1, date2);</b>
+<b class="fc"><i>45</i>&nbsp;        almanac = new Almanac&lt;&gt;(events);</b>
+<b class="fc"><i>46</i>&nbsp;        return almanac;</b>
+<i>47</i>&nbsp;    }
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    public void setNote(Event event, Note note) {
+<b class="fc"><i>50</i>&nbsp;        event.setNote(note);</b>
+<b class="fc"><i>51</i>&nbsp;    }</b>
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    private GregorianCalendar convertDateToCal(Date date) {
+<b class="fc"><i>54</i>&nbsp;        return new GregorianCalendar(date.getYear(), date.getMonth(), date.getDay(), date.getHours(), date.getMinutes());</b>
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    public void removeEvent(Event selectedEvent) { //TODO: UNTESTED
+<b class="nc"><i>58</i>&nbsp;        eventDAO.remove(selectedEvent);</b>
+<b class="nc"><i>59</i>&nbsp;    }</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    public Almanac&lt;Event&gt; getAllEvents() {
+<b class="nc"><i>62</i>&nbsp;        List&lt;Event&gt; events = eventDAO.getEvents();</b>
+<b class="nc"><i>63</i>&nbsp;        almanac = new Almanac&lt;&gt;(events);</b>
+<b class="nc"><i>64</i>&nbsp;        return almanac;</b>
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-17 13:42</div>
+</div>
+</body>
+</html>
