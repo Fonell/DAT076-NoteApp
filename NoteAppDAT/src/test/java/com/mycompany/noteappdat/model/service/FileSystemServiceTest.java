@@ -57,7 +57,7 @@ public class FileSystemServiceTest {
     @Test
     public void createNote() {
         //Create note
-        Note note = fileSystemService.createNote(noteName);
+        Note note = fileSystemService.createNote(noteName, "PLACEHOLDER");
 
         //Assert that it exists in database
         Assert.assertTrue(noteDAO.findByName(noteName).contains(note)); //Better test than DAO equivalent?
@@ -97,7 +97,7 @@ public class FileSystemServiceTest {
         folderDAO.create(folder);
 
         //Create a note and set its parent to folder
-        Note note = fileSystemService.createNote(noteName);
+        Note note = fileSystemService.createNote(noteName, "PLACEHOLDER");
         note.setFolder(folder);
         folderDAO.flush();
         folderDAO.refresh(folder);
@@ -153,7 +153,7 @@ public class FileSystemServiceTest {
         folderDAO.create(folder);
 
         //Create a note and set its parent to folder
-        Note note = fileSystemService.createNote(noteName);
+        Note note = fileSystemService.createNote(noteName, "PLACEHOLDER");
         note.setFolder(folder);
         folderDAO.flush();
         folderDAO.refresh(folder);
@@ -175,7 +175,7 @@ public class FileSystemServiceTest {
     @Test
     public void getAllRootNotes() {
         //Create note
-        Note note = fileSystemService.createNote(noteName);
+        Note note = fileSystemService.createNote(noteName, "PLACEHOLDER");
 
         //Assert that it exists in database root (aka parent is null)
         Assert.assertTrue(fileSystemService.getAllRootNotes().contains(note)); //Better test than DAO equivalent?
@@ -201,7 +201,7 @@ public class FileSystemServiceTest {
         folderDAO.create(folder);
 
         //Create a note and set its parent to folder
-        Note note = fileSystemService.createNote(noteName);
+        Note note = fileSystemService.createNote(noteName, "PLACEHOLDER");
         note.setFolder(folder);
         folderDAO.flush();
         folderDAO.refresh(folder);
@@ -235,7 +235,7 @@ public class FileSystemServiceTest {
         folderDAO.create(folder);
 
         //Create a note and set its parent to folder
-        Note note = fileSystemService.createNote(noteName);
+        Note note = fileSystemService.createNote(noteName, "PLACEHOLDER");
         fileSystemService.setNoteParentFolder(note, folder);
         folderDAO.flush();
         folderDAO.refresh(folder);

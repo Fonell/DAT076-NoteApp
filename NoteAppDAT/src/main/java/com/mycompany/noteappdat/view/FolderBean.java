@@ -31,7 +31,7 @@ public class FolderBean implements Serializable {
     private Date noteDate;
 
     public void createNote() {
-        fss.createNote(noteName, noteText);
+        selectedNote = fss.createNote(noteName, noteText);
         //noteDAO.create(new Note(noteName));
     }
 

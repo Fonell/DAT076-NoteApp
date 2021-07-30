@@ -30,11 +30,12 @@ public class FileSystemService {
     }
      */
 
-    public void createNote(String noteName, String noteText) {
+    public Note createNote(String noteName, String noteText) {
         //FacesMessage message = new FacesMessage();
         Note newNote = new Note(noteName);
         noteDAO.create(newNote);
         setNoteText(newNote, noteText);
+        return newNote;
     }
 
     public Folder createFolder(String folderName) {
