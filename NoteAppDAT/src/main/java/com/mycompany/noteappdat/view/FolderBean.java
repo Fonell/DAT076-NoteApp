@@ -38,7 +38,6 @@ public class FolderBean implements Serializable {
     public void setNoteText(Note note, String newNoteText) {
         //FacesMessage message = new FacesMessage();
         note.setText(newNoteText);
-        noteDAO.update(note);
     }
 
     public void deleteNote() {
@@ -49,8 +48,7 @@ public class FolderBean implements Serializable {
         return fss.getAllRootNotes();
     }
 
-    public void createNoteInFolder(String noteName, String folderName) {
-        fss.createFolder(folderName);
+    public void createNoteInFolder() { //TODO: tror inte detta funkar som det ska
         fss.createNote(noteName, noteText);
         fss.setNoteParentFolder(selectedNote, selectedFolder);
     }
