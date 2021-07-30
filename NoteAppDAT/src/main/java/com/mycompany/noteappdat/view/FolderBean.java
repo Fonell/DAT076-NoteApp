@@ -11,6 +11,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -27,9 +28,17 @@ public class FolderBean implements Serializable {
     private String noteName;
     private String noteText;
     private String noteFolder;
+    private Date noteDate;
 
     public void createNote() {
-        fss.createNote(noteName);
+        fss.createNote(noteName, noteText);
+        //noteDAO.create(new Note(noteName));
+    }
+
+    public void setNoteText(Note note, String newNoteText) {
+        //FacesMessage message = new FacesMessage();
+        note.setText(newNoteText);
+        noteDAO.update(note);
     }
 
     public void deleteNote() {
@@ -42,7 +51,7 @@ public class FolderBean implements Serializable {
 
     public void createNoteInFolder(String noteName, String folderName) {
         fss.createFolder(folderName);
-        fss.createNote(noteName);
+        fss.createNote(noteName, noteText);
         fss.setNoteParentFolder(selectedNote, selectedFolder);
     }
 }

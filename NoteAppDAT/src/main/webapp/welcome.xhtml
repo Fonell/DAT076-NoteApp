@@ -84,8 +84,8 @@
                     So what are you waiting for? Sign up and get productive!
                 </h4>
                 <div class="basic-grid card-example center">
-                    <p:commandButton value="Sign Up" type="button" style="log-sign-buttons" onclick="PF('SignUp').show()"/>
-                    <p:commandButton value="Login" type="button" style="log-sign-buttons" onclick="PF('Login').show()" />
+                    <p:commandButton value="Sign Up" type="button" styleClass="customButton" onclick="PF('SignUp').show()"/>
+                    <p:commandButton value="Login" type="button" styleClass="customButton" onclick="PF('Login').show()" />
                 </div>
                 
                 <p:dialog header="Header" widgetVar="Login" minHeight="40" width="350" showEffect="fade" modal="true">
@@ -95,8 +95,8 @@
                             <p:inputText value="#{userBean.email}" placeholder="Email"/>
                             <hr />
                             Password:
-                            <p:inputText value="#{userBean.password}" placeholder="Password"/>
-                            <p:commandButton value="Log in" action="#{loginControllerBean.onLogin}"/>
+                            <p:inputText value="#{userBean.password}" type="password" placeholder="Password"/>
+                            <p:commandButton styleClass="customButton" value="Login" action="#{loginControllerBean.onLogin}"/>
                         </h:form>
                     </p>
                 </p:dialog>
@@ -111,8 +111,6 @@
                         <hr />
                         Password:
                         <input type="password" value="" />
-                        Sneaky way through below:
-                        <button><a href="index.xhtml" style="text-decoration: none; color: red"> O </a></button>
                     </p>
                 </p:dialog>
                 
