@@ -83,10 +83,10 @@
 
 
         <h:form id="mainForm">
+            
+            <p>MAIN FORM TEST</p>
 
-
-
-            <ui:repeat var="year" value="#{calendarBean.eventsInPeriod.years}">
+            <ui:repeat var="year" value="#{calendarBean.events}">
                 <div class="card">
                     <p>#{year.time}</p>
 

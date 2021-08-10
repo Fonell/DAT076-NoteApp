@@ -55,14 +55,14 @@ public class CalendarBean implements Serializable {
         cs.removeEvent(event);
     }
 
-    public Almanac<Event> getEventsInPeriod() {
+    public List<Almanac<Event>.Year> getEventsInPeriod() {
         from = (GregorianCalendar) realSelectedDate.clone();
         to = (GregorianCalendar) realSelectedDate.clone();
 
-        from.roll(1, false);
-        to.roll(1, true);
+        from.roll(Calendar.YEAR, false);
+        to.roll(Calendar.YEAR, true);
 
-        return cs.getPeriod(from, to);
+        return cs.getPeriod(from, to).getYears();
     }
 
     public List<Almanac<Event>.Year> getEvents() {
