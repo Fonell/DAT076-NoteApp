@@ -9,21 +9,29 @@ import java.util.GregorianCalendar;
 
 public class AlmanacTest {
 
-    Almanac<Event> almanac = new Almanac<>();
+    Almanac almanac = new Almanac();
 
     @Test
     public void insert() {
-        Event event1 = new Event("2001, 1, 0, 0, 0", new GregorianCalendar(2001, 1, 0, 0, 1));
-        Event event2 = new Event("2001, 2, 0, 0, 0", new GregorianCalendar(2001, 2, 0, 0, 1));
+        Event event1 = new Event("2001, 1, 0, 0, 0", new GregorianCalendar(2001, 0, 0, 0, 1));
+        Event event2 = new Event("2001, 2, 0, 0, 0", new GregorianCalendar(2001, 1, 0, 0, 1));
 
         almanac.insert(event1);
         almanac.insert(event2);
 
+        /*
         Assert.assertTrue(almanac.getDay(2001, 0, 0).getEvents().contains(event1));
         Assert.assertFalse(almanac.getDay(2001, 0, 0).getEvents().contains(event2));
 
         Assert.assertTrue(almanac.getDay(2001, 1, 0).getEvents().contains(event2));
         Assert.assertFalse(almanac.getDay(2001, 1, 0).getEvents().contains(event1));
+         */
+
+        Assert.assertTrue(almanac.getYear(2001).getMonth(0).getDay(0).getEvents().contains(event1));
+        Assert.assertFalse(almanac.getYear(2001).getMonth(0).getDay(0).getEvents().contains(event2));
+
+        Assert.assertTrue(almanac.getYear(2001).getMonth(1).getDay(0).getEvents().contains(event2));
+        Assert.assertFalse(almanac.getYear(2001).getMonth(1).getDay(0).getEvents().contains(event1));
 
     }
 }

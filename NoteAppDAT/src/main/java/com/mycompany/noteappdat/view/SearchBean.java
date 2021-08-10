@@ -20,7 +20,7 @@ public class SearchBean implements Serializable {
     @Inject
     private SearchService ss;
 
-    private String searchString;
+    private String searchString = "";
 
     public List<Note> getNotesByName() {
         return ss.findNoteByName(searchString);

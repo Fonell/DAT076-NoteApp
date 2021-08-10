@@ -7,7 +7,7 @@ import java.util.*;
 public class Day implements Comparable<Day> {
 
     final int day;
-    final TreeSet<Event> events = new TreeSet<>();
+    private final TreeSet<Event> events = new TreeSet<>();
 
     public Day(int day) {
         this.day = day;
@@ -26,7 +26,11 @@ public class Day implements Comparable<Day> {
         return new ArrayList<>(events);
     }
 
-    public String getDayOfWeek() {
+    public int getIntegerRepresentation() {
+        return day;
+    }
+
+    public String getStringRepresentation() {
         return events.first().getDate().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
     }
 }

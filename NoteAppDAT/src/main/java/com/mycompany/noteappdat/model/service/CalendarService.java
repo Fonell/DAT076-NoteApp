@@ -18,7 +18,7 @@ public class CalendarService {
     @EJB
     private NoteDAO noteDAO;
 
-    Almanac<Event> almanac;
+    Almanac almanac;
 
     public Event createEvent(String name, Date date) {
         Event event = new Event(name, convertDateToCal(date));
@@ -36,13 +36,23 @@ public class CalendarService {
         event.setEventDate(date);
     }
 
-    public Almanac<Event> getPeriod(Date date1, Date date2) {
-        return getPeriod(convertDateToCal(date1), convertDateToCal(date2));
+    public Almanac getAllEvents() {
+        List<Event> events = eventDAO.getEvents();
+        almanac = new Almanac();
+        almanac.insert(events);
+        return almanac;
     }
 
-    public Almanac<Event> getPeriod(GregorianCalendar date1, GregorianCalendar date2) {
+    /*
+    public Almanac getPeriod(Date date1, Date date2) {
+        return getPeriod(convertDateToCal(date1), convertDateToCal(date2));
+    }
+    */
+
+    public Almanac getPeriod(GregorianCalendar date1, GregorianCalendar date2) {
         List<Event> events = eventDAO.getEventsInPeriod(date1, date2);
-        almanac = new Almanac<>(events);
+        almanac = new Almanac();
+        almanac.insert(events);
         return almanac;
     }
 
@@ -51,16 +61,12 @@ public class CalendarService {
     }
 
     private GregorianCalendar convertDateToCal(Date date) {
-        return new GregorianCalendar(date.getYear(), date.getMonth(), date.getDay(), date.getHours(), date.getMinutes());
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        return cal;
     }
 
     public void removeEvent(Event selectedEvent) { //TODO: UNTESTED
         eventDAO.remove(selectedEvent);
-    }
-
-    public Almanac<Event> getAllEvents() {
-        List<Event> events = eventDAO.getEvents();
-        almanac = new Almanac<>(events);
-        return almanac;
     }
 }

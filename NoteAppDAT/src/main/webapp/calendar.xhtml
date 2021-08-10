@@ -19,7 +19,6 @@
     <h:body>
 
         <p:commandLink class="pi pi-plus-circle" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" oncomplete="PF('addEventDialog').show()" title="View"/>
-        <p>test: #{calendarBean.date}</p>
 
         <p:dialog header="Add event" widgetVar="addEventDialog" modal="false" draggable="false" resizable="false" responsive="true" closeOnEscape="true">
             <h:form>
@@ -84,25 +83,23 @@
 
         <h:form id="mainForm">
             
-            <p>MAIN FORM TEST</p>
-
             <ui:repeat var="year" value="#{calendarBean.events}">
                 <div class="card">
-                    <p>#{year.time}</p>
+                    <p>#{year.integerRepresentation}</p>
 
                     <ui:repeat var="month" value="#{year.months}">
                         <div class="card">
-                            <p>#{month.stringRepresentation}</p>
+                            <p>#{month.stringRepresentation} #{month.integerRepresentation}</p>
 
 
                             <ui:repeat var="week" value="#{month.weeks}">
                                 <div class="card">
-                                    <p>Week: #{week.time}</p>
+                                    <p>Week: #{week.integerRepresentation}</p>
 
 
                                     <ui:repeat var="day" value="#{week.days}">
                                         <div class="card">
-                                            <p>#{day.stringRepresentation} #{day.time}</p>
+                                            <p>#{day.stringRepresentation} #{day.integerRepresentation}</p>
 
                                             <ui:repeat var="event" value="#{day.events}">
                                                 <div class="card">

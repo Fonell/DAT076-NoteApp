@@ -2,14 +2,12 @@ package com.mycompany.noteappdat.model.service.Almanac;
 
 import com.mycompany.noteappdat.model.entity.Event;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Week implements Comparable<Week> {
 
     final int week;
-    final TreeMap<Integer, Day> days = new TreeMap<>();
+    private final TreeMap<Integer, Day> days = new TreeMap<>();
 
     public Week(int week) {
         this.week = week;
@@ -32,5 +30,13 @@ public class Week implements Comparable<Week> {
 
     public List<Day> getDays() {
         return new ArrayList<>(days.values());
+    }
+
+    public Day getDay(int day) {
+        return days.get(day);
+    }
+
+    public int getIntegerRepresentation() {
+        return week;
     }
 }

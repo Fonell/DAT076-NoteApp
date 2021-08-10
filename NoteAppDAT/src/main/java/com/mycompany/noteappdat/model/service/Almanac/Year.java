@@ -9,7 +9,7 @@ import java.util.TreeMap;
 public class Year implements Comparable<Year> {
 
     final int year;
-    final TreeMap<Integer, Month> months = new TreeMap<>();
+    private final TreeMap<Integer, Month> months = new TreeMap<>();
 
     public Year(int year) {
         this.year = year;
@@ -32,5 +32,13 @@ public class Year implements Comparable<Year> {
 
     public List<Month> getMonths() {
         return new ArrayList<>(months.values());
+    }
+
+    public Month getMonth(int month) {
+        return months.get(month);
+    }
+
+    public int getIntegerRepresentation() {
+        return year;
     }
 }

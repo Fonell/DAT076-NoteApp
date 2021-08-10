@@ -6,7 +6,7 @@ import com.mycompany.noteappdat.model.dao.NoteDAO;
 import com.mycompany.noteappdat.model.entity.Event;
 import com.mycompany.noteappdat.model.entity.Folder;
 import com.mycompany.noteappdat.model.entity.Note;
-import com.mycompany.noteappdat.model.service.Almanac.Almanac;
+import com.mycompany.noteappdat.model.service.Almanac.*;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -97,13 +97,13 @@ public class CalendarServiceTest {
         GregorianCalendar to = new GregorianCalendar(2004, 0, 0);
 
         //Get all events in the period between from and to
-        Almanac<Event> almanac = calendarService.getPeriod(from, to);
+        Almanac almanac = calendarService.getPeriod(from, to);
 
         List<Event> events = new ArrayList<>();
-        for (Almanac<Event>.Year y : almanac.getYears()) {
-            for (Almanac<Event>.Month m : y.getMonths()) {
-                for (Almanac<Event>.Week w : m.getWeeks()) {
-                    for (Almanac<Event>.Day d : m.getDays()) {
+        for (Year y : almanac.getYears()) {
+            for (Month m : y.getMonths()) {
+                for (Week w : m.getWeeks()) {
+                    for (Day d : w.getDays()) {
                         events.addAll(d.getEvents());
                     }
                 }

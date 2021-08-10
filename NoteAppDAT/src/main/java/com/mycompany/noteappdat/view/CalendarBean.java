@@ -2,7 +2,7 @@ package com.mycompany.noteappdat.view;
 
 import com.mycompany.noteappdat.model.entity.Event;
 import com.mycompany.noteappdat.model.service.Almanac.Almanac;
-import com.mycompany.noteappdat.model.service.Almanac.Almanac.Year;
+import com.mycompany.noteappdat.model.service.Almanac.Year;
 import com.mycompany.noteappdat.model.service.CalendarService;
 import lombok.Data;
 
@@ -55,7 +55,7 @@ public class CalendarBean implements Serializable {
         cs.removeEvent(event);
     }
 
-    public List<Almanac<Event>.Year> getEventsInPeriod() {
+    public List<Year> getEventsInPeriod() {
         from = (GregorianCalendar) realSelectedDate.clone();
         to = (GregorianCalendar) realSelectedDate.clone();
 
@@ -65,8 +65,8 @@ public class CalendarBean implements Serializable {
         return cs.getPeriod(from, to).getYears();
     }
 
-    public List<Almanac<Event>.Year> getEvents() {
-        Almanac<Event> almanac = cs.getAllEvents();
+    public List<Year> getEvents() {
+        Almanac almanac = cs.getAllEvents();
 
         return almanac.getYears();
     }
