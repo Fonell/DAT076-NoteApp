@@ -84,6 +84,10 @@ public class Event implements Serializable, DateInterface {
    
     @Override
     public int compareTo(DateInterface o) {
-        return this.getDate().compareTo(o.getDate());
+        int comp = this.getDate().compareTo(o.getDate());
+        if (comp == 0) {
+            return 1;
+        }
+        else return comp;
     }
 }
