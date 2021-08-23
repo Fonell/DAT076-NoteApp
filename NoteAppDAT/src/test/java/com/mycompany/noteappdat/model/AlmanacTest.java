@@ -31,6 +31,7 @@ public class AlmanacTest {
         Assert.assertFalse(almanac.getDay(2001, 1, 0).getEvents().contains(event1));
          */
 
+        //TODO: my fix might not match real use, may need a permanent way to adjust dates to match the gregorian calendar
         Assert.assertTrue(almanac.getYear(2001).getMonth(Calendar.JANUARY).getDay(0).getEvents().contains(event1));
         Assert.assertFalse(almanac.getYear(2001).getMonth(Calendar.JANUARY).getDay(0).getEvents().contains(event2));
 

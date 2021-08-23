@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Service for searching the file system.
@@ -28,11 +29,12 @@ public class SearchService {
     private EventDAO eventDAO;
 
     public List<Note> findNoteByName(String noteName) {
-        return noteDAO.findByName(noteName);
+        return noteDAO.findByName(noteName.toLowerCase());
     }
 
     public List<Note> findNoteByContent(String noteContent) {
-        return noteDAO.findByContent(noteContent);
+
+        return noteDAO.findByContent(noteContent.toLowerCase());
     }
 
     public List<Folder> findFolderByName(String folderName) {

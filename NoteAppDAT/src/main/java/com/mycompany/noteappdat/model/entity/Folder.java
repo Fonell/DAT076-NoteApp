@@ -8,7 +8,7 @@ import lombok.*;
 
 @NamedQuery(
         name = "Folder.findByName",
-        query = "SELECT f FROM Folder f WHERE f.name LIKE :name"
+        query = "SELECT f FROM Folder f WHERE lower(f.name) LIKE :name"
 )
 
 @NamedQuery(

@@ -9,12 +9,12 @@ import java.util.List;
 
 @NamedQuery(
         name = "Note.findByName",
-        query = "SELECT n FROM Note n WHERE n.name LIKE :name"
+        query = "SELECT n FROM Note n WHERE lower(n.name) LIKE :name"
 )
 
 @NamedQuery(
         name = "Note.findByContent",
-        query = "SELECT n FROM Note n WHERE n.text LIKE :content"
+        query = "SELECT n FROM Note n WHERE lower(n.text) LIKE :content"
 )
 
 @NamedQuery(

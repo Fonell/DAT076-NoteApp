@@ -13,7 +13,7 @@ import java.util.GregorianCalendar;
 
 @NamedQuery(
         name = "Event.findByName",
-        query = "SELECT e FROM Event e WHERE e.name LIKE :name"
+        query = "SELECT e FROM Event e WHERE lower(e.name) LIKE :name"
 )
 
 @NamedQuery(
