@@ -22,16 +22,16 @@ public class NoteDAO extends AbstractDAO<Note> {
     public Note findById(int id) {
         return entityManager.find(Note.class, id);
     }
-
+    
     public List<Note> findByName(String name) {
         TypedQuery<Note> query = entityManager.createNamedQuery("Note.findByName", Note.class);
-        query.setParameter("name", "%" + name + "%");
+        query.setParameter("name", "%" + name.toLowerCase() + "%");
         return query.getResultList();
     }
 
     public List<Note> findByContent(String content) {
         TypedQuery<Note> query = entityManager.createNamedQuery("Note.findByContent", Note.class);
-        query.setParameter("content", "%" + content + "%");
+        query.setParameter("content", "%" + content.toLowerCase() + "%");
         return query.getResultList();
     }
 
