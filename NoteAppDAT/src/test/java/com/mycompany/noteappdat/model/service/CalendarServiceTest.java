@@ -1,11 +1,7 @@
 package com.mycompany.noteappdat.model.service;
 
 import com.mycompany.noteappdat.model.dao.EventDAO;
-import com.mycompany.noteappdat.model.dao.FolderDAO;
-import com.mycompany.noteappdat.model.dao.NoteDAO;
 import com.mycompany.noteappdat.model.entity.Event;
-import com.mycompany.noteappdat.model.entity.Folder;
-import com.mycompany.noteappdat.model.entity.Note;
 import com.mycompany.noteappdat.model.service.Almanac.*;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -32,15 +28,13 @@ public class CalendarServiceTest {
     CalendarService calendarService;
     @EJB
     private EventDAO eventDAO;
-    @EJB
-    private NoteDAO noteDAO;
     @Inject
     private UserTransaction userTransaction;
 
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(FolderDAO.class, Folder.class, NoteDAO.class, Note.class, EventDAO.class, Event.class, CalendarService.class)
+                .addClasses(EventDAO.class, Event.class, CalendarService.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -58,7 +52,7 @@ public class CalendarServiceTest {
     @Test
     public void createEvent() {
         //Create an event
-        Event event = calendarService.createEvent(eventName, date.getTime());
+        Event event = calendarService.createEvent(eventName, "test", date.getTime());
 
         //Assert that the event exists in the database
         Assert.assertTrue(eventDAO.findByName(eventName).contains(event));
@@ -69,7 +63,7 @@ public class CalendarServiceTest {
     @Test
     public void setDate() {
         //Create an event
-        Event event = new Event(eventName, date);
+        Event event = new Event(eventName, "test", date);
         eventDAO.create(event);
 
         //Assert that the event date matches original date
@@ -85,11 +79,11 @@ public class CalendarServiceTest {
     @Test
     public void getPeriod() {
         //Create three events with different dates
-        Event first = new Event(eventName, new GregorianCalendar(2000, 0, 0));
+        Event first = new Event(eventName, "test", new GregorianCalendar(2000, 0, 0));
         eventDAO.create(first);
-        Event second = new Event(eventName, new GregorianCalendar(2003, 0, 0));
+        Event second = new Event(eventName, "test", new GregorianCalendar(2003, 0, 0));
         eventDAO.create(second);
-        Event third = new Event(eventName, new GregorianCalendar(2005, 0, 0));
+        Event third = new Event(eventName, "test", new GregorianCalendar(2005, 0, 0));
         eventDAO.create(third);
 
         //Create two dates representing a time period
@@ -116,20 +110,5 @@ public class CalendarServiceTest {
         //Assert that the first and third events are not in the list
         Assert.assertFalse(events.contains(first));
         Assert.assertFalse(events.contains(third));
-    }
-
-    @Test
-    public void setNote() {
-        //Create an event
-        Event event = new Event(eventName, date);
-        eventDAO.create(event);
-
-        //Create a note
-        Note note = new Note(noteName);
-        noteDAO.create(note);
-
-        //Set the note on the event
-        calendarService.setNote(event, note);
-        Assert.assertEquals(eventDAO.findById(event.getId()).getNote(), noteDAO.findById(note.getId()));
     }
 }

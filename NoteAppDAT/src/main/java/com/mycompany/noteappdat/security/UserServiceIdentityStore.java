@@ -21,6 +21,10 @@ public class UserServiceIdentityStore implements IdentityStore {
 		private Set<String> roles;
 	}
 
+	public void createUser(String mail, String pass) {
+		new UserRecord(mail, pass, new HashSet(Arrays.asList("user")));
+	}
+
 	private final UserRecord users[] = {
 		new UserRecord("adam@adam.se", "testing123", new HashSet(Arrays.asList("admin", "user"))),
 		new UserRecord("carl@carl.se", "testing456", new HashSet(Arrays.asList("user"))),

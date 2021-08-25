@@ -26,6 +26,7 @@ public class CalendarBean implements Serializable {
     private Event selectedEvent;
 
     private String eventName;
+    private String eventText;
     private Date selectedDate;
 
     private GregorianCalendar realSelectedDate = new GregorianCalendar();
@@ -44,7 +45,7 @@ public class CalendarBean implements Serializable {
     }
 
     public void createEvent() {
-        selectedEvent = cs.createEvent(eventName, date);
+        selectedEvent = cs.createEvent(eventName, eventText, date);
     }
 
     public void deleteEvent() {

@@ -41,7 +41,6 @@ public class LoginControllerBean {
                 if (status == AuthenticationStatus.SUCCESS ){
                     Faces.redirect("index.xhtml");
                 }
-                
 	}
 
 	@RolesPermitted({"user", "admin"})

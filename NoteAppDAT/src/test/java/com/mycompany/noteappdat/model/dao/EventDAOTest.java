@@ -1,8 +1,6 @@
 package com.mycompany.noteappdat.model.dao;
 
 import com.mycompany.noteappdat.model.entity.Event;
-import com.mycompany.noteappdat.model.entity.Folder;
-import com.mycompany.noteappdat.model.entity.Note;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -36,7 +34,7 @@ public class EventDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(EventDAO.class, Event.class, Note.class, Folder.class)
+                .addClasses(EventDAO.class, Event.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -54,7 +52,7 @@ public class EventDAOTest {
     @Test
     public void findById() {
         //Create the event
-        Event event = new Event(eventName, date);
+        Event event = new Event(eventName, "test", date);
         eventDAO.create(event);
         int id = event.getId();
 
@@ -67,7 +65,7 @@ public class EventDAOTest {
     @Test
     public void findByName() {
         //Create the event
-        Event event = new Event(eventName, date);
+        Event event = new Event(eventName, "test", date);
         eventDAO.create(event);
 
         //Assert that it can be found by name
@@ -80,11 +78,11 @@ public class EventDAOTest {
     @Test
     public void getEventsInPeriod() {
         //Create three events with different dates
-        Event first = new Event(eventName, new GregorianCalendar(2000, 0, 0));
+        Event first = new Event(eventName, "test", new GregorianCalendar(2000, 0, 0));
         eventDAO.create(first);
-        Event second = new Event(eventName, new GregorianCalendar(2003, 0, 0));
+        Event second = new Event(eventName, "test", new GregorianCalendar(2003, 0, 0));
         eventDAO.create(second);
-        Event third = new Event(eventName, new GregorianCalendar(2005, 0, 0));
+        Event third = new Event(eventName, "test", new GregorianCalendar(2005, 0, 0));
         eventDAO.create(third);
 
         //Create two dates representing a time period

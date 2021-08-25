@@ -27,6 +27,9 @@
                     <p:outputLabel for="eventName" value="Name"/>
                     <p:inputText id="eventName" value="#{calendarBean.eventName}" autocomplete="off"/>
 
+                    <p:outputLabel for="eventText" value="Text"/>
+                    <p:inputText id="eventText" value="#{calendarBean.eventText}" autocomplete="off"/>
+
                     <p:datePicker value="#{calendarBean.date}" />
 
                 </p:panelGrid>
@@ -105,6 +108,7 @@
                                                 <div class="card">
                                                     <p>Title: #{event.name}</p>
                                                     <p>#{event.hour} : #{event.min}</p>
+                                                    <p>#{event.text}</p>
                                                     <h:commandLink value = "Delete" action = "#{calendarBean.deleteEvent(event)}"/>
                                                 </div>  
                                             </ui:repeat>

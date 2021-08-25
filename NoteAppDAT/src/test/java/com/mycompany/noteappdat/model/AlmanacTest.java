@@ -2,15 +2,10 @@ package com.mycompany.noteappdat.model;
 
 import com.mycompany.noteappdat.model.entity.Event;
 import com.mycompany.noteappdat.model.service.Almanac.*;
-import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import javax.validation.constraints.AssertTrue;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class AlmanacTest {
 
@@ -19,8 +14,8 @@ public class AlmanacTest {
 
         Almanac almanac = new Almanac();
 
-        Event event1 = new Event("2001, 0, 0, 0, 0", new GregorianCalendar(2001, Calendar.JANUARY, 1, 0, 0));
-        Event event2 = new Event("2001, 1, 0, 0, 0", new GregorianCalendar(2001, Calendar.FEBRUARY, 1, 0, 0));
+        Event event1 = new Event("2001, 0, 0, 0, 0", "test", new GregorianCalendar(2001, Calendar.JANUARY, 1, 0, 0));
+        Event event2 = new Event("2001, 1, 0, 0, 0", "test", new GregorianCalendar(2001, Calendar.FEBRUARY, 1, 0, 0));
 
         almanac.insert(event1);
         almanac.insert(event2);
@@ -38,8 +33,8 @@ public class AlmanacTest {
 
         Almanac almanac = new Almanac();
 
-        Event event1 = new Event("e1", new GregorianCalendar(2001, Calendar.JANUARY, 1, 0, 0));
-        Event event2 = new Event("e2", new GregorianCalendar(2001, Calendar.JANUARY, 1, 0, 0));
+        Event event1 = new Event("e1", "test", new GregorianCalendar(2001, Calendar.JANUARY, 1, 0, 0));
+        Event event2 = new Event("e2", "test", new GregorianCalendar(2001, Calendar.JANUARY, 1, 0, 0));
 
         almanac.insert(event1);
         almanac.insert(event2);

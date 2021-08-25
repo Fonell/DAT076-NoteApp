@@ -41,11 +41,12 @@ public class Event implements Serializable, DateInterface {
     private String name;
 
     @NonNull
+    private String text;
+
+    @NonNull
     @Temporal(TemporalType.TIMESTAMP)
     private GregorianCalendar eventDate;
 
-    @ManyToOne
-    private Note note;
 
     @Override
     public int getYear() {
