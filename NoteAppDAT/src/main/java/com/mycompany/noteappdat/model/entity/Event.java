@@ -39,6 +39,9 @@ public class Event implements Serializable, DateInterface {
 
     @NonNull
     private String name;
+    
+    @NonNull
+    private String text;
 
     @NonNull
     @Temporal(TemporalType.TIMESTAMP)
@@ -81,7 +84,7 @@ public class Event implements Serializable, DateInterface {
     public Calendar getDate() {
         return getEventDate();
     }
-   
+    
     @Override
     public int compareTo(DateInterface o) {
         return this.getDate().compareTo(o.getDate());

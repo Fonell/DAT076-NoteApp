@@ -20,8 +20,8 @@ public class CalendarService {
 
     Almanac almanac;
 
-    public Event createEvent(String name, Date date) {
-        Event event = new Event(name, convertDateToCal(date));
+    public Event createEvent(String name, String text, Date date) {
+        Event event = new Event(name, text, convertDateToCal(date));
         eventDAO.create(event);
         return event;
     }

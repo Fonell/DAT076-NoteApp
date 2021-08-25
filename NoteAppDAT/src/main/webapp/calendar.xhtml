@@ -26,8 +26,10 @@
 
                     <p:outputLabel for="eventName" value="Name"/>
                     <p:inputText id="eventName" value="#{calendarBean.eventName}" autocomplete="off"/>
-
-                    <p:datePicker value="#{calendarBean.date}" />
+                    <p:outputLabel for="eventText" value="Text"/>
+                    <p:inputText id="eventText" value="#{calendarBean.eventText}" autocomplete="off"/>
+                    <p:outputLabel for="eventDate" value="Date" />
+                    <p:datePicker id="eventDate" value="#{calendarBean.date}" showTime="true" locale="de"/>
 
                 </p:panelGrid>
 
@@ -104,8 +106,11 @@
                                             <ui:repeat var="event" value="#{day.events}">
                                                 <div class="card">
                                                     <p>Title: #{event.name}</p>
+                                                    <p:inplace editor="true">
+                                                        <p:inputText value="#{event.text}" required="true" label="text" />
+                                                    </p:inplace>   
                                                     <p>#{event.hour} : #{event.min}</p>
-                                                    <h:commandLink value = "Delete" action = "#{calendarBean.deleteEvent(event)}"/>
+                                                    <h:commandLink action = "#{calendarBean.deleteEvent(event)}" class="pi pi-trash" style="font-size: 2rem; color: white; text-decoration: none" title="Delete"/>                
                                                 </div>  
                                             </ui:repeat>
                                         </div>    
