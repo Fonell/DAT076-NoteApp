@@ -83,14 +83,14 @@
                     <p:commandButton value="Login" type="button" styleClass="customButton" onclick="PF('Login').show()" />
                 </div>
                 
-                <p:dialog header="Header" widgetVar="Login" minHeight="40" width="350" showEffect="fade" modal="true">
+                <p:dialog header="Header" widgetVar="Login" minHeight="40" width="350" showEffect="fade" modal="true" resizable="false">
                     <p class="cssanimation fadeInBottom p-m-0"> 
                         <h:form>
                             Email:
-                            <p:inputText value="#{userBean.email}" placeholder="Email"/>
+                            <p:inputText value="#{userBean.email}" placeholder="Email" required="true"/>
                             <hr />
                             Password:
-                            <p:inputText value="#{userBean.password}" type="password" placeholder="Password"/>
+                            <p:inputText value="#{userBean.password}" type="password" placeholder="Password" required="true"/>
                             <p:commandButton styleClass="customButton" value="Login" action="#{loginControllerBean.onLogin}"/>
                         </h:form>
                     </p>
