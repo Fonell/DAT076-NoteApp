@@ -8,7 +8,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
-        <title>Start Page</title>
+        <title>here you can make your notes, hope it works out good for you because we will not fix any bugs</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
 
@@ -17,71 +17,69 @@
     </h:head>
 
     <h:body>
-
-        <p:commandLink class="pi pi-plus-circle" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" oncomplete="PF('addEventDialog').show()" title="View"/>
-
-        <p:dialog header="Add event" widgetVar="addEventDialog" modal="false" draggable="false" resizable="false" responsive="true" closeOnEscape="true">
-            <h:form>
-                <p:panelGrid id="formPanel" columns="2">
-
-                    <p:outputLabel for="eventName" value="Name"/>
-                    <p:inputText id="eventName" value="#{calendarBean.eventName}" autocomplete="off"/>
-                    <p:outputLabel for="eventText" value="Text"/>
-                    <p:inputText id="eventText" value="#{calendarBean.eventText}" autocomplete="off"/>
-                    <p:outputLabel for="eventDate" value="Date" />
-                    <p:datePicker id="eventDate" value="#{calendarBean.date}" showTime="true" locale="de"/>
-
-                </p:panelGrid>
-
-                <p:commandButton value="addCard" action="#{calendarBean.createEvent()}" update="mainForm" process="@form" oncomplete="PF('addEventDialog').hide();"/>
-            </h:form>
-        </p:dialog>
+        
+        <div class="header">
 
 
-        <h:form id="searchForm">
-            <p:outputLabel for="searchString" value="Search"/>
-            <p:inputText id="searchString" value="#{searchBean.searchString}" autocomplete="off"/>
+            <p:commandLink class="pi pi-plus-circle" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" oncomplete="PF('addEventDialog').show()"/>
+            
+            <p:dialog header="Add event" widgetVar="addEventDialog" modal="false" draggable="false" resizable="false" responsive="true" closeOnEscape="true">
+                <h:form>
+                    <p:panelGrid id="formPanel" columns="2">
 
-            <h:panelGroup layout="block" class="card" rendered="#{!searchBean.searchString.blank}">
+                        <p:outputLabel for="eventText" value="Text"/>
+                        <p:inputText id="eventText" value="#{calendarBean.eventText}" autocomplete="off" required="true"/>
 
-                <p>Search results for: #{searchBean.searchString}</p>
+                        <p:outputLabel for="eventDate" value="Date"/>
+                        <p:datePicker id="eventDate" value="#{calendarBean.date}" showTime="true" locale="de" required="true"/>
 
-                <p>Notes:</p>
-                <ui:repeat var="note" value="#{searchBean.notesByName}">
-                    <div class="card">
-                        <p>#{note.name}</p>
-                        <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none" update="noteDetail" onclick="PF('viewEventDialog').show()">                
-                            <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
-                        </p:commandLink>
-                    </div>
-                </ui:repeat>
+                    </p:panelGrid>
 
-                <ui:repeat var="note" value="#{searchBean.notesByContent}">
-                    <div class="card">
-                        <p>#{note.name}</p>
-                    </div>
-                </ui:repeat>
-
-                <p>Folders:</p>
-                <ui:repeat var="folder" value="#{searchBean.foldersByName}">
-                    <div class="card">
-                        <p>#{folder.name}</p>
-                    </div>
-                </ui:repeat>
-
-                <p>Events:</p>
-                <ui:repeat var="event" value="#{searchBean.eventsByName}">
-                    <p:commandLink class="card">
-                        <f:setPropertyActionListener target="#{calendarBean.selectedEvent}" value="#{event}" />
-                        <p>#{event.name}</p>       
-                    </p:commandLink>
-                </ui:repeat>
-            </h:panelGroup>
-
-        </h:form>
+                    <p:commandButton value="save" action="#{calendarBean.createEvent()}" update="mainForm" process="@form" oncomplete="PF('addEventDialog').hide();"/>
+                </h:form>
+            </p:dialog>
 
 
+            <div style="text-align: center;">
+                <h:form id="searchForm">
+                    <p:outputLabel for="searchString"/>
+                    <p:inputText id="searchString" placeholder="Search" value="#{searchBean.searchString}" autocomplete="off"/>
 
+                    <h:panelGroup layout="block" class="card" rendered="#{!searchBean.searchString.blank}">
+
+                        <p>Search results for: #{searchBean.searchString}</p>
+
+                        <div class="basic-grid">
+                            <ui:repeat var="event" value="#{searchBean.eventsByName}">
+                                <div class="card">
+
+                                    <p:inplace editor="true">
+                                        <p:ajax event="save" listener="#{calendarBean.update(event)}" update="mainForm"/>
+                                        <h:inputText value="#{event.text}" required="true"/>
+                                    </p:inplace>
+
+                                    <p>#{event.hour}:#{event.min}</p>
+
+                                    <h:commandLink action = "#{calendarBean.deleteEvent(event)}" class="pi pi-trash" style="font-size: 2rem; color: white; text-decoration: none" title="Delete"/>
+                                </div>  
+                            </ui:repeat>
+                        </div>
+                    </h:panelGroup>
+
+                </h:form>
+            </div>
+            
+            <p:commandLink class="pi pi-sign-out" process="@this" rendered="#{userBean.loggedIn}" style="font-size: 2rem; color: white; text-decoration: none" action="#{loginControllerBean.onLogout}" title="Logout"/>
+        
+        </div>
+
+
+        
+        
+        
+        
+        
+        
 
         <h:form id="mainForm">
             
@@ -91,28 +89,33 @@
 
                     <ui:repeat var="month" value="#{year.months}">
                         <div class="card">
-                            <p>#{month.stringRepresentation} #{month.integerRepresentation}</p>
+                            <p>#{month.stringRepresentation}</p>
 
 
                             <ui:repeat var="week" value="#{month.weeks}">
                                 <div class="card">
-                                    <p>Week: #{week.integerRepresentation}</p>
+                                    <p>Week #{week.integerRepresentation}</p>
 
 
                                     <ui:repeat var="day" value="#{week.days}">
                                         <div class="card">
                                             <p>#{day.stringRepresentation} #{day.integerRepresentation}</p>
 
-                                            <ui:repeat var="event" value="#{day.events}">
-                                                <div class="card">
-                                                    <p>Title: #{event.name}</p>
-                                                    <p:inplace editor="true">
-                                                        <p:inputText value="#{event.text}" required="true" label="text" />
-                                                    </p:inplace>   
-                                                    <p>#{event.hour} : #{event.min}</p>
-                                                    <h:commandLink action = "#{calendarBean.deleteEvent(event)}" class="pi pi-trash" style="font-size: 2rem; color: white; text-decoration: none" title="Delete"/>                
-                                                </div>  
-                                            </ui:repeat>
+                                            <div class="basic-grid">
+                                                <ui:repeat var="event" value="#{day.events}">
+                                                    <div class="card">
+                                                        
+                                                        <p:inplace editor="true">
+                                                            <p:ajax event="save" listener="#{calendarBean.update(event)}" update="mainForm"/>
+                                                            <h:inputText value="#{event.text}" required="true"/>
+                                                        </p:inplace>
+                                                        
+                                                        <p>#{event.hour}:#{event.min}</p>
+    
+                                                        <h:commandLink action = "#{calendarBean.deleteEvent(event)}" class="pi pi-trash" style="font-size: 2rem; color: white; text-decoration: none" title="Delete"/>
+                                                    </div>  
+                                                </ui:repeat>
+                                            </div>
                                         </div>    
                                     </ui:repeat>
                                 </div>    

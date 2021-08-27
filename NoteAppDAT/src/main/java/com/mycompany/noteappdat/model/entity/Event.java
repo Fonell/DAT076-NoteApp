@@ -13,7 +13,7 @@ import java.util.GregorianCalendar;
 
 @NamedQuery(
         name = "Event.findByName",
-        query = "SELECT e FROM Event e WHERE e.name LIKE :name"
+        query = "SELECT e FROM Event e WHERE lower(e.text) LIKE :name"
 )
 
 @NamedQuery(
@@ -47,8 +47,6 @@ public class Event implements Serializable, DateInterface {
     @Temporal(TemporalType.TIMESTAMP)
     private GregorianCalendar eventDate;
 
-    @ManyToOne
-    private Note note;
 
     @Override
     public int getYear() {
@@ -87,6 +85,10 @@ public class Event implements Serializable, DateInterface {
     
     @Override
     public int compareTo(DateInterface o) {
-        return this.getDate().compareTo(o.getDate());
+        int comp = this.getDate().compareTo(o.getDate());
+        if (comp == 0) {
+            return 1;
+        }
+        else return comp;
     }
 }

@@ -1,15 +1,9 @@
 package com.mycompany.noteappdat.model.dao;
 
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
 
-import com.mycompany.noteappdat.model.entity.Event;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

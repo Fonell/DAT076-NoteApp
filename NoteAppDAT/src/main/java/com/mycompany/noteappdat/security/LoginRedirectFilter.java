@@ -11,7 +11,7 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter({"/index"})
+@WebFilter({"/index", "/calendar"})
 public class LoginRedirectFilter extends HttpFilter {
 	@Inject private UserBean userBean;
 	@Inject private ServletContext servletContext;

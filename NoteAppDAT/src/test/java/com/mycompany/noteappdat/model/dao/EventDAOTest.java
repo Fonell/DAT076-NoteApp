@@ -1,8 +1,6 @@
 package com.mycompany.noteappdat.model.dao;
 
 import com.mycompany.noteappdat.model.entity.Event;
-import com.mycompany.noteappdat.model.entity.Folder;
-import com.mycompany.noteappdat.model.entity.Note;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -17,7 +15,6 @@ import org.junit.runner.RunWith;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.transaction.*;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -36,7 +33,7 @@ public class EventDAOTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(EventDAO.class, Event.class, Note.class, Folder.class)
+                .addClasses(EventDAO.class, Event.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -49,6 +46,21 @@ public class EventDAOTest {
     @After
     public void commitTransaction() throws HeuristicRollbackException, RollbackException, HeuristicMixedException, SystemException {
         userTransaction.commit();
+    }
+
+    @Test
+    public void update() {
+        //Create the event
+        Event event = new Event(eventName, date);
+        eventDAO.create(event);
+
+        //Update the event
+        event.setText("updated");
+
+        //Assert that event is updated
+        Assert.assertEquals("updated", event.getText());
+
+        eventDAO.remove(event);
     }
 
     @Test

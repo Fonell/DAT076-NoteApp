@@ -178,7 +178,7 @@ body {
 }
 /* ------ WELCOME PAGE CODE ------- */
 .title-header {
-    margin: 80px;
+    margin: 70px;
     font-family: 'Roboto', sans-serif;
     text-size: 70px;
 }
@@ -190,7 +190,6 @@ button.ui-button {
 .center {
      margin: auto;
      width: 50%;
-     padding: 10px;
      text-align: center;
 }
 
@@ -201,8 +200,10 @@ button.ui-button {
 .item-grid {
     display: flex;
     flex-wrap: wrap;
-    padding-top: 20px;
-    padding-bottom: 20px;
+}
+.waiting-for-text {
+    color:black;
+    padding-top: 30px;
 }
 
 .sign-in-div {
@@ -211,8 +212,16 @@ button.ui-button {
     padding-bottom: 80px;
 }
 
+.cards-text {
+    padding-left: 30px;
+    padding-bottom: 30px
+}
+
 
 /* END OF LOG SIGN IN BUTTONS */
+.row {
+    --bs-gutter-x: 0;
+}
 
 .itemm {
     color: #242424;
@@ -224,9 +233,8 @@ button.ui-button {
 }
 
 .card-example {
-    margin-top: 10px;
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 60px;
+    padding-bottom: 60px;
     margin: auto;
     text-align: center;
     display: grid;
@@ -268,33 +276,6 @@ button.ui-button {
     position: relative;
     font-size: 32px;
     width: 800px;
-}
-
-.note-app-ingress {
-    position: relative;
-    font-size: 18px;
-    text-shadow: none;
-    width: 820px;
-}
-
-.floating-images {
-    display: inline-block;
-    position: relative;
-    margin-left: 500px;
-    margin-top: 200px;
-}
-
-#pencil {
-    position: absolute;
-    left: -20px;
-    z-index: 1;
-    animation: float-pencil 2s ease-in-out infinite;
-}
-
-#notepad {
-    transform: rotate(90deg);
-    -webkit-transform:rotate(10deg);
-    animation: float-notepad 2s infinite;
 }
 
 #login-bar {
@@ -381,7 +362,12 @@ button.ui-button {
 	}
 }
 .ui-button.customButton {
-    background: #333333 url("/NoteAppDAT/javax.faces.resource/images/ui-bg_diagonals-thick_8_333333_40x40.png.xhtml?ln=primefaces-black-tie") 50% 50% repeat;
+    background: #333333 url("/NoteAppDAT/javax.faces.resource/images/ui-bg_diagonals-thick_8_333333_40x40.png.xhtml?ln=primefaces-black-tie");
+    align-content: center;
+    margin-left: auto;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-bottom: 30px;
 }
 
 .button-footer {

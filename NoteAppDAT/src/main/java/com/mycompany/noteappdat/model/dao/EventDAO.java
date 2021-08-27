@@ -28,7 +28,7 @@ public class EventDAO extends AbstractDAO<Event> {
 
     public List<Event> findByName(String name) {
         TypedQuery<Event> query = entityManager.createNamedQuery("Event.findByName", Event.class);
-        query.setParameter("name", "%" + name + "%");
+        query.setParameter("name", "%" + name.toLowerCase() + "%");
         return query.getResultList();
     }
 
