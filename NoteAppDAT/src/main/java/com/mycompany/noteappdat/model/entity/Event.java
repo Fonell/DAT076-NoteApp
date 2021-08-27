@@ -38,6 +38,9 @@ public class Event implements Serializable, DateInterface {
     private int id;
 
     @NonNull
+    private String name;
+    
+    @NonNull
     private String text;
 
     @NonNull
@@ -79,7 +82,7 @@ public class Event implements Serializable, DateInterface {
     public Calendar getDate() {
         return getEventDate();
     }
-   
+    
     @Override
     public int compareTo(DateInterface o) {
         int comp = this.getDate().compareTo(o.getDate());

@@ -22,6 +22,7 @@ public class CalendarBean implements Serializable {
 
     private String eventName;
     private String eventText;
+
     private Date date = new Date();
 
     public void update(Event event) {
