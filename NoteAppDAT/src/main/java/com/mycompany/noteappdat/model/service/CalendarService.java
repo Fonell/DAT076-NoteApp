@@ -24,13 +24,13 @@ public class CalendarService {
         return event;
     }
 
-    public void setText(Event event, String s) {
-        event.setText(s);
+    public void setText(Event event) {
+        
         eventDAO.update(event);
     }
 
-    public void setName(Event event, String s) {
-        event.setName(s);
+    public void setName(Event event) {
+        
         eventDAO.update(event);
     }
 

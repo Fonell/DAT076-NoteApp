@@ -84,11 +84,19 @@
 
                                             <ui:repeat var="event" value="#{day.events}">
                                                 <div class="card">
-                                                    <p>#{event.name}</p>
-                                                    <p>#{event.hour} : #{event.min}</p>
-                                                    <p>#{event.text}</p>
 
-                                                    <h:commandLink value = "Update" action = "#{calendarBean.update(event)}"/>
+                                                    <p:inplace editor="true">
+                                                        <p:ajax event="save" listener="#{calendarBean.update(event)}" update="mainForm"/>
+                                                        <h:inputText value="#{event.name}" />
+                                                    </p:inplace>
+                                                    
+                                                    <p:inplace editor="true">
+                                                        <p:ajax event="save" listener="#{calendarBean.update(event)}" update="mainForm"/>
+                                                        <h:inputText value="#{event.text}" />
+                                                    </p:inplace>
+
+                                                    <p>#{event.hour} : #{event.min}</p>
+                                                    
 
                                                     <h:commandLink value = "Delete" action = "#{calendarBean.deleteEvent(event)}"/>
                                                 </div>  
