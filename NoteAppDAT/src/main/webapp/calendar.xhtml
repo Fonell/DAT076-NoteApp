@@ -19,18 +19,20 @@
     <h:body>
 
         <p:commandLink class="pi pi-plus-circle" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" oncomplete="PF('addEventDialog').show()"/>
+        <p:commandLink class="pi pi-sign-out" process="@this" rendered="#{userBean.loggedIn}" style="font-size: 2rem; color: white; text-decoration: none" action="#{loginControllerBean.onLogout}" title="Logout"/>
 
         <p:dialog header="Add event" widgetVar="addEventDialog" modal="false" draggable="false" resizable="false" responsive="true" closeOnEscape="true">
             <h:form>
                 <p:panelGrid id="formPanel" columns="2">
 
                     <p:outputLabel for="eventName" value="Name"/>
-                    <p:inputText id="eventName" value="#{calendarBean.eventName}" autocomplete="off"/>
+                    <p:inputText id="eventName" value="#{calendarBean.eventName}" autocomplete="off" required="true"/>
 
                     <p:outputLabel for="eventText" value="Text"/>
-                    <p:inputText id="eventText" value="#{calendarBean.eventText}" autocomplete="off"/>
-
-                    <p:datePicker value="#{calendarBean.date}" />
+                    <p:inputText id="eventText" value="#{calendarBean.eventText}" autocomplete="off" required="true"/>
+                    
+                    <p:outputLabel for="eventDate" value="Date"/>
+                    <p:datePicker id="eventDate" value="#{calendarBean.date}" showTime="true" locale="de" required="true"/>
 
                 </p:panelGrid>
 
@@ -91,18 +93,17 @@
 
                                                         <p:inplace editor="true">
                                                             <p:ajax event="save" listener="#{calendarBean.update(event)}" update="mainForm"/>
-                                                            <h:inputText value="#{event.name}" />
+                                                            <h:inputText value="#{event.name}" required="true"/>
                                                         </p:inplace>
-
+                                                        
                                                         <p:inplace editor="true">
                                                             <p:ajax event="save" listener="#{calendarBean.update(event)}" update="mainForm"/>
-                                                            <h:inputText value="#{event.text}" />
+                                                            <h:inputText value="#{event.text}" required="true"/>
                                                         </p:inplace>
-
+                                                        
                                                         <p>#{event.hour} : #{event.min}</p>
-
-
-                                                        <h:commandLink value = "Delete" action = "#{calendarBean.deleteEvent(event)}"/>
+    
+                                                        <h:commandLink action = "#{calendarBean.deleteEvent(event)}" class="pi pi-trash" style="font-size: 2rem; color: white; text-decoration: none" title="Delete"/>
                                                     </div>  
                                                 </ui:repeat>
                                             </div>
