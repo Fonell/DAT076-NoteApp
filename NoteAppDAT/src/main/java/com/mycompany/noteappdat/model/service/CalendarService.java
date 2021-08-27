@@ -17,18 +17,21 @@ public class CalendarService {
     Almanac almanac;
     private GregorianCalendar currentDate = new GregorianCalendar();
 
+
     public Event createEvent(String name, String text, Date date) {
         Event event = new Event(name, text, convertDateToCal(date));
         eventDAO.create(event);
         return event;
     }
 
-    public void setText(Event event, String text) {
-        event.setText(text);
+    public void setText(Event event, String s) {
+        event.setText(s);
+        eventDAO.update(event);
     }
 
-    public void setTitle(Event event, String title) {
-        event.setName(title);
+    public void setName(Event event, String s) {
+        event.setName(s);
+        eventDAO.update(event);
     }
 
     // Uses deprecated class Date, but primefaces calendar component is our best option right now.

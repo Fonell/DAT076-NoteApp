@@ -39,7 +39,7 @@ public class LoginControllerBean {
 			Messages.addGlobalError("Authentication failed!");
 		}
                 if (status == AuthenticationStatus.SUCCESS ){
-                    Faces.redirect("index.xhtml");
+                    Faces.redirect("calendar.xhtml");
                 }
 	}
 

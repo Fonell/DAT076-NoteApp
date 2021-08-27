@@ -54,6 +54,6 @@ public class Month implements Comparable<Month> {
     }
 
     public String getStringRepresentation() {
-        return getDays().get(0).getEvents().get(0).event.getDate().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+        return getDays().get(0).getEvents().get(0).getDate().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
     }
 }

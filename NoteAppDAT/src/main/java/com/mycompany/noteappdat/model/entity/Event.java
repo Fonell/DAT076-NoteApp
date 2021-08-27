@@ -1,6 +1,7 @@
 package com.mycompany.noteappdat.model.entity;
 
 import com.mycompany.noteappdat.model.service.Almanac.DateInterface;
+import com.mycompany.noteappdat.model.service.CalendarService;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -46,6 +47,12 @@ public class Event implements Serializable, DateInterface {
     @NonNull
     @Temporal(TemporalType.TIMESTAMP)
     private GregorianCalendar eventDate;
+
+
+    public void setName(String s) {
+        System.out.println("This method also runs");
+        this.name = s;
+    }
 
     @Override
     public int getYear() {

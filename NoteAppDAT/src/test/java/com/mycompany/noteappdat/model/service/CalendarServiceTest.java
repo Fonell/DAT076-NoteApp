@@ -98,8 +98,8 @@ public class CalendarServiceTest {
             for (Month m : y.getMonths()) {
                 for (Week w : m.getWeeks()) {
                     for (Day d : w.getDays()) {
-                        for (EventManager e : d.getEvents()) {
-                            events.add(e.event);
+                        for (Event e : d.getEvents()) {
+                            events.add(e);
                         }
                     }
                 }

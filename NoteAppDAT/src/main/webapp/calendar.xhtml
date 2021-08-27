@@ -84,11 +84,11 @@
 
                                             <ui:repeat var="event" value="#{day.events}">
                                                 <div class="card">
-                                                    <p>#{event.event.name}</p>
-                                                    <p>#{event.event.hour} : #{event.event.min}</p>
-                                                    <p>#{event.event.text}</p>
+                                                    <p>#{event.name}</p>
+                                                    <p>#{event.hour} : #{event.min}</p>
+                                                    <p>#{event.text}</p>
 
-                                                    <h:commandLink value = "Update" action = "#{event.update}"/>
+                                                    <h:commandLink value = "Update" action = "#{calendarBean.update(event)}"/>
 
                                                     <h:commandLink value = "Delete" action = "#{calendarBean.deleteEvent(event)}"/>
                                                 </div>  

@@ -30,21 +30,13 @@ public class CalendarBean implements Serializable {
 
     private Date date = new Date();
 
-    public void update(Event event, String string) {
-        event.setName(string);
+    public void update(Event event) {
+        cs.setName(event);
+        cs.setText(event);
     }
 
-    public void localeChanged(ValueChangeEvent e) {
+    public void test(ValueChangeEvent e) {
         eventName = e.getNewValue().toString();
-    }
-
-    public void selectEvent(Event event) {
-        selectedEvent = event;
-    }
-
-    public void saveEvent(ValueChangeEvent e) {
-        cs.setText(selectedEvent, e.getNewValue().toString());
-        cs.setTitle(selectedEvent, e.getNewValue().toString());
     }
 
     public Date getDate() {
@@ -63,8 +55,8 @@ public class CalendarBean implements Serializable {
         cs.removeEvent(selectedEvent);
     }
 
-    public void deleteEvent(EventManager event) {
-        cs.removeEvent(event.getEvent());
+    public void deleteEvent(Event event) {
+        cs.removeEvent(event);
     }
 
     public List<Year> getEvents() {

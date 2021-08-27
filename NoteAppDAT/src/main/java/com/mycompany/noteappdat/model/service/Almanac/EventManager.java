@@ -1,32 +1,29 @@
 package com.mycompany.noteappdat.model.service.Almanac;
 
-import com.mycompany.noteappdat.model.dao.EventDAO;
 import com.mycompany.noteappdat.model.entity.Event;
+import com.mycompany.noteappdat.model.service.CalendarService;
 
-
-import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.transaction.*;
 import java.io.Serializable;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class EventManager implements Comparable<EventManager>, Serializable {
 
-    @EJB
-    EventDAO eventDAO;
+    @Inject
+    private CalendarService cs;
 
-    public Event event;
-
-    public EventManager(Event event) {
-        this.event = event;
-    }
+    Event event;
 
     public void update() {
-        System.out.println("This method runs");
-        event.setName("updated");
+        if (cs == null) {
+            System.out.println("ERR: eventDAO does not exist");
+        }
+        System.out.println("TEST: This method runs");
+        //event.setName();
+        //cs.setName(event, "updated");
         //eventDAO.update(event);
     }
 
@@ -37,5 +34,9 @@ public class EventManager implements Comparable<EventManager>, Serializable {
     @Override
     public int compareTo(EventManager o) {
         return event.compareTo(o.event);
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }
