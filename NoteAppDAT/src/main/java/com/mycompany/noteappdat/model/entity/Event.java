@@ -1,7 +1,6 @@
 package com.mycompany.noteappdat.model.entity;
 
 import com.mycompany.noteappdat.model.service.Almanac.DateInterface;
-import com.mycompany.noteappdat.model.service.CalendarService;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -14,7 +13,7 @@ import java.util.GregorianCalendar;
 
 @NamedQuery(
         name = "Event.findByName",
-        query = "SELECT e FROM Event e WHERE lower(e.name) LIKE :name"
+        query = "SELECT e FROM Event e WHERE lower(e.text) LIKE :name"
 )
 
 @NamedQuery(
@@ -39,20 +38,12 @@ public class Event implements Serializable, DateInterface {
     private int id;
 
     @NonNull
-    private String name;
-
-    @NonNull
     private String text;
 
     @NonNull
     @Temporal(TemporalType.TIMESTAMP)
     private GregorianCalendar eventDate;
 
-
-    public void setName(String s) {
-        System.out.println("This method also runs");
-        this.name = s;
-    }
 
     @Override
     public int getYear() {
