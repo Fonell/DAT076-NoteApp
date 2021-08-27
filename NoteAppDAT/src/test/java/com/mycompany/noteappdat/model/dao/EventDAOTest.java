@@ -50,6 +50,23 @@ public class EventDAOTest {
     }
 
     @Test
+    public void update() {
+        //Create the event
+        Event event = new Event(eventName, "test", date);
+        eventDAO.create(event);
+
+        //Update the event
+        event.setText("updated");
+        event.setName("updated");
+
+        //Assert that event is updated
+        Assert.assertEquals("updated", event.getName());
+        Assert.assertEquals("updated", event.getText());
+
+        eventDAO.remove(event);
+    }
+
+    @Test
     public void findById() {
         //Create the event
         Event event = new Event(eventName, "test", date);

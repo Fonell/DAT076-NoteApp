@@ -47,7 +47,6 @@ public class Event implements Serializable, DateInterface {
     @Temporal(TemporalType.TIMESTAMP)
     private GregorianCalendar eventDate;
 
-
     @Override
     public int getYear() {
         return eventDate.get(Calendar.YEAR);

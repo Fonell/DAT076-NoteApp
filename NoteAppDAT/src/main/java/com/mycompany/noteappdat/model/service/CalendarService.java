@@ -8,13 +8,14 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.*;
 
-@Stateless //TODO: @Component instead?
+@Stateless
 public class CalendarService {
 
     @EJB
     private EventDAO eventDAO;
 
     Almanac almanac;
+    private GregorianCalendar currentDate = new GregorianCalendar();
 
     public Event createEvent(String name, String text, Date date) {
         Event event = new Event(name, text, convertDateToCal(date));
@@ -45,6 +46,20 @@ public class CalendarService {
         almanac = new Almanac();
         almanac.insert(events);
         return almanac;
+    }
+
+    public Almanac getPeriodCurrentMonth() {
+        currentDate = snapDateToMonth(currentDate);
+        GregorianCalendar endDate = snapDateToMonth(currentDate);
+        endDate.set(Calendar.MONTH, endDate.get(Calendar.MONTH)+1);
+
+        return getPeriod(currentDate, endDate);
+    }
+
+    private GregorianCalendar snapDateToMonth(GregorianCalendar date) {
+        GregorianCalendar beginningOfMonth = new GregorianCalendar();
+        beginningOfMonth.set(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), 0, 0, 0);
+        return beginningOfMonth;
     }
 
     public Almanac getPeriod(GregorianCalendar date1, GregorianCalendar date2) {

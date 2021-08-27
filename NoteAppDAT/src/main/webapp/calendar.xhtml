@@ -18,7 +18,7 @@
 
     <h:body>
 
-        <p:commandLink class="pi pi-plus-circle" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" oncomplete="PF('addEventDialog').show()" title="View"/>
+        <p:commandLink class="pi pi-plus-circle" style="font-size: 2rem; color: white; text-decoration: none" update="mainForm" oncomplete="PF('addEventDialog').show()"/>
 
         <p:dialog header="Add event" widgetVar="addEventDialog" modal="false" draggable="false" resizable="false" responsive="true" closeOnEscape="true">
             <h:form>
@@ -34,7 +34,7 @@
 
                 </p:panelGrid>
 
-                <p:commandButton value="addCard" action="#{calendarBean.createEvent()}" update="mainForm" process="@form" oncomplete="PF('addEventDialog').hide();"/>
+                <p:commandButton value="save" action="#{calendarBean.createEvent()}" update="mainForm" process="@form" oncomplete="PF('addEventDialog').hide();"/>
             </h:form>
         </p:dialog>
 
@@ -47,35 +47,13 @@
 
                 <p>Search results for: #{searchBean.searchString}</p>
 
-                <p>Notes:</p>
-                <ui:repeat var="note" value="#{searchBean.notesByName}">
-                    <div class="card">
-                        <p>#{note.name}</p>
-                        <p:commandLink class="pi pi-external-link" style="font-size: 2rem; color: white; text-decoration: none" update="noteDetail" onclick="PF('viewEventDialog').show()">                
-                            <f:setPropertyActionListener target="#{noteBackingBean.selectedNote}" value="#{note}" />
-                        </p:commandLink>
-                    </div>
-                </ui:repeat>
-
-                <ui:repeat var="note" value="#{searchBean.notesByContent}">
-                    <div class="card">
-                        <p>#{note.name}</p>
-                    </div>
-                </ui:repeat>
-
-                <p>Folders:</p>
-                <ui:repeat var="folder" value="#{searchBean.foldersByName}">
-                    <div class="card">
-                        <p>#{folder.name}</p>
-                    </div>
-                </ui:repeat>
-
-                <p>Events:</p>
                 <ui:repeat var="event" value="#{searchBean.eventsByName}">
-                    <p:commandLink class="card">
-                        <f:setPropertyActionListener target="#{calendarBean.selectedEvent}" value="#{event}" />
-                        <p>#{event.name}</p>       
-                    </p:commandLink>
+                    <div class="card">
+                        <p>#{event.name}</p>
+                        <p>#{event.hour} : #{event.min}</p>
+                        <p>#{event.text}</p>
+                        <h:commandLink value = "Delete" action = "#{calendarBean.deleteEvent(event)}"/>
+                    </div>
                 </ui:repeat>
             </h:panelGroup>
 
@@ -106,9 +84,12 @@
 
                                             <ui:repeat var="event" value="#{day.events}">
                                                 <div class="card">
-                                                    <p>Title: #{event.name}</p>
-                                                    <p>#{event.hour} : #{event.min}</p>
-                                                    <p>#{event.text}</p>
+                                                    <p>#{event.event.name}</p>
+                                                    <p>#{event.event.hour} : #{event.event.min}</p>
+                                                    <p>#{event.event.text}</p>
+
+                                                    <h:commandLink value = "Update" action = "#{event.update}"/>
+
                                                     <h:commandLink value = "Delete" action = "#{calendarBean.deleteEvent(event)}"/>
                                                 </div>  
                                             </ui:repeat>
