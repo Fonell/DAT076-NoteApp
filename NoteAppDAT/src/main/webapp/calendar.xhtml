@@ -38,27 +38,30 @@
             </h:form>
         </p:dialog>
 
+        
+        <div style="text-align: center;">
+            <h:form id="searchForm">
+                <p:outputLabel for="searchString" value="Search "/>
+                <p:inputText id="searchString" value="#{searchBean.searchString}" autocomplete="off"/>
 
-        <h:form id="searchForm">
-            <p:outputLabel for="searchString" value="Search"/>
-            <p:inputText id="searchString" value="#{searchBean.searchString}" autocomplete="off"/>
+                <h:panelGroup layout="block" class="card" rendered="#{!searchBean.searchString.blank}">
 
-            <h:panelGroup layout="block" class="card" rendered="#{!searchBean.searchString.blank}">
+                    <p>Search results for: #{searchBean.searchString}</p>
 
-                <p>Search results for: #{searchBean.searchString}</p>
-
-                <ui:repeat var="event" value="#{searchBean.eventsByName}">
-                    <div class="card">
-                        <p>#{event.name}</p>
-                        <p>#{event.hour} : #{event.min}</p>
-                        <p>#{event.text}</p>
-                        <h:commandLink value = "Delete" action = "#{calendarBean.deleteEvent(event)}"/>
+                    <div class="basic-grid">
+                        <ui:repeat var="event" value="#{searchBean.eventsByName}">
+                            <div class="card">
+                                <p>#{event.name}</p>
+                                <p>#{event.hour} : #{event.min}</p>
+                                <p>#{event.text}</p>
+                                <h:commandLink value = "Delete" action = "#{calendarBean.deleteEvent(event)}"/>
+                            </div>
+                        </ui:repeat>
                     </div>
-                </ui:repeat>
-            </h:panelGroup>
+                </h:panelGroup>
 
-        </h:form>
-
+            </h:form>
+        </div>
 
 
 
@@ -82,25 +85,27 @@
                                         <div class="card">
                                             <p>#{day.stringRepresentation} #{day.integerRepresentation}</p>
 
-                                            <ui:repeat var="event" value="#{day.events}">
-                                                <div class="card">
+                                            <div class="basic-grid">
+                                                <ui:repeat var="event" value="#{day.events}">
+                                                    <div class="card">
 
-                                                    <p:inplace editor="true">
-                                                        <p:ajax event="save" listener="#{calendarBean.update(event)}" update="mainForm"/>
-                                                        <h:inputText value="#{event.name}" />
-                                                    </p:inplace>
-                                                    
-                                                    <p:inplace editor="true">
-                                                        <p:ajax event="save" listener="#{calendarBean.update(event)}" update="mainForm"/>
-                                                        <h:inputText value="#{event.text}" />
-                                                    </p:inplace>
+                                                        <p:inplace editor="true">
+                                                            <p:ajax event="save" listener="#{calendarBean.update(event)}" update="mainForm"/>
+                                                            <h:inputText value="#{event.name}" />
+                                                        </p:inplace>
 
-                                                    <p>#{event.hour} : #{event.min}</p>
-                                                    
+                                                        <p:inplace editor="true">
+                                                            <p:ajax event="save" listener="#{calendarBean.update(event)}" update="mainForm"/>
+                                                            <h:inputText value="#{event.text}" />
+                                                        </p:inplace>
 
-                                                    <h:commandLink value = "Delete" action = "#{calendarBean.deleteEvent(event)}"/>
-                                                </div>  
-                                            </ui:repeat>
+                                                        <p>#{event.hour} : #{event.min}</p>
+
+
+                                                        <h:commandLink value = "Delete" action = "#{calendarBean.deleteEvent(event)}"/>
+                                                    </div>  
+                                                </ui:repeat>
+                                            </div>
                                         </div>    
                                     </ui:repeat>
                                 </div>    
