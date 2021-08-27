@@ -52,7 +52,7 @@ public class CalendarServiceTest {
     @Test
     public void createEvent() {
         //Create an event
-        Event event = calendarService.createEvent(eventName, "test", date.getTime());
+        Event event = calendarService.createEvent(eventName, date.getTime());
 
         //Assert that the event exists in the database
         Assert.assertTrue(eventDAO.findByName(eventName).contains(event));
@@ -63,7 +63,7 @@ public class CalendarServiceTest {
     @Test
     public void setDate() {
         //Create an event
-        Event event = new Event(eventName, "test", date);
+        Event event = new Event(eventName, date);
         eventDAO.create(event);
 
         //Assert that the event date matches original date
@@ -79,11 +79,11 @@ public class CalendarServiceTest {
     @Test
     public void getPeriod() {
         //Create three events with different dates
-        Event first = new Event(eventName, "test", new GregorianCalendar(2000, 0, 0));
+        Event first = new Event(eventName, new GregorianCalendar(2000, 0, 0));
         eventDAO.create(first);
-        Event second = new Event(eventName, "test", new GregorianCalendar(2003, 0, 0));
+        Event second = new Event(eventName, new GregorianCalendar(2003, 0, 0));
         eventDAO.create(second);
-        Event third = new Event(eventName, "test", new GregorianCalendar(2005, 0, 0));
+        Event third = new Event(eventName, new GregorianCalendar(2005, 0, 0));
         eventDAO.create(third);
 
         //Create two dates representing a time period
@@ -98,9 +98,7 @@ public class CalendarServiceTest {
             for (Month m : y.getMonths()) {
                 for (Week w : m.getWeeks()) {
                     for (Day d : w.getDays()) {
-                        for (Event e : d.getEvents()) {
-                            events.add(e);
-                        }
+                        events.addAll(d.getEvents());
                     }
                 }
             }
