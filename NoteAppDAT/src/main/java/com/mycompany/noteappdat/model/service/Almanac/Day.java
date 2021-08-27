@@ -20,7 +20,6 @@ public class Day implements Comparable<Day> {
 
     public void insert(Event event) {
         Event e = new Event();
-        //e.setEvent(event);
         events.add(event);
     }
 

@@ -18,8 +18,8 @@ public class CalendarService {
     private GregorianCalendar currentDate = new GregorianCalendar();
 
 
-    public Event createEvent(String name, String text, Date date) {
-        Event event = new Event(name, text, convertDateToCal(date));
+    public Event createEvent(String text, Date date) {
+        Event event = new Event(text, convertDateToCal(date));
         eventDAO.create(event);
         return event;
     }

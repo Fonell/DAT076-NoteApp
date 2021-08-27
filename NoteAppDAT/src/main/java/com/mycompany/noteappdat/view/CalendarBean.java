@@ -2,12 +2,10 @@ package com.mycompany.noteappdat.view;
 
 import com.mycompany.noteappdat.model.entity.Event;
 import com.mycompany.noteappdat.model.service.Almanac.Almanac;
-import com.mycompany.noteappdat.model.service.Almanac.EventManager;
 import com.mycompany.noteappdat.model.service.Almanac.Year;
 import com.mycompany.noteappdat.model.service.CalendarService;
 import lombok.Data;
 
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,7 +29,7 @@ public class CalendarBean implements Serializable {
     }
 
     public void createEvent() {
-        cs.createEvent(eventName, eventText, date);
+        cs.createEvent(eventText, date);
     }
 
     public void deleteEvent(Event event) {

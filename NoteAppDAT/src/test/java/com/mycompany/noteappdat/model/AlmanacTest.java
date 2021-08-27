@@ -14,21 +14,18 @@ public class AlmanacTest {
 
         Almanac almanac = new Almanac();
 
-        Event event1 = new Event("2001, 0, 0, 0, 0", "test", new GregorianCalendar(2001, Calendar.JANUARY, 1, 0, 0));
-        Event event2 = new Event("2001, 1, 0, 0, 0", "test", new GregorianCalendar(2001, Calendar.FEBRUARY, 1, 0, 0));
+        Event event1 = new Event("2001, 0, 0, 0, 0", new GregorianCalendar(2001, Calendar.JANUARY, 1, 0, 0));
+        Event event2 = new Event("2001, 1, 0, 0, 0", new GregorianCalendar(2001, Calendar.FEBRUARY, 1, 0, 0));
 
         almanac.insert(event1);
         almanac.insert(event2);
 
-        /*
         //TODO: my fix might not match real use, may need a permanent way to adjust dates to match the gregorian calendar
         Assert.assertTrue(almanac.getYear(2001).getMonth(Calendar.JANUARY).getDay(0).getEvents().contains(event1));
         Assert.assertFalse(almanac.getYear(2001).getMonth(Calendar.JANUARY).getDay(0).getEvents().contains(event2));
 
         Assert.assertTrue(almanac.getYear(2001).getMonth(Calendar.FEBRUARY).getDay(0).getEvents().contains(event2));
         Assert.assertFalse(almanac.getYear(2001).getMonth(Calendar.FEBRUARY).getDay(0).getEvents().contains(event1));
-
-         */
     }
 
     @Test
@@ -36,8 +33,8 @@ public class AlmanacTest {
 
         Almanac almanac = new Almanac();
 
-        Event event1 = new Event("e1", "test", new GregorianCalendar(2001, Calendar.JANUARY, 1, 0, 0));
-        Event event2 = new Event("e2", "test", new GregorianCalendar(2001, Calendar.JANUARY, 1, 0, 0));
+        Event event1 = new Event("e1", new GregorianCalendar(2001, Calendar.JANUARY, 1, 0, 0));
+        Event event2 = new Event("e2", new GregorianCalendar(2001, Calendar.JANUARY, 1, 0, 0));
 
         almanac.insert(event1);
         almanac.insert(event2);
@@ -47,9 +44,8 @@ public class AlmanacTest {
                 for (Week w : m.getWeeks()) {
                     for (Day d : w.getDays()) {
                         //Make sure all events are accounted for
-                        //Todo: broke this with new ugly eventmanager
-                        //Assert.assertTrue(d.getEvents().contains(event1));
-                        //Assert.assertTrue(d.getEvents().contains(event2));
+                        Assert.assertTrue(d.getEvents().contains(event1));
+                        Assert.assertTrue(d.getEvents().contains(event2));
                     }
                 }
             }
