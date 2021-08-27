@@ -24,13 +24,7 @@ public class CalendarService {
         return event;
     }
 
-    public void setText(Event event) {
-        
-        eventDAO.update(event);
-    }
-
-    public void setName(Event event) {
-        
+    public void updateEvent(Event event) {
         eventDAO.update(event);
     }
 
