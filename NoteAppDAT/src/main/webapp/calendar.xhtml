@@ -88,12 +88,12 @@
 
                     <ui:repeat var="month" value="#{year.months}">
                         <div class="card">
-                            <p>#{month.stringRepresentation} #{month.integerRepresentation}</p>
+                            <p>#{month.stringRepresentation}</p>
 
 
                             <ui:repeat var="week" value="#{month.weeks}">
                                 <div class="card">
-                                    <p>Week: #{week.integerRepresentation}</p>
+                                    <p>Week #{week.integerRepresentation}</p>
 
 
                                     <ui:repeat var="day" value="#{week.days}">
@@ -109,7 +109,7 @@
                                                             <h:inputText value="#{event.text}" required="true"/>
                                                         </p:inplace>
                                                         
-                                                        <p>#{event.hour} : #{event.min}</p>
+                                                        <p>#{event.hour}:#{event.min}</p>
     
                                                         <h:commandLink action = "#{calendarBean.deleteEvent(event)}" class="pi pi-trash" style="font-size: 2rem; color: white; text-decoration: none" title="Delete"/>
                                                     </div>  
